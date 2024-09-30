@@ -1,0 +1,10 @@
+<div class ="contents row">
+<%@rooms.each do |room|%>
+	<div class= "content_post" style="background-image: url{%= room.image_rooms}%>;">
+	<p><%room.orner%></p>
+	<span class="room_name">
+	<%=room.orner%>
+	</span>
+	</div>
+	<% end %>
+	</div>
