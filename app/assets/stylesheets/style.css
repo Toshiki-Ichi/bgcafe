@@ -705,7 +705,7 @@ form input[type="submit"] {
 
 .btn,
 header.header div.header__bar.row div.grid-6 a.post {
-  padding: 8px 20px;
+  padding: 8px 15px;
   font-size: 14px;
   border: 2px solid #57C3E9;
   color: #57C3E9;
@@ -1056,4 +1056,84 @@ footer p {
 
 .search-form .search-btn {
   width: 10%;
+}
+
+/*********以下追記分*********/
+.top_body{
+display: flex;
+align-items: center;
+flex-direction: column;  
+}
+
+.top_content{
+  margin-top:20px;
+  height: 15vh;
+  width: 40vw;
+  background-color: white;
+  border:2px outset rgb(139, 171, 168);
+  display: flex;
+}
+
+.top_leftbox{
+height:100%;
+width:30%;
+border:2px outset rgb(139, 171, 168);
+}
+
+.top_rightbox{
+  height:100%;
+  width:70%;
+  border:2px outset rgb(139, 171, 168);
+}
+
+.room_name{
+  height:70%;
+  width:100%;
+  border-width: 0 0 2px 0; 
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.room_orner{
+  height:30%;
+  width:100%;
+  border-width: 2px 0 0 0; 
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+}
+
+.room_create{
+  margin:10px;
+}
+
+.room_form{
+  height:100%;
+  width: 40%;
+  margin: 0 auto; 
+}
+
+.room-form__field{
+  margin: 10px;
+  background-color: #fff;
+  border: 2px ridge rgb(139, 171, 168); 
+  border-radius: 5px;
+}
+
+
+.top_image {
+  width: 100%; /* 親要素の幅に合わせる */
+  height: 100%; /* 高さは自動で調整 */
+  position: relative; /* 子要素の絶対位置を設定するために相対位置 */
+}
+
+.top_image img {
+  width: 100%; /* 幅を親要素の幅に合わせる */
+  height: 100%; /* 高さを親要素の高さに合わせる */
+  object-fit: contain; /* 画像のアスペクト比を維持しつつ親要素に収める */
 }
