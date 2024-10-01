@@ -1,10 +1,22 @@
-<div class ="contents row">
-<%@rooms.each do |room|%>
-	<div class= "content_post" style="background-image: url{%= room.image_rooms}%>;">
-	<p><%room.orner%></p>
-	<span class="room_name">
-	<%=room.orner%>
-	</span>
-	</div>
-	<% end %>
-	</div>
+<body>
+ <div class="top_body">
+  <% @rooms.each do |room|%>
+  <a href="<%= room_path(room)%>" class="top_content">
+    <div class="top_leftbox">
+     <div class= "top_image">
+     <%= image_tag room.image_rooms if room.image_rooms.attached? %>
+     </div>
+     </div>
+      <div class="top_rightbox">
+       <div class="room_name">
+        <%= room.room_name %>
+       </div>
+       <div class="room_orner">
+        <%= room.orner %>
+       </div>
+      </div>
+     </a>
+   
+  <%end%>
+ </div>
+</body>
