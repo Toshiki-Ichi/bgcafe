@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:edit, :show, :update]
+  before_action :set_room, only: [:edit, :show, :destroy]
 
   def index
-    @rooms = Room.includes(user_rooms: :user) 
+    @rooms = Room.includes(user_rooms: :user).order(created_at: :desc)
   end
 
   def new
@@ -19,7 +19,19 @@ class RoomsController < ApplicationController
 end
 
 def destroy
+  @room.destroy
+  redirect_to rooms_path, notice: 'ルームが削除されました。'
 end
+
+def edit
+end
+
+def update
+  room = Room.find(params[:id])
+  room.update(room_params)
+  redirect_to root_path
+end
+
 
 def show
 end
