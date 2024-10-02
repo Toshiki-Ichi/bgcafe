@@ -11,6 +11,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params)
+    @room.creator = current_user
     if @room.save
       redirect_to root_path
     else
@@ -29,7 +30,7 @@ end
 def update
   room = Room.find(params[:id])
   room.update(room_params)
-  redirect_to root_path
+  redirect_to room_path
 end
 
 
@@ -39,7 +40,7 @@ end
 private
 
   def room_params
-   params.require(:room).permit(:room_name,:orner,:image_rooms) 
+   params.require(:room).permit(:room_name,:contact,:image_rooms) 
   end
 
   def set_room
