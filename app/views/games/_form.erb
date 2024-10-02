@@ -1,0 +1,18 @@
+<%= form_with model: @game, url: room_games_path(params[:room_id]), local: true do |f| %>
+	<div class='room-form__field'>
+	 <p>ゲーム内容の画像をアップロード</p>
+			<%= f.file_field :image_games, id:"item-image" %>
+			 <label for="item-image">クリックしてアップロード</label>
+	</div>
+	<div class='room-form__field'>
+		<%= f.label :game_name, 'ゲーム名', class: '' %>
+		<%= f.text_field :game_name, class: '', placeholder: '新規ゲーム名を入力してください' %>
+	</div>
+	
+	<div class='room-form__field'>
+	<%= f.label :rule, 'このゲームについて', class: '' %>
+	<%= f.text_area :rule, class: '', placeholder: '内容やルールなど必要事項' %>
+</div>
+
+	<%= f.submit 'ルーム作成', class: '' %>
+<% end %>
