@@ -15,5 +15,10 @@
 		<%= f.text_field :orner, class: '', placeholder: 'ルーム作成者の名前を入力してください' %>
 	</div>
 	
+	<div class='room-form__field'>
+	<label for='room_creator'>連絡先</label>
+	<%= f.text_field :contact, class: '', placeholder: 'ルームに関連するSNSのURL（discord等）を入力してください' %>
+</div>
+
 	<%= f.submit 'ルーム作成', class: '' %>
 <% end %>
