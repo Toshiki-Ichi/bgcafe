@@ -1,4 +1,6 @@
 ルーム画面
+<%= link_to "ルームに参加する", edit_user_path(@room)%>
+
 <%= link_to "ルームの情報を編集する", edit_room_path(@room)%>
 <%= link_to "ルームを削除する", room_path(@room), onclick: "if(confirm('本当にこのルームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>
 

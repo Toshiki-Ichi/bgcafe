@@ -1,0 +1,40 @@
+<div class='room_form'>
+<p>プロフィールを編集後ルームに参加します</p>
+<%= form_with model: @user, local: true do |f| %>
+		<div class='room-form__field'>
+	 <p>自分のプロフィールに使う画像をアップロード</p>
+			<%= f.file_field :my_image, id:"my_image" %>
+			 <label for="my_image">クリックしてアップロード</label>
+	</div>
+	<div class='room-form__field'>
+		<%= f.label :nickname, 'HN', class: '' %>
+		<%= f.text_field :nickname, class: '', placeholder: '表示するユーザー名を入力してください' %>
+	</div>
+	<div class='room-form__field'>
+		<%= f.label :carrer, 'ゲーム歴', class: '' %>
+		<%= f.text_field :carrer, class: '', placeholder: 'ボードゲームの経験年数を入力してください' %>
+	</div>
+
+	<div class='room-form__field'>
+		<%= f.label :likes, '好きなもの', class: '' %>
+		<%= f.text_field :likes, class: '', placeholder: '好きなゲームの種類を入力してください' %>
+	</div>
+
+	<div class='room-form__field'>
+		<%= f.label :weakness, '苦手なもの', class: '' %>
+		<%= f.text_field :weakness, class: '', placeholder: '苦手なの種類を入力してください' %>
+	</div>
+
+	<div class='room-form__field'>
+	<%= f.label :contact, '連絡先' %>
+<%= f.text_field :contact, class: '', placeholder: '登録したいSNSがあれば入力してください' %>
+
+<div class='room-form__field'>
+		<%= f.label :note, '何か一言', class: '' %>
+		<%= f.text_area :note, class: '', placeholder: '自己紹介をどうぞ' %>
+	</div>
+</div>
+
+	<%= f.submit 'ルームに参加', class: '' %>
+	<% end %>
+	</div>

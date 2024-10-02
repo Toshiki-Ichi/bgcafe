@@ -16,7 +16,11 @@
       <%= "SNS:#{room.contact}"%>
        </div>
        <div class="room_orner">
-        <%= room.orner %>
+       <% if room.creator %>
+       <p>作成者: <%= room.creator.nickname %></p>
+     <% else %>
+       <p>匿名希望</p>
+     <% end %>
        </div>
       </div>
       </div>

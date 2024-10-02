@@ -1105,18 +1105,20 @@ border:2px outset rgb(139, 171, 168);
 
 .room_contact{
   height:100%;
-  width:60%;
+  width:70%;
   border-width: 2px 2px 0 0; 
   border-style: outset;     
   border-color: rgb(139, 171, 168); 
   display: flex;
   align-items: center;
   justify-content: flex-start; 
+   text-overflow: ellipsis; /* テキストが溢れる場合の処理 */
+  white-space: nowrap; /* テキストを1行に保つ */
 }
 
 .room_orner{
   height:100%;
-  width:40%;
+  width:30%;
   border-width: 2px 0 0 2px; 
   border-style: outset;     
   border-color: rgb(139, 171, 168); 
