@@ -1179,11 +1179,11 @@ border:2px outset rgb(139, 171, 168);
   width:100vw;
   height:100vh;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .game_content {
-  margin:15px 20px 20px 20px;
+  margin:15px 30px 30px 70px;
   border: 5px ridge rgb(139, 171, 168); 
 width:25%;
 height: 70%;

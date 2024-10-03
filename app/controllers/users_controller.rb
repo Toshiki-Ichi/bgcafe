@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update]
 
+	def index
+		@users = User.includes(:room).select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
+		@users.each do |user|
+      user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
+    end
+	end
+
 	def edit
 		@room = Room.find(params[:room_id])
 	end
