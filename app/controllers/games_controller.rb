@@ -1,4 +1,12 @@
 class GamesController < ApplicationController
+
+  def index
+    @games =Game.all 
+    @games.each do |game|
+      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? # 改行を <br> に変換
+    end
+  end
+
 	def new
 		@game =Game.new
 	end

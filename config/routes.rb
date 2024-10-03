@@ -3,7 +3,7 @@ Rails.application.routes.draw do
  root to: 'rooms#index'
  resources :rooms do
  resources :users, only: [:edit, :update,:show]
- resources :games, only: [:new, :create, :edit,:update,:show,:destroy]
+ resources :games
  end
 
 end
