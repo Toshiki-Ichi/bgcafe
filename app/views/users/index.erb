@@ -1,14 +1,16 @@
 メンバー一覧画面
 <body>
 <div class="game_top">
-<% @games.each do |game| %>
+<% @users.each do |user| %>
 	<div class="game_content">
-	<div class="game_name"><%= game.game_name %></div>
-	<div class="game_image"><%= image_tag game.image_games if game.image_games.attached? %></div>
-	<div class="game_text">
-	<div class="game_rule"><%= raw game.rule %></div>
-	<div class="game_orner"><%=game.user.nickname%></div>
-	</div>
+	<div class="game_name"><%= user.nickname %></div>
+	
+  <div class="game_image"=><%= user.my_image.attached? ? image_tag(user.my_image) : '<画像がありません>'.html_safe %></div>
+	<div class="user_career"><%= "ゲーム歴：#{user.career.name}" %></div>
+	<div class="user_likes"><%= "好き：#{user.likes}" %></div>
+	<div class="user_weakness"><%= "苦手：#{user.weakness}" %></div>
+	<div class="user_sns"><%= user.sns.present? ? "SNS:#{user.sns}" : 'SNS:なし' %></div>
+	<div class="user_note"><%= raw user.note %></div>
 	</div>
 	<% end %>
 

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update]
 
 	def index
-		@users = User.includes(:room).select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
+		@users = User.includes(:rooms, :my_image_attachment).select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
 		@users.each do |user|
       user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
     end
@@ -33,10 +33,12 @@ class UsersController < ApplicationController
 		end
 	end
 
+	
+
 	private
 
   def user_params
-	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:join1,:join2,:join3)
+	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:join1,:join2,:join3,:my_image)
 
   end
 

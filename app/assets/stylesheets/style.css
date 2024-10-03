@@ -1252,3 +1252,22 @@ position: relative;
   bottom: 0; /* 下端に配置 */
   text-align: center;
 }
+
+.user_note {
+  width: 100%;
+  height: 90%; /* 固定の高さ */
+  white-space: normal; /* 自動で改行を許可 */
+  word-wrap: break-word; /* 長い単語を折り返し */
+    word-break: break-all; /* すべての文字列で強制的に折り返し */
+
+  
+  overflow-y: auto; /* 縦方向にスクロールバーを表示 */
+  overflow-x: hidden; /* 横方向にスクロールを禁止 */
+  
+  display: block;
+  padding: 10px; /* テキスト周りに余白を追加してレイアウトを安定させる */
+  box-sizing: border-box; /* パディングとボーダーを含めたサイズ計算 */
+  border-width: 2px 0 0 0;
+  border-style: outset;
+  border-color: rgb(68, 84, 83);
+}
