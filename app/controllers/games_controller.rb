@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
   def index
+    @room = Room.find(params[:room_id])
     @games = Game.includes(:room).order(created_at: :desc)
     @games.each do |game|
       game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? # 改行を <br> に変換

@@ -1,5 +1,6 @@
 メンバー一覧画面
 <body>
+<%= link_to "部屋に戻る", room_path(@room) %>
 <div class="game_top">
 <% @users.each do |user| %>
 	<div class="game_content">
