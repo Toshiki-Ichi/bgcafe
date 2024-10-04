@@ -1,7 +1,9 @@
 <body>
 <div class="room_top">
 <div class="room_left">
-<=% ルーム名 %></br>
+<%= @room.room_name %></br>
+</br>
+
 <%= link_to "ルームに参加する", edit_room_user_path(@room.id, @user.id)%></br>
 <%= link_to "ゲームを登録する", new_room_user_game_path(@room, @user) %></br>
 <%= link_to "ゲーム一覧", room_user_games_path(@room, @user) %></br>
@@ -10,8 +12,10 @@
 <%= link_to "ルームを削除する", room_path(@room), onclick: "if(confirm('本当にこのルームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>
 <%= form_with(url: room_path(@room), method: :delete, id: 'room_delete-form', style: 'display: none;') do %>
 <% end %>
-<div/>
+<%= link_to "ルームのトップに戻る",room_path(@room)%></br>
+</div>
 <div class="room_right">
+<h1><スケジュール一覧を表示する><h2>
 </div>
 </div>
 </body>

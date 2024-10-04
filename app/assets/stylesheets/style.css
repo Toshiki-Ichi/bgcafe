@@ -1160,6 +1160,7 @@ border:2px outset rgb(139, 171, 168);
 .room_top {
   width: 100vw;
   height: 100vh;
+  display: flex;
 }
 
 .room_left {
