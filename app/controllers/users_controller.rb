@@ -3,7 +3,9 @@ class UsersController < ApplicationController
 
 	def index
 		@room = Room.find(params[:room_id])
-		@users = User.includes(:rooms, :my_image_attachment).select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
+		@users = User.includes(:rooms, :my_image_attachment)
+								 .where("join1 = :room_id OR join2 = :room_id OR join3 = :room_id", room_id: @room.id)
+								 .select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
 		@users.each do |user|
       user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
     end
@@ -34,7 +36,9 @@ class UsersController < ApplicationController
 		end
 	end
 
-
+	def show
+		@room = Room.find(params[:room_id])
+	end
 
 	private
 

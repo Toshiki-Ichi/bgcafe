@@ -4,6 +4,8 @@
 <div class="game_top">
 <% @users.each do |user| %>
 	<div class="game_content">
+	<a href="<%= room_user_path(@room, user)%>" >
+
 	<div class="game_name"><%= user.nickname %></div>
 	
   <div class="game_image"=><%= user.my_image.attached? ? image_tag(user.my_image) : '<画像がありません>'.html_safe %></div>
@@ -13,6 +15,7 @@
 	<div class="user_sns"><%= user.sns.present? ? "SNS:#{user.sns}" : 'SNS:なし' %></div>
 	<div class="user_note"><%= raw user.note %></div>
 	</div>
+	</a>
 	<% end %>
 
 </div>
