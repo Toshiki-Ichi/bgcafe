@@ -7,7 +7,8 @@
 <% if game.user_id == current_user.id %>
 <a href="<%= edit_room_user_game_path(@room, user_id: @user.id, id: game.id) %>" class="game_content">
 <% else %>
-<a href="<%= room_user_game_path(@room, user_id: @user.id, id: game.id) %>" class="game_content">
+<a href="<%= room_user_game_path(@room, user_id: game.user.id, id: game.id) %>" class="game_content">
+
  <% end %>
      
      
