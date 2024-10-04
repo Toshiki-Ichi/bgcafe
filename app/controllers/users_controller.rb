@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update]
 
+	def index
+		@room = Room.find(params[:room_id])
+		@users = User.includes(:rooms, :my_image_attachment)
+								 .where("join1 = :room_id OR join2 = :room_id OR join3 = :room_id", room_id: @room.id)
+								 .select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
+		@users.each do |user|
+      user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
+    end
+		@games = @room.games.includes(:room).order(created_at: :desc)
+	end
+
 	def edit
 		@room = Room.find(params[:room_id])
 	end
@@ -26,10 +37,14 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def show
+		@room = Room.find(params[:room_id])
+	end
+
 	private
 
   def user_params
-	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:join1,:join2,:join3)
+	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:join1,:join2,:join3,:my_image)
 
   end
 
