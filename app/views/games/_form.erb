@@ -1,4 +1,7 @@
-	<%= form_with model: @game, url: room_user_games_path(params[:room_id], @user.id), local: true do |f| %>
+<%= form_with model: @game, 
+              url: @game.persisted? ? room_user_game_path(@room, @user, @game) : room_user_games_path(@room, @user), 
+              local: true, 
+              method: @game.persisted? ? :patch : :post do |f| %>
 
 	<div class='room-form__field'>
 	 <p>ゲーム内容の画像をアップロード</p>
@@ -15,5 +18,13 @@
 	<%= f.text_area :rule, class: '', placeholder: '内容やルールなど必要事項' %>
 </div>
 
-	<%= f.submit 'ルーム作成', class: '' %>
+<%= f.submit @game.persisted? ? 'ゲームを更新' : 'ゲームを登録' %>
+<% end %>
+
+<% if @game.persisted? %>
+<div class="game_delete">
+<%= link_to "ゲームを削除する", room_user_game_path(@room, @user, @game), onclick: "if(confirm('本当にこのゲームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>
+<%= form_with(url: room_user_game_path(@room, @user, @game), method: :delete, id: 'room_delete-form', style: 'display: none;') do %>
+<% end %>
+</div>
 <% end %>

@@ -10,6 +10,7 @@ class GamesController < ApplicationController
   end
 
 	def new
+    @room = Room.find(params[:room_id])
     @user = User.find(params[:user_id])
 		@game =Game.new
 	end
@@ -26,7 +27,23 @@ class GamesController < ApplicationController
     end
   end
 
+  def edit
+    @game = Game.find(params[:id])
+    @room = Room.find(params[:room_id])
+    @user = User.find(params[:user_id])
+
+  end
+  
+  def update
+    game = Game.find(params[:id])
+    game.update(game_params)
+    redirect_to room_user_games_path
+  end
+
   def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+  redirect_to room_user_games_path, notice: 'ルームが削除されました。'
   end
 
   def show
