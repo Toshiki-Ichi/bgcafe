@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 		@users.each do |user|
       user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
     end
-		@games = @room.games.includes(:room).order(created_at: :desc)
+		@game = @room.games.includes(:room).order(created_at: :desc)
 	end
 
 	def edit
