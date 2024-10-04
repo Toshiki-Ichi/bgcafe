@@ -3,14 +3,15 @@
 <%= link_to "部屋に戻る", room_path(@room) %>
 <div class="game_top">
 <% @games.each do |game| %>
-	<div class="game_content">
+<a href="<%= room_user_game_path(@room, user_id: @user.id, id: game.id) %>" class="game_content">
+
 	<div class="game_name"><%= game.game_name %></div>
 	<div class="game_image"><%= image_tag game.image_games if game.image_games.attached? %></div>
 	<div class="game_text">
 	<div class="game_rule"><%= raw game.rule %></div>
 	<div class="game_orner"><%=game.user.nickname%></div>
 	</div>
-	</div>
+	</a>
 	<% end %>
 
 </div>

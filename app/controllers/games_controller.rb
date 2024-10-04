@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
   def index
+    @user = User.find(params[:user_id])
     @room = Room.find(params[:room_id])
     @games = @room.games.includes(:room).order(created_at: :desc) # room に紐づく games を取得
     @games.each do |game|
@@ -9,6 +10,7 @@ class GamesController < ApplicationController
   end
 
 	def new
+    @user = User.find(params[:user_id])
 		@game =Game.new
 	end
 
@@ -22,7 +24,22 @@ class GamesController < ApplicationController
     else
       render :new
     end
-end
+  end
+
+  def destroy
+  end
+
+  def show
+    @room = Room.find(params[:room_id])
+    @user = User.find(params[:user_id]) # 特定のユーザーを取得
+
+    @games = @room.games.includes(:room)
+                .where(user_id: @user.id) # 特定のユーザーに紐づいたゲームを取得
+                .order(created_at: :desc)
+    @games.each do |game|
+      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? # 改行を <br> に変換
+    end
+  end
 private
 
   def game_params

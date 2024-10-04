@@ -3,8 +3,8 @@
 <div class="room_left">
 <=% ルーム名 %></br>
 <%= link_to "ルームに参加する", edit_room_user_path(@room.id, @user.id)%></br>
-<%= link_to "ゲームを登録する", new_room_game_path(@room) %></br>
-<%= link_to "ゲーム一覧", room_games_path(@room) %></br>
+<%= link_to "ゲームを登録する", new_room_user_game_path(@room, @user) %></br>
+<%= link_to "ゲーム一覧", room_user_games_path(@room, @user) %></br>
 <%= link_to "メンバー一覧", room_users_path(@room) %></br>
 <%= link_to "ルームを編集する", edit_room_path(@room)%></br>
 <%= link_to "ルームを削除する", room_path(@room), onclick: "if(confirm('本当にこのルームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>

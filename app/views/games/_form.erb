@@ -1,4 +1,5 @@
-<%= form_with model: @game, url: room_games_path(params[:room_id]), local: true do |f| %>
+	<%= form_with model: @game, url: room_user_games_path(params[:room_id], @user.id), local: true do |f| %>
+
 	<div class='room-form__field'>
 	 <p>ゲーム内容の画像をアップロード</p>
 			<%= f.file_field :image_games, id:"item-image" %>
