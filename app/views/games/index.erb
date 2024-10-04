@@ -1,0 +1,25 @@
+ゲーム一覧画面
+<body>
+<%= link_to "部屋に戻る", room_path(@room) %>
+
+<div class="game_top">
+<% @games.each do |game| %>
+<% if game.user_id == current_user.id %>
+<a href="<%= edit_room_user_game_path(@room, user_id: @user.id, id: game.id) %>" class="game_content">
+<% else %>
+<a href="<%= room_user_game_path(@room, user_id: @user.id, id: game.id) %>" class="game_content">
+ <% end %>
+     
+     
+     
+	<div class="game_name"><%= game.game_name %></div>
+	<div class="game_image"><%= image_tag game.image_games if game.image_games.attached? %></div>
+	<div class="game_text">
+	<div class="game_rule"><%= raw game.rule %></div>
+	<div class="game_orner"><%=game.user.nickname%></div>
+	</div>
+	</a>
+	<% end %>
+
+</div>
+</body>

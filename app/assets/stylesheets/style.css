@@ -1156,3 +1156,168 @@ border:2px outset rgb(139, 171, 168);
   height: 100%; /* 高さを親要素の高さに合わせる */
   object-fit: contain; /* 画像のアスペクト比を維持しつつ親要素に収める */
 }
+
+.room_top {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.room_left {
+  width: 15%;
+  height: 100%;
+  border-width: 0 4px 0 0; 
+  border-style: outset;     
+  border-color: rgb(156, 228, 221); 
+}
+
+.room_right {
+  width:70%;
+  height:100%;
+}
+
+.game_top {
+  width:100vw;
+  height:100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game_content {
+  margin:15px 30px 30px 70px;
+  border: 5px ridge rgb(139, 171, 168); 
+width:25%;
+height: 70%;
+background-color: #fff;
+position: relative;
+}
+
+.game_name {
+  width: 100%;
+  height: 5%;
+  font-size:20px;
+  border-width: 0 0 2px 0;
+  border-style: outset;
+  border-color: rgb(139, 171, 168);
+  display: flex;
+  align-items: center;
+}
+
+.game_image {
+  width: 100%; /* 親要素の幅に合わせる */
+  height: 40%; /* 高さは自動で調整 */
+  position: relative; /* 子要素の絶対位置を設定するために相対位置 */
+  border-width: 0  0 2px 0; 
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+}
+
+.game_image img {
+  width: 100%; /* 幅を親要素の幅に合わせる */
+  height: 100%; /* 高さを親要素の高さに合わせる */
+  object-fit: contain; /* 画像のアスペクト比を維持しつつ親要素に収める */
+}
+
+.game_text {
+  width: 100%;
+  height: 55%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.game_rule {
+  width: 100%;
+  height: 90%; /* 固定の高さ */
+  white-space: normal; /* 自動で改行を許可 */
+  word-wrap: break-word; /* 長い単語を折り返し */
+    word-break: break-all; /* すべての文字列で強制的に折り返し */
+
+  
+  overflow-y: auto; /* 縦方向にスクロールバーを表示 */
+  overflow-x: hidden; /* 横方向にスクロールを禁止 */
+  
+  display: block;
+  padding: 10px; /* テキスト周りに余白を追加してレイアウトを安定させる */
+  box-sizing: border-box; /* パディングとボーダーを含めたサイズ計算 */
+}
+
+.game_orner {
+  width: 40%;
+  height: 10%;
+  border-width: 2px 0 0 2px;
+  border-style: outset;
+  border-color: rgb(139, 171, 168);
+  position: absolute;
+  right: 0; /* 右端に配置 */
+  bottom: 0; /* 下端に配置 */
+  text-align: center;
+}
+
+.user_note {
+  width: 100%;
+  height: 90%; /* 固定の高さ */
+  white-space: normal; /* 自動で改行を許可 */
+  word-wrap: break-word; /* 長い単語を折り返し */
+    word-break: break-all; /* すべての文字列で強制的に折り返し */
+
+  
+  overflow-y: auto; /* 縦方向にスクロールバーを表示 */
+  overflow-x: hidden; /* 横方向にスクロールを禁止 */
+  
+  display: block;
+  padding: 10px; /* テキスト周りに余白を追加してレイアウトを安定させる */
+  box-sizing: border-box; /* パディングとボーダーを含めたサイズ計算 */
+  border-width: 2px 0 0 0;
+  border-style: outset;
+  border-color: rgb(68, 84, 83);
+}
+/********************************************/
+.show_user {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.show_user_content {
+  margin:15px 30px 30px 70px;
+  border: 5px ridge rgb(139, 171, 168); 
+width:35%;
+height: 100%;
+background-color: #fff;
+}
+
+.game_top h2 {
+  font-size: large;
+  width: 100%;
+  margin-left: 5%;
+}
+
+.show_game_content {
+  margin:15px 30px 30px 30px;
+  border: 5px ridge rgb(139, 171, 168); 
+width:45%;
+height: 100%;
+background-color: #fff;
+}
+
+.game_delete a {
+  height: 10%;
+  background-color: #b83f3f;
+  border-radius: 20px;
+  border: 0;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: white; /* テキストの色を白に */
+  text-decoration: none; /* 下線を消す */
+  margin: 5px 0 15px;
+  padding: 10px;
+}
+
+.game_delete a:hover {
+  background-color: #eb6a6a;
+}
