@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 	end
 	
 	def update
+    @room = Room.find(params[:room_id])
 		 room_id = params[:room_id].to_i
 		 unless @user.join1 == room_id || @user.join2 == room_id || @user.join3 == room_id		
 	
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
 	private
 
   def user_params
-	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:join1,:join2,:join3,:my_image)
+	 params.require(:user).permit(:nickname, :career_id, :likes, :weakness, :sns, :note,:my_image)
 
   end
 
