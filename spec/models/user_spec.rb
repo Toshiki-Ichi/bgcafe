@@ -70,28 +70,33 @@ RSpec.describe User, type: :model do
     end
 
     context 'メンバー登録できないとき' do
+      it 'my_imageが空では登録できない' do
+        @user.my_image = nil
+        @user.valid?(:update)  
+        expect(@user.errors.full_messages).to include("My image は必須です")
+      end
       it 'career_idが1では登録できない' do
         @user.career_id = 1
-        @user.valid?(:update)  # :updateコンテキストでのバリデーションを実行
-        expect(@user.errors.full_messages).to include("Career は --- 以外を選択してください。")  # 正確なエラーメッセージを確認
+        @user.valid?(:update) 
+        expect(@user.errors.full_messages).to include("Career は --- 以外を選択してください。")
       end
   
       it 'likesが空では登録できない' do
         @user.likes = ''
         @user.valid?(:update)
-        expect(@user.errors.full_messages).to include("Likes は空白では登録できません")  # エラーメッセージの確認
+        expect(@user.errors.full_messages).to include("Likes は空白では登録できません")
       end
   
       it 'weaknessが空では登録できない' do
         @user.weakness = ''
         @user.valid?(:update)
-        expect(@user.errors.full_messages).to include("Weakness は空白では登録できません")  # エラーメッセージの確認
+        expect(@user.errors.full_messages).to include("Weakness は空白では登録できません")
       end
   
       it 'noteが空では登録できない' do
         @user.note = ''
         @user.valid?(:update)
-        expect(@user.errors.full_messages).to include("Note は空白では登録できません")  # エラーメッセージの確認
+        expect(@user.errors.full_messages).to include("Note は空白では登録できません")
       end
   
     end
