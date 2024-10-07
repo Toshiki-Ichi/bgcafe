@@ -1,11 +1,12 @@
 class GamesController < ApplicationController
-
+  before_action :redirect_if_not_logged_in
+  before_action :redirect_root, only: [:edit,:update,:destroy]
   def index
     @user = User.find(params[:user_id])
     @room = Room.find(params[:room_id])
-    @games = @room.games.includes(:room).order(created_at: :desc) # room に紐づく games を取得
+    @games = @room.games.includes(:room).order(created_at: :desc) 
     @games.each do |game|
-      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? # 改行を <br> に変換
+      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present?
     end
   end
 
@@ -60,5 +61,19 @@ private
 
   def game_params
    params.require(:game).permit(:game_name,:rule,:image_games) 
+  end
+
+	def redirect_if_not_logged_in
+    unless user_signed_in? 
+      redirect_to root_path 
+    end
+  end
+
+  def redirect_root 
+    @game = Game.find(params[:id])
+    unless @game.user_id == current_user.id
+    redirect_to root_path
+    return
+    end
   end
 end

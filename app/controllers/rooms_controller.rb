@@ -1,5 +1,7 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_room, only: [:edit, :show, :destroy]
+  before_action :redirect_root, only: [:edit,:update,:destroy]
 
   def index
     @rooms = Room.includes(user_rooms: :user).order(created_at: :desc)
@@ -19,11 +21,6 @@ class RoomsController < ApplicationController
     end
 end
 
-def destroy
-  @room.destroy
-  redirect_to rooms_path, notice: 'ルームが削除されました。'
-end
-
 def edit
 end
 
@@ -33,6 +30,10 @@ def update
   redirect_to room_path
 end
 
+def destroy
+  @room.destroy
+  redirect_to rooms_path, notice: 'ルームが削除されました。'
+end
 
 def show
   @user = current_user
@@ -46,5 +47,13 @@ private
 
   def set_room
     @room = Room.find(params[:id])
+  end
+
+  def redirect_root 
+    @room = Room.find(params[:id])
+    unless @room.creator_id == current_user.id
+    redirect_to root_path
+    return
+    end
   end
 end
