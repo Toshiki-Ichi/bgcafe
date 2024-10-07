@@ -1,7 +1,8 @@
-ゲーム一覧画面
 <body>
-<%= link_to "部屋に戻る", room_path(@room) %>
-
+<h1>ゲーム一覧画面</h1>
+</br>
+<%= link_to "部屋に戻る", room_path(@room) %></br>
+<span>自分のゲームをクリックで情報を編集</span>
 <div class="game_top">
 <% @games.each do |game| %>
 <% if game.user_id == current_user.id %>
