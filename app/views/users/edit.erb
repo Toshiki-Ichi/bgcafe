@@ -27,15 +27,14 @@
 	</div>
 
 	<div class='room-form__field'>
-	<%= f.label :contact, '連絡先' %>
-<%= f.text_field :contact, class: '', placeholder: '登録したいSNSがあれば入力してください' %>
+	<%= f.label :sns, '連絡先' %>
+<%= f.text_field :sns, class: '', placeholder: '登録したいSNSがあれば入力してください' %>
 
 <div class='room-form__field'>
 		<%= f.label :note, '何か一言', class: '' %>
 		<%= f.text_area :note, class: '', placeholder: '自己紹介をどうぞ' %>
 	</div>
 </div>
-<%= f.hidden_field :join1, value: params[:room_id] %>  <!-- room_id を隠しフィールドとして追加 -->
 
 	<%= f.submit 'ルームに参加', class: '' %>
 	<% end %>

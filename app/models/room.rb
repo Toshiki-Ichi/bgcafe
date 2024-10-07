@@ -4,4 +4,9 @@ class Room < ApplicationRecord
   has_many :user_rooms
   has_many :users, through: :user_rooms
   has_many :games
+
+  validates :room_name,:contact, presence: { message: "は空白では登録できません" }
+  validates :creator_id,presence: true
+  validates :image_rooms, presence: { message: "は必須です" }
+  validates :creator_id, presence: { message: "は必須です" }
 end
