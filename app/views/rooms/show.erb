@@ -3,14 +3,16 @@
 <div class="room_left">
 <%= @room.room_name %></br>
 </br>
-
+<% if current_user.join1 == @room.id || current_user.join2 == @room.id || current_user.join3 == @room.id %>
+	<%= link_to "プロフィールを編集する", edit_room_user_path(@room.id, @user.id)%></br>
+<%else %>
 <%= link_to "ルームに参加する", edit_room_user_path(@room.id, @user.id)%></br>
+<% end %>
 <%= link_to "ゲームを登録する", new_room_user_game_path(@room, @user) %></br>
 <%= link_to "ゲーム一覧", room_user_games_path(@room, @user) %></br>
 <%= link_to "メンバー一覧", room_users_path(@room) %></br>
+<% if current_user.id == @room.creator_id%>
 <%= link_to "ルームを編集する", edit_room_path(@room)%></br>
-<%= link_to "ルームを削除する", room_path(@room), onclick: "if(confirm('本当にこのルームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>
-<%= form_with(url: room_path(@room), method: :delete, id: 'room_delete-form', style: 'display: none;') do %>
 <% end %>
 <%= link_to "ルームのトップに戻る",room_path(@room)%></br>
 </div>

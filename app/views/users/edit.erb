@@ -35,7 +35,10 @@
 		<%= f.text_area :note, class: '', placeholder: '自己紹介をどうぞ' %>
 	</div>
 </div>
-
+<% if current_user.join1 == @room.id || current_user.join2 == @room.id || current_user.join3 == @room.id %>
+	<%= f.submit 'プロフィールを編集', class: '' %>
+<% else %>
 	<%= f.submit 'ルームに参加', class: '' %>
+<% end %>
 	<% end %>
 	</div>
