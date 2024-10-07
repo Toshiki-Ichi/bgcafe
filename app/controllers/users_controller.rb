@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update]
+	before_action :redirect_if_not_logged_in
 
 	def index
 		@room = Room.find(params[:room_id])
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
 								 .where("join1 = :room_id OR join2 = :room_id OR join3 = :room_id", room_id: @room.id)
 								 .select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
 		@users.each do |user|
-      user.note = user.note.gsub(/\n/, '<br>') if user.note.present? # 改行を <br> に変換
+      user.note = user.note.gsub(/\n/, '<br>') if user.note.present? 
     end
 		@game = @room.games.includes(:room).order(created_at: :desc)
 	end
@@ -22,22 +23,22 @@ class UsersController < ApplicationController
 		 unless @user.join1 == room_id || @user.join2 == room_id || @user.join3 == room_id		
 	
 			if @user.join1.nil?
-				@user.join1 = room_id  # join1 が nil の場合は room_id を設定
+				@user.join1 = room_id  
 			elsif @user.join2.nil? 
-				@user.join2 = room_id  # join2 が nil の場合は room_id を設定
+				@user.join2 = room_id 
 			elsif @user.join3.nil? 
-				@user.join3 = room_id  # join3 が nil の場合は room_id を設定
+				@user.join3 = room_id 
 		 else
-			 flash.now[:alert] = "これ以上はルームに参加できません。"  # 参加できない場合のメッセージを設定
+			 flash.now[:alert] = "これ以上はルームに参加できません。"  
 			 redirect_to root_path
 			 return
 		 end
 		end
-		if @user.update(user_params)  # ユーザーの更新を実行
+		if @user.update(user_params)  
 			redirect_to room_path(params[:room_id])
 			return
 		else
-			render :edit  # 更新が失敗した場合は edit ビューを再表示
+			render :edit  
 		end
 	end
 
@@ -54,5 +55,11 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+	def redirect_if_not_logged_in
+    unless user_signed_in? 
+      redirect_to root_path 
+    end
   end
 end

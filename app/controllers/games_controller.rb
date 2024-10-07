@@ -48,13 +48,12 @@ class GamesController < ApplicationController
 
   def show
     @room = Room.find(params[:room_id])
-    @user = User.find(params[:user_id]) # 特定のユーザーを取得
-
+    @user = User.find(params[:user_id]) 
     @games = @room.games.includes(:room)
-                .where(user_id: @user.id) # 特定のユーザーに紐づいたゲームを取得
+                .where(user_id: @user.id)
                 .order(created_at: :desc)
     @games.each do |game|
-      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? # 改行を <br> に変換
+      game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present? 
     end
   end
 private
