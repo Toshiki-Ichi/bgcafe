@@ -8,7 +8,7 @@ RSpec.describe Room, type: :model do
 
   describe 'ルーム新規作成' do
     context '新規登録できるとき' do
-      it 'room_name,contact,creator_idが存在すれば登録できる' do
+      it 'room_name,contact,creator_id,image_roomsが存在すれば登録できる' do
       expect(@room).to be_valid
       end
     end
@@ -26,14 +26,13 @@ RSpec.describe Room, type: :model do
       it 'image_roomsが空では登録できない' do
         @room.image_rooms =nil
         @room.valid?
-        expect(@room.errors.full_messages). to include("Image rooms は必須です")
-        end
-
-        it 'creator_idが紐づいている必要がある' do
-         @room.creator_id = nil
-         @room.valid?
-           expect(@room.errors.full_messages). to include("Creator can't be blank")
-         end
+       expect(@room.errors.full_messages). to include("Image rooms は必須です")
+       end 
+      it 'creator_idが紐づいている必要がある' do
+       @room.creator_id = nil
+       @room.valid?
+       expect(@room.errors.full_messages). to include("Creator can't be blank")
+      end
     end
   end
 end
