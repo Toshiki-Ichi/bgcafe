@@ -15,6 +15,16 @@
 	</div>
 	
 	<div class='room-form__field'>
+	<%= f.label :rule, '参加可能人数', class: '' %>
+			<%= f.collection_select(:capacity_id, Capacity.all, :id, :name, {}) %>
+</div>
+
+<div class='room-form__field'>
+<%= f.label :rule, '所要時間目安', class: '' %>
+		<%= f.collection_select(:require_time_id, RequireTime.all, :id, :name, {}) %>
+</div>
+
+	<div class='room-form__field'>
 	<%= f.label :rule, 'このゲームについて', class: '' %>
 	<%= f.text_area :rule, class: '', placeholder: '内容やルールなど必要事項' %>
 </div>

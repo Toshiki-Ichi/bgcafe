@@ -14,11 +14,13 @@
      
      
      
-	<div class="game_name"><%= game.game_name %></div>
+	<div class="game_name"><%= game.game_name %></br><small><%= "登録者: #{game.user.nickname}" %></small></div>
 	<div class="game_image"><%= image_tag game.image_games if game.image_games.attached? %></div>
 	<div class="game_text">
+	<div class="game_capacity"><%= "参加可能人数:#{game.capacity.name}" %></div>
+	<div class="game_time"><%= "所要時間目安:#{game.require_time.name}" %></div>
 	<div class="game_rule"><%= raw game.rule %></div>
-	<div class="game_orner"><%=game.user.nickname%></div>
+	
 	</div>
 	</a>
 	<% end %>

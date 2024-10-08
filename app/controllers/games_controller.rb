@@ -48,6 +48,38 @@ class GamesController < ApplicationController
   end
 end
 
+def played_check
+@games = Game.includes(:room)
+@user = current_user
+end
+
+def played_update
+  selected_game_ids = params[:selected_games] # 選択されたゲームのIDを取得
+
+  # 各ゲームのplayedカラムを更新
+  selected_game_ids.each do |game_id|
+    game = Game.find(game_id) # ゲームを取得
+    # playedカラムに既存のIDを取得
+    existing_played_ids = game.played.present? ? game.played.split(',') : []
+    
+    # ユーザーIDを追加し、重複を排除
+    updated_played_ids = (existing_played_ids + [current_user.id.to_s]).uniq
+
+    # 各ゲームのplayedカラムを更新
+    unless game.update(played: updated_played_ids.join(','))
+      # 更新に失敗した場合はエラーをログに記録
+      Rails.logger.error("Failed to update game #{game.id}: #{game.errors.full_messages.join(", ")}")
+    end
+  end
+
+  # 保存が成功した場合
+  redirect_to room_path, notice: 'ゲーム情報が更新されました'
+rescue ActiveRecord::RecordNotFound
+  # ゲームが見つからなかった場合の処理
+  flash[:alert] = '選択されたゲームが見つかりませんでした。'
+  redirect_to room_path
+end
+
   def destroy
     @game = Game.find(params[:id])
     @game.destroy

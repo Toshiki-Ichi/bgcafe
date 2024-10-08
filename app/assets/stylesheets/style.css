@@ -1194,13 +1194,12 @@ position: relative;
 
 .game_name {
   width: 100%;
-  height: 5%;
   font-size:20px;
   border-width: 0 0 2px 0;
   border-style: outset;
   border-color: rgb(139, 171, 168);
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .game_image {
@@ -1239,17 +1238,6 @@ position: relative;
   box-sizing: border-box;
 }
 
-.game_orner {
-  width: 40%;
-  height: 10%;
-  border-width: 2px 0 0 2px;
-  border-style: outset;
-  border-color: rgb(139, 171, 168);
-  position: absolute;
-  right: 0; 
-  bottom: 0; 
-  text-align: center;
-}
 
 .user_note {
   width: 100%;
@@ -1334,4 +1322,94 @@ background-color: #fff;
   width: 100%; 
   height: 100%; 
   object-fit: contain; 
+}
+
+.game_time {
+  width: 100%; 
+  border-width: 0 0 2px 0; 
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+  background-color: #ffffff;
+}
+
+.check_body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.check_contents {
+  margin:15px 20px 20px 20px;
+  width: 30%;
+  height: 40%;
+  border-width:2px; 
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.check_title {
+width: 100%;
+height: 15%;
+font-size: large;
+text-align: center;
+border-width: 0 0 2px 0; 
+border-style: ridge;     
+border-color: rgb(139, 171, 168); 
+}
+
+.check_content {
+  display: flex;
+width: 100%;
+height: 85%;
+}
+
+.check_box {
+  width: 20%;
+  height: 100%;
+  border-width:0 2px 0 0;  
+  border-style: outset;     
+  border-color: rgb(139, 171, 168); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check_image {
+  width: 80%;
+  height: 100%; 
+  position: relative; 
+  border-width: 0 2px 2px 2px; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168); 
+}
+
+.check_image img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+}
+
+.check_box input {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.check-button {
+  position: fixed; /* 固定位置 */
+  bottom: 20px; /* 画面下からの距離 */
+  right: 20px; /* 画面右からの距離 */
+  height: 10vh; /* ボタンの高さ */
+  width: 10%; /* ボタンの幅 */
+  z-index: 1000; /* 他の要素の上に表示するためのz-index */
 }
