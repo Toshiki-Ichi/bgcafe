@@ -9,7 +9,7 @@ RSpec.describe Game, type: :model do
 
   describe 'ルーム新規作成' do
     context 'ゲームの新規登録ができるとき' do
-      it 'game_name,rule,image_gamesが存在すれば登録できる' do
+      it 'game_name,rule,image_games,capacity_id,require_timeが存在すれば登録できる' do
       expect(@game).to be_valid
       end
     end
@@ -28,6 +28,16 @@ RSpec.describe Game, type: :model do
         @game.image_games =nil
         @game.valid?
         expect(@game.errors.full_messages). to include("Image games は必須です")
+        end
+        it 'capacity_idが0では登録できない' do
+          @game.capacity_id = 0
+          @game.valid? 
+          expect(@game.errors.full_messages).to include("Capacity は --- 以外を選択してください。")
+        end
+        it 'require_time_idが1では登録できない' do
+          @game.require_time_id = 1
+          @game.valid? 
+          expect(@game.errors.full_messages).to include("Require time は --- 以外を選択してください。")
         end
         it 'user_idが紐づいている必要がある' do
           @game.user_id = nil
