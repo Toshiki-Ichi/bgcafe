@@ -2,6 +2,7 @@
               url: @game.persisted? ? room_user_game_path(@room, @user, @game) : room_user_games_path(@room, @user), 
               local: true, 
               method: @game.persisted? ? :patch : :post do |f| %>
+<%= render "devise/shared/error_messages", resource: @game %>
 
 	<div class='room-form__field'>
 	 <p>ゲーム内容の画像をアップロード</p>

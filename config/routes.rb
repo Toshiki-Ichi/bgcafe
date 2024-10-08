@@ -7,4 +7,11 @@ Rails.application.routes.draw do
       resources :games
     end
   end
+  resources :users do
+    member do
+      get 'check' 
+      get 'check_edit'
+      patch 'check_update'
+    end
+  end
 end

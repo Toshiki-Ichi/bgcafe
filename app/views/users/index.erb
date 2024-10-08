@@ -6,7 +6,7 @@
   <div class="game_content">
     <a href="<%= room_user_game_path(@room, user, @game) %>">
         <div class="game_name"><%= user.nickname %></div>
-        <div class="game_image"><%= user.my_image.attached? ? image_tag(user.my_image) : '<画像がありません>'.html_safe %></div>
+        <div class="game_image"> <%= user.my_image.attached? ? image_tag(user.my_image) : image_tag('sample.jpg') %></div>
         <div class="user_career"><%= "ゲーム歴：#{user.career.name}" %></div>
         <div class="user_likes"><%= "好き：#{user.likes}" %></div>
         <div class="user_weakness"><%= "苦手：#{user.weakness}" %></div>
