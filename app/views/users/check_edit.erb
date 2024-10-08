@@ -1,8 +1,7 @@
 <div class='room_form'>
-<p>プロフィールを編集後ルームに参加します</p>
+<p>プロフィールを編集します</p>
 <%= render "devise/shared/error_messages", resource: @user %>
-
-	<%= form_with model: @user, url: room_user_path(@room, @user), local: true do |f| %>
+<%= form_with model: @user, url: check_update_user_path(@user), local: true do |f| %>
 
 		<div class='room-form__field'>
 	 <p>自分のプロフィールに使う画像をアップロード</p>
@@ -37,10 +36,8 @@
 		<%= f.text_area :note, class: '', placeholder: '自己紹介をどうぞ' %>
 	</div>
 </div>
-<% if current_user.join1 == @room.id || current_user.join2 == @room.id || current_user.join3 == @room.id %>
+
 	<%= f.submit 'プロフィールを編集', class: '' %>
-<% else %>
-	<%= f.submit 'ルームに参加', class: '' %>
-<% end %>
+
 	<% end %>
 	</div>

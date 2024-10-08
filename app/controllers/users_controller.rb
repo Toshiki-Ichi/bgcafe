@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:edit, :show, :update]
+	before_action :set_user, only: [:edit, :show, :update,:check,:check_edit,:check_update]
 	before_action :redirect_if_not_logged_in
 
 	def index
@@ -44,6 +44,21 @@ class UsersController < ApplicationController
 
 	def show
 		@room = Room.find(params[:room_id])
+	end
+
+	def check
+	end
+
+	def check_edit
+	end
+
+	def check_update
+		if @user.update(user_params)  
+			redirect_to check_user_path
+			return
+		else
+			render :check_edit 
+		end
 	end
 
 	private

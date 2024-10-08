@@ -19,7 +19,7 @@
           <span> <%= current_user.nickname %>
             <ul class="user__info">
               <li>
-                <%= link_to "マイページ", "/users/#{current_user.id}" %>
+                <%= link_to "マイページ", check_user_path(current_user) %>
                 <%= link_to "ログアウト", destroy_user_session_path, onclick: "event.preventDefault(); document.getElementById('logout-form').submit();" %>
                 <%= form_with(url: destroy_user_session_path, method: :delete, id: 'logout-form', style: 'display: none;') do %>
                 <% end %>

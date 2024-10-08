@@ -1,4 +1,6 @@
 <%= form_with model: @room, local: true do |f| %>
+	<%= render "devise/shared/error_messages", resource: @room %>
+
 	<div class='room-form__field'>
 	 <p>トップ画面に表示する画像をアップロード</p>
 			<%= f.file_field :image_rooms, id:"item-image" %>
@@ -13,8 +15,11 @@
    <%= f.label :contact, '連絡先' %>
    <%= f.text_field :contact, class: '', placeholder: 'ルームに関連するSNSのURL（discord等）を入力してください' %>
 	</div>
-
+	<% if current_user.id == @room.creator_id%>
+	<%= f.submit 'ルームを編集', class: '' %>
+ <% else %>
 	<%= f.submit 'ルーム作成', class: '' %>
+	<% end %>
 
 
 <% end %>
