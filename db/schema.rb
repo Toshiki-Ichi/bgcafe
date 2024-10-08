@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_062955) do
     t.datetime "updated_at", null: false
     t.integer "require_time_id"
     t.integer "capacity_id"
-    t.integer "played"
+    t.string "played"
     t.index ["room_id"], name: "index_games_on_room_id"
     t.index ["user_id"], name: "index_games_on_user_id"
   end

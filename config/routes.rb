@@ -14,4 +14,10 @@ Rails.application.routes.draw do
       patch 'check_update'
     end
   end
+  resources :games do
+    member do
+      get 'played_check' 
+      patch 'played_update'
+    end
+  end
 end
