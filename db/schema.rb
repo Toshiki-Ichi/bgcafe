@@ -62,8 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
     t.string "day5"
     t.string "day6"
     t.string "day7"
-    t.integer "frequency"
-    t.integer "one_on_one_id"
+    t.integer "frequency_id"
+    t.integer "starter"
     t.bigint "user_id"
     t.bigint "room_id"
     t.datetime "created_at", null: false

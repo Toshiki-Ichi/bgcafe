@@ -1,18 +1,19 @@
 class OwnplansController < ApplicationController
+  before_action :set_weekplan, only: [:new,:create,:create_plan] 
 
 	def new
 		@room = Room.find(params[:room_id])
 		@user = current_user
 		
 		# target_weekにデータが存在しない場合、今日の日付で新しいOwnplanを作成
-		@ownplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
+		@weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
 		
-		if @ownplan.nil?
+		if @weekplan.nil?
 			# target_weekがnilのレコードが見つからなかった場合、新しいレコードを作成
-			@ownplan = Ownplan.new(target_week: Date.today, user_id: @user.id, room_id: @room.id)
-			@ownplan.save
+			@weekplan = Ownplan.new(target_week: Date.today, user_id: @user.id, room_id: @room.id,starter:1)
+			@weekplan.save
 		end
-		
+		@ownplan = Ownplan.new
 		@ownplans = Ownplan.includes(:room)
 	end
 
@@ -21,19 +22,20 @@ class OwnplansController < ApplicationController
 		@user = current_user
 		
 		# target_weekにデータが存在するレコードを検索
-		@ownplan = Ownplan.find_by(room_id: @room.id).where.not(target_week: nil)
+		@weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
 
-		if @ownplan
+		if @weekplan
 			# 既存のレコードが見つかった場合は更新する
-			if @ownplan.update(ownplan_params)
+			@weekplan.starter = nil
+			if @weekplan.update(targetweek_params)
 				redirect_to room_path(@room.id), notice: '日付が更新されました。'
 			else
 				render :new # エラーメッセージなどがある場合は新規作成画面を再表示
 			end
 		else
 			# 既存のレコードが見つからなかった場合は新規作成
-			@ownplan = Ownplan.new(ownplan_params.merge(user_id: @user.id, room_id: @room.id))
-			if @ownplan.save
+			@weekplan = Ownplan.new(targetweek_params)
+			if @weekplan.save
 				redirect_to room_path(@room.id), notice: '日付が登録されました。'
 			else
 				render :new # エラーメッセージなどがある場合は新規作成画面を再表示
@@ -41,15 +43,48 @@ class OwnplansController < ApplicationController
 		end
 	end
 	
-	private
-	
-	def ownplan_params
-		params.require(:ownplan).permit(:target_week) # ここではtarget_weekだけを許可
+def create_plan 
+	@room = Room.find(params[:room_id])
+		@user = current_user
+	@ownplan = Ownplan.new(ownplan_params)
+	options = params[:options]
+	if params[:options].present?
+		@ownplan.day1 = options["1"] 
+		@ownplan.day2 = options["2"]
+		@ownplan.day3 = options["3"]
+		@ownplan.day4 = options["4"]
+		@ownplan.day5 = options["5"]
+		@ownplan.day6 = options["6"]
+		@ownplan.day7 = options["7"]  
 	end
+	if @ownplan.save
+		redirect_to room_path(@room.id), notice: '予定が登録されました。'
+	else
+		render :new, alert: '保存に失敗しました。'
+	end
+end
+
 
   private
 
-  def ownplan_params
+  def targetweek_params
     params.require(:ownplan).permit(:target_week).merge(user_id: @user.id, room_id: @room.id)
+  end
+
+	def ownplan_params
+    params.require(:ownplan).permit(:frequency_id, :target_week,"1", "2", "3", "4", "5", "6", "7").merge(user_id: params[:user_id], room_id: params[:room_id])
+  end
+
+	def set_weekplan
+    @room = Room.find(params[:room_id])
+    @user = current_user
+
+    @weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
+
+    if @weekplan.nil?
+      # target_weekがnilのレコードが見つからなかった場合、新しいレコードを作成
+      @weekplan = Ownplan.new(target_week: Date.today, user_id: @user.id, room_id: @room.id, starter: 1)
+      @weekplan.save
+    end
   end
 end

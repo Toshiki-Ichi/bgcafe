@@ -9,8 +9,8 @@ class CreateOwnplans < ActiveRecord::Migration[7.0]
       t.string :day5
       t.string :day6  
       t.string :day7
-      t.integer :frequency
-      t.integer :one_on_one_id  
+      t.integer :frequency_id
+      t.integer :starter
       t.references :user, foreign_key: true  
       t.references :room, foreign_key: true 
       t.timestamps

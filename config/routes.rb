@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :users do
       resources :games
-      resources :ownplans
+      resources :ownplans do
+        collection do
+          post :create_plan
+        end
+      end
     end
   end
 

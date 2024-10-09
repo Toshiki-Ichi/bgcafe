@@ -1,30 +1,57 @@
-<div>日付を登録する</div>
-<%= form_with url: room_user_ownplans_path(@room, @user), method: :post, local: true do |form| %>
-  <%= form.fields_for :ownplan do |ownplan_form| %>
-    <%= ownplan_form.date_field :target_week %>
-  <% end %>
-  <%= form.submit "送信" %>
-<% end %>
-
-
-<div class="week">
-  <% if @ownplan.present? && @ownplan.target_week.present? %>
-    <% start_date = @ownplan.target_week.to_date %> <!-- target_weekをDate型に変換 -->
-    <% (0..6).each do |i| %> <!-- 0から6までの範囲でループ -->
-      <% date = start_date + i.days %> <!-- i日後の日付を計算 -->
-      <div>
-        <%= "#{date.strftime('%m/%d')} (#{case date.wday
-          when 0 then '日'
-          when 1 then '月'
-          when 2 then '火'
-          when 3 then '水'
-          when 4 then '木'
-          when 5 then '金'
-          when 6 then '土'
-          end})" %> <!-- 月日と曜日を表示 -->
-      </div>
+<div class="ownplan_body">
+  <div class="make_plans">
+    <span>予定確認を始める</span>
+    <%= form_with(model: @ownplan, url: room_user_ownplans_path(@room, @user), method: :post, local: true, html: { class: "week_plan" }) do |form| %>
+      <%= form.date_field :target_week, class: "target_week_input" %> 
+      <%= form.submit "送信", class: "make_plan_submit" %>
     <% end %>
-  <% else %>
-    <div>日付が設定されていません。</div>
-  <% end %>
+    <div class ="week_maker">
+    <% if @weekplan.starter == 1 %>
+      前回の作成者なし
+    <% else %>
+      前回の予定作成者: <%= @weekplan.user.nickname %>
+    <% end %>
+    </div>
+  </div>
+
+<%= form_with model: @ownplan, url: create_plan_room_user_ownplans_path(@room, @user), method: :post do |f| %> 
+<div class="own_plans">
+      <div class="frequency_box">
+      <span>今週の遊べる回数</span>
+      <%= f.collection_select(:frequency_id, Frequency.all, :id, :name, {}, {class:"frequency_select"}) %>
+      </div>
+    <% if @weekplan.present? && @weekplan.target_week.present? %>
+      <% start_date = @weekplan.target_week.to_date %>
+      <% (0..6).each_with_index do |i, index| %>
+        <% date = start_date + i.days %>
+        <div class="plan_box">
+          <b><%= "#{date.strftime('%m/%d')} (#{case date.wday
+            when 0 then '日'
+            when 1 then '月'
+            when 2 then '火'
+            when 3 then '水'
+            when 4 then '木'
+            when 5 then '金'
+            when 6 then '土'
+            end})" %></b>
+
+          <div class="plan_radio">日中<label><%= radio_button_tag "options[#{index + 1}]", "1", false %> </label></div>
+          <div class="plan_radio">20時から<label><%= radio_button_tag "options[#{index + 1}]", "2", false %> </label></div>
+          <div class="plan_radio">21時から<label><%= radio_button_tag "options[#{index + 1}]", "3", false %> </label></div>
+          <div class="plan_radio">22時から<label><%= radio_button_tag "options[#{index + 1}]", "4", false %> </label></div>
+          <div class="plan_radio">タイマンで日中<label><%= radio_button_tag "options[#{index + 1}]", "5", false %> </label></div>
+          <div class="plan_radio">タイマンで20時から<label><%= radio_button_tag "options[#{index + 1}]", "6", false %> </label></div>
+          <div class="plan_radio">タイマンで21時から<label><%= radio_button_tag "options[#{index + 1}]", "7", false %> </label></div>
+          <div class="plan_radio">タイマンで22時から<label><%= radio_button_tag "options[#{index + 1}]", "8", false %> </label></div>
+        </div>
+      <% end %>
+    <% else %>
+      <div>日付が設定されていません。</div>
+    <% end %>
+   <%= submit_tag "送信", class: "btn-primary" %>
+
+  </div>
+<% end %>
+</div>
+</div>
 </div>
