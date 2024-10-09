@@ -4,6 +4,7 @@ class Room < ApplicationRecord
   has_many :user_rooms
   has_many :users, through: :user_rooms
   has_many :games
+  has_many :ownplans
 
   validates :room_name,:contact, presence: { message: "は空白では登録できません" }
   validates :creator_id,presence: true

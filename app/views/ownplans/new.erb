@@ -1,0 +1,30 @@
+<div>日付を登録する</div>
+<%= form_with url: room_user_ownplans_path(@room, @user), method: :post, local: true do |form| %>
+  <%= form.fields_for :ownplan do |ownplan_form| %>
+    <%= ownplan_form.date_field :target_week %>
+  <% end %>
+  <%= form.submit "送信" %>
+<% end %>
+
+
+<div class="week">
+  <% if @ownplan.present? && @ownplan.target_week.present? %>
+    <% start_date = @ownplan.target_week.to_date %> <!-- target_weekをDate型に変換 -->
+    <% (0..6).each do |i| %> <!-- 0から6までの範囲でループ -->
+      <% date = start_date + i.days %> <!-- i日後の日付を計算 -->
+      <div>
+        <%= "#{date.strftime('%m/%d')} (#{case date.wday
+          when 0 then '日'
+          when 1 then '月'
+          when 2 then '火'
+          when 3 then '水'
+          when 4 then '木'
+          when 5 then '金'
+          when 6 then '土'
+          end})" %> <!-- 月日と曜日を表示 -->
+      </div>
+    <% end %>
+  <% else %>
+    <div>日付が設定されていません。</div>
+  <% end %>
+</div>

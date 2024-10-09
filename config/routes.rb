@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :users do
       resources :games
+      resources :ownplans
     end
   end
+
+  
+
   resources :users do
     member do
       get 'check' 
