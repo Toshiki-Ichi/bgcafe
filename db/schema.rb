@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_10_061719) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
+  create_table "groupschedules", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "day"
+    t.string "group1"
+    t.string "group2"
+    t.string "group3"
+    t.string "group4"
+    t.string "group5"
+    t.string "group6"
+    t.string "group7"
+    t.string "group8"
+    t.string "group9"
+    t.string "group10"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ownplans", charset: "utf8mb3", force: :cascade do |t|
     t.date "target_week"
     t.string "day1"
@@ -78,6 +94,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
     t.datetime "updated_at", null: false
     t.string "contact"
     t.integer "creator_id"
+  end
+
+  create_table "schedule_data", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "groupschedule_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_schedule_data_on_game_id"
+    t.index ["groupschedule_id"], name: "index_schedule_data_on_groupschedule_id"
+    t.index ["room_id"], name: "index_schedule_data_on_room_id"
+    t.index ["user_id"], name: "index_schedule_data_on_user_id"
   end
 
   create_table "user_rooms", charset: "utf8mb3", force: :cascade do |t|
@@ -114,6 +143,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
   add_foreign_key "games", "users"
   add_foreign_key "ownplans", "rooms"
   add_foreign_key "ownplans", "users"
+  add_foreign_key "schedule_data", "games"
+  add_foreign_key "schedule_data", "groupschedules"
+  add_foreign_key "schedule_data", "rooms"
+  add_foreign_key "schedule_data", "users"
   add_foreign_key "user_rooms", "rooms"
   add_foreign_key "user_rooms", "users"
 end

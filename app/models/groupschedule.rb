@@ -1,0 +1,2 @@
+class Groupschedule < ApplicationRecord
+end
