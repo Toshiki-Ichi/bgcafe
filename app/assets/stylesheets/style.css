@@ -1520,3 +1520,43 @@ height: 85%;
   background-color: #d56b6b; 
   color: #f5e4e4;
 }
+
+.schedule_content {
+  top:15px;
+  background-color: #9bdbf2;
+  border-radius: 20px;
+  width: 30%;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin: 0 auto;
+  position: relative; /* 親要素に relative を指定 */
+  z-index: 10; /* リンクを前面に表示 */
+}
+
+schedule_link {
+margin: 0 auto;
+}
+
+.member_schedule {
+  width: 25%;
+  margin: 15px;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: outset;     
+  border-color: rgb(139, 171, 168);
+  background-color: #ffffff;
+
+}
+
+.list_day {
+  background-color: #d9dfe1;
+  width: 100%;
+  border-width:0 0 2px 0; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
+}
+
+.member_schedule ul {
+  margin-left: 15px;
+}
