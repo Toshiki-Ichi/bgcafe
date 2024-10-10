@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :users do
       resources :games
+      resources :groupschedules
       resources :ownplans do
         collection do
           post :create_plan

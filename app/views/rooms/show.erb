@@ -12,7 +12,7 @@
 <%= link_to "ゲーム一覧", room_user_games_path(@room, @user) %></br>
 <%= link_to "メンバー一覧", room_users_path(@room) %></br>
 <%= link_to "自分の予定を登録する", new_room_user_ownplan_path(@room, @user) %></br>
-<%= link_to "今週の予定を作成する", new_room_user_ownplan_path(@room, @user) %></br>
+<%= link_to "今週の予定を作成する", new_room_user_groupschedule_path(@room, @user) %></br>
 <%= link_to "遊んだゲームを記録する", played_check_game_path %></br>
 <% if current_user.id == @room.creator_id%>
 <%= link_to "ルームを編集する", edit_room_path(@room)%></br>
