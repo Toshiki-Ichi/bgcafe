@@ -28,6 +28,7 @@ class OwnplansController < ApplicationController
 			# 既存のレコードが見つかった場合は更新する
 			@weekplan.starter = 0
 			if @weekplan.update(targetweek_params)
+				Ownplan.where(room_id: @room.id, target_week: nil).destroy_all
 				redirect_to new_room_user_ownplan_path(@room.id,@user.id), notice: '日付が更新されました。'
 			else
 				render :new # エラーメッセージなどがある場合は新規作成画面を再表示
@@ -36,6 +37,7 @@ class OwnplansController < ApplicationController
 			# 既存のレコードが見つからなかった場合は新規作成
 			@weekplan = Ownplan.new(targetweek_params)
 			if @weekplan.save
+	
 				redirect_to room_path(@room.id), notice: '日付が登録されました。'
 			else
 				render :new # エラーメッセージなどがある場合は新規作成画面を再表示

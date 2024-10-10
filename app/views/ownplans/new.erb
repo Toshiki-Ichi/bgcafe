@@ -3,7 +3,7 @@
     <span>予定確認を始める</span>
     <%= form_with(model: @ownplan, url: room_user_ownplans_path(@room, @user), method: :post, local: true, html: { class: "week_plan" }) do |form| %>
       <%= form.date_field :target_week, class: "target_week_input" %> 
-      <%= form.submit "送信", class: "make_plan_submit" %>
+      <%= form.submit "更新する", class: "make_plan_submit", onclick: "return confirm('現在のメンバーの予定も削除されます。続行しますか？');" %>
     <% end %>
     <div class ="week_maker">
     <% if @weekplan.starter == 1 %>
