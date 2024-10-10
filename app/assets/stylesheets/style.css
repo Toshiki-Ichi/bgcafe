@@ -1478,7 +1478,7 @@ height: 85%;
   border-radius: 5px;
   border-style: outset;     
   border-color: rgb(139, 171, 168);
-  font-size: large;
+  font-size: larger;
   background-color: #d9dfe1;
 }
 
@@ -1499,4 +1499,24 @@ height: 85%;
   bottom: 0;    
   height: 100px;
   width: 20%;
+}
+
+.plan_delete {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  position: absolute; 
+  right: 0;     
+  bottom: 120px;    
+  height: 100px;
+  width: 20%;
+  background-color: #b83f3f;
+  font-size: larger;
+}
+
+.plan_delete:hover {
+  background-color: #d56b6b; 
+  color: #f5e4e4;
 }
