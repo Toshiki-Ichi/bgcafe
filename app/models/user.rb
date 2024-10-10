@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :games
   has_many :user_rooms
   has_many :rooms, through: :user_rooms 
+  has_one :ownplan
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :career
   validates :career_id, numericality: { greater_than_or_equal_to: 2, message: "は --- 以外を選択してください。" }, on: :update
