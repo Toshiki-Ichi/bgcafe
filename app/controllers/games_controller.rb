@@ -17,7 +17,8 @@ class GamesController < ApplicationController
 	end
 
 	def create
-  
+    @room = Room.find(params[:room_id])
+    @user = User.find(params[:user_id])
 		@game = Game.new(game_params)
     @game.room_id = params[:room_id]
     @game.user_id = current_user.id 
@@ -99,7 +100,7 @@ end
 private
 
   def game_params
-   params.require(:game).permit(:game_name,:rule,:image_games) 
+    params.require(:game).permit(:image_games, :game_name, :capacity_id, :require_time_id, :rule)
   end
 
 	def redirect_if_not_logged_in
