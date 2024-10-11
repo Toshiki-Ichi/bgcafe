@@ -136,7 +136,7 @@
       <% played_games = Game.where("played LIKE ?", "%#{solo_member[:id]}%").or(Game.where("played LIKE ?", "%#{non_solo_member[:id]}%")) %>
 
       <!-- メンバーの中にプレイしたことがある人がいるか確認 -->
-      <% if played_games.exists? || Game.where(user_id: all_members).exists? %>
+      <% if Game.where(user_id: all_members).exists? %>
         <!-- 誰も遊んでいないゲームを取得 -->
         <% unplayed_games = Game.where.not(id: played_games.pluck(:id)) %>
 
@@ -145,10 +145,7 @@
           <% next %> <!-- 両方ともに紐づいていない場合は次の繰り返しへ -->
         <% end %>
         <!-- グループを表示 -->
-        <li>
-          ・<%= solo_member[:name] %>(タイマン希望)、<%= non_solo_member[:name] %>
-        </li>
-
+        <div>・<%= solo_member[:name] %>(タイマン希望)、<%= non_solo_member[:name] %></div>
         <!-- 未プレイのゲームを表示 -->
         <% if unplayed_games.any? %>
           <span>　未プレイのゲーム:</span>
@@ -232,7 +229,7 @@
                   </li>
                   <% unplayed_games = Game.where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
                   <% if unplayed_games.any? %>
-                    <h6>　未プレイのゲーム:</h6>
+                    <span>　未プレイのゲーム:</span>
                     <ul>
                       <% unplayed_games.each do |game| %>
                         <span>・<%= game.game_name %>　</span>
