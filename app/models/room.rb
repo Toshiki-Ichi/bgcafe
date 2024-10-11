@@ -7,8 +7,8 @@ class Room < ApplicationRecord
   has_many :ownplans
   has_many :scheduledata
   has_many :groupschedules, through: :scheduledata
-  validates :room_name,:contact, presence: { message: "は空白では登録できません" }
-  validates :creator_id,presence: true
-  validates :image_rooms, presence: { message: "は必須です" }
-  validates :creator_id, presence: { message: "は必須です" }
+  validates :room_name, :contact, presence: { message: 'は空白では登録できません' }
+  validates :creator_id, presence: true
+  validates :image_rooms, presence: { message: 'は必須です' }
+  validates :creator_id, presence: { message: 'は必須です' }
 end
