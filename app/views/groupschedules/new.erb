@@ -396,8 +396,11 @@
                 <h5>タイマンのグループ</h5>
                 <% found_members = [] %>
                 <% @ownplans.each do |ownplan| %>
+                  <% if ownplan["day#{n + 1}"] == "2" || ownplan["day#{n + 1}"] == "6" %>
+                  <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "6", id: ownplan.user.id } %>
+                <% end %>
                   <% if ownplan["day#{n + 1}"] == "3" || ownplan["day#{n + 1}"] == "7" %>
-                    <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "6", id: ownplan.user.id } %>
+                    <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "7", id: ownplan.user.id } %>
                   <% end %>
                 <% end %>
                 
@@ -537,8 +540,14 @@
                 <h5>タイマンのグループ</h5>
                 <% found_members = [] %>
                 <% @ownplans.each do |ownplan| %>
+                  <% if ownplan["day#{n + 1}"] == "2" || ownplan["day#{n + 1}"] == "6" %>
+                  <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "6", id: ownplan.user.id } %>
+                <% end %>
+                  <% if ownplan["day#{n + 1}"] == "3" || ownplan["day#{n + 1}"] == "7" %>
+                    <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "7", id: ownplan.user.id } %>
+                  <% end %>
                   <% if ownplan["day#{n + 1}"] == "4" || ownplan["day#{n + 1}"] == "8" %>
-                    <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "6", id: ownplan.user.id } %>
+                    <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "8", id: ownplan.user.id } %>
                   <% end %>
                 <% end %>
                 
