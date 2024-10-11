@@ -1,103 +1,305 @@
-<div>
-  <% @target_week_dates.each do |date| %>
-<% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
-<% base_date = @target_week_dates.first %> <!-- 基準日を取得 -->
-  <span><%= base_date.strftime('%Y年%m月%d日') %> (<%= japanese_days[base_date.wday] %>) からのメンバーの予定</span>
- <% end %>
+<div class="schedule_body">
+  <div class="schedule_main_box">
+    <% @target_week_dates.each do |date| %>
+      <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
+      <% base_date = @target_week_dates.first %> <!-- 基準日を取得 -->
+      <span><%= base_date.strftime('%Y年%m月%d日') %> (<%= japanese_days[base_date.wday] %>) からのメンバーの予定</span>
+    <% end %>
+		<div class="schedule_index_box">
+    <% (0..6).each do |n| %>
+      <div class="member_schedule">
+        <div class="list_day">
+          <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
+          <% base_date = @target_week_dates.first %>
+          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト</h4>
+        </div>
+        
+        <h4>・日中に遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "1" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "5" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
 
-  <% (0..6).each do |n| %>
-		<div class="member_schedule">
-		<div class="list_day">
-		<% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
-		<% base_date = @target_week_dates.first %>
-		<h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト</h4>
+        <h4>・20時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "2" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "6" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・21時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "4" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "7" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・22時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "4" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "8" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・おやすみのメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == 4 || ownplan["day#{n + 1}"] == "9" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+      </div> 
+    <% end %>
 		</div>
-    <h4>・日中に遊べるメンバー</h4>
-		<ul>
-		<% found_members = false %>
-		<% @ownplans.each do |ownplan| %>
-			<% if ownplan["day#{n + 1}"] == "1" %>
-				<li><%= ownplan.user.nickname %></li>
-				<% found_members = true %>
-			<% elsif ownplan["day#{n + 1}"] == "5" %>
-				<li><%= ownplan.user.nickname %> (タイマン希望)</li>
-				<% found_members = true %>
-			<% end %>
-		<% end %>
-		<% unless found_members %>
-			<li>対象となるメンバーはいません</li>
-		<% end %>
-		<br />
-	</ul>
+  </div> 
 
-    <h4>・20時から遊べるメンバー</h4>
-		<ul>
-		<% found_members = false %>
-		<% @ownplans.each do |ownplan| %>
-			<% if ownplan["day#{n + 1}"] == "2" %>
-				<li><%= ownplan.user.nickname %></li>
-				<% found_members = true %>
-			<% elsif ownplan["day#{n + 1}"] == "6" %>
-				<li><%= ownplan.user.nickname %> (タイマン希望)</li>
-				<% found_members = true %>
-			<% end %>
-		<% end %>
-		<% unless found_members %>
-			<li>対象となるメンバーはいません</li>
-		<% end %>
-		<br />
-	</ul>
 
-    <h4>・21時から遊べるメンバー</h4>
-		<ul>
-		<% found_members = false %>
-		<% @ownplans.each do |ownplan| %>
-			<% if ownplan["day#{n + 1}"] == "4" %>
-				<li><%= ownplan.user.nickname %></li>
-				<% found_members = true %>
-			<% elsif ownplan["day#{n + 1}"] == "7" %>
-				<li><%= ownplan.user.nickname %> (タイマン希望)</li>
-				<% found_members = true %>
-			<% end %>
-		<% end %>
-		<% unless found_members %>
-			<li>対象となるメンバーはいません</li>
-		<% end %>
-		<br />
-	</ul>
 
-    <h4>・22時から遊べるメンバー</h4>
-		<ul>
-		<% found_members = false %>
-		<% @ownplans.each do |ownplan| %>
-			<% if ownplan["day#{n + 1}"] == "4" %>
-				<li><%= ownplan.user.nickname %></li>
-				<% found_members = true %>
-			<% elsif ownplan["day#{n + 1}"] == "8" %>
-				<li><%= ownplan.user.nickname %> (タイマン希望)</li>
-				<% found_members = true %>
-			<% end %>
-		<% end %>
-		<% unless found_members %>
-			<li>対象となるメンバーはいません</li>
-		<% end %>
-		<br />
-	</ul>
 
-    <h4>・おやすみのメンバー</h4>
-    <ul>
-      <% found_members = false %>
-      <% @ownplans.each do |ownplan| %>
-        <% if ownplan["day#{n + 1}"] == 4 || ownplan["day#{n + 1}"] == "9" %>
-          <li><%= ownplan.user.nickname %></li>
-          <% found_members = true %>
-        <% end %>
-      <% end %>
-      <% unless found_members %>
-        <li>対象となるメンバーはいません</li>
-      <% end %>
-			</br>
-    </ul>
+<div class="schedule_group_box">
+    <% (0..6).each do |n| %>
+      <div class="member_schedule">
+        <div class="list_day">
+          <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
+          <% base_date = @target_week_dates.first %>
+          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のグループの組み合わせ</h4>
+        </div>
+        
+        <h4>・日中に遊べるメンバー</h4>
+        <ul>
+          <% found_members = [] %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "1" || ownplan["day#{n + 1}"] == "5" %>
+              <% found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == "5", id: ownplan.user.id } %>
+            <% end %>
+          <% end %>
+        
+          <% solo_members = found_members.select { |member| member[:wants_solo] } %> 
+          <% non_solo_members = found_members.reject { |member| member[:wants_solo] } %>
+        
+          <% total_members = found_members.size %>
+        
+          <% if total_members >= 2 %>
+            <!-- タイマン希望のメンバーとその他のメンバーの組み合わせを表示 -->
+            <% solo_members.each do |solo_member| %>
+              <% non_solo_members.each do |non_solo_member| %>
+                <li>
+                  <%= solo_member[:name] %>、<%= non_solo_member[:name] %> (タイマン希望)
+                </li>
+              <% end %>
+            <% end %>
+        
+            <% remaining_members = non_solo_members.reject { |member| solo_members.include?(member) } %>
+        
+            <% if remaining_members.size >= 2 %>
+              <h5>・残ったメンバーの組み合わせ (タイマン適用)</h5>
+              <% total_remaining = remaining_members.size %>
+              <% if total_remaining >= 3 %>
+                <!-- 残ったメンバーから3人以上のグループを作成 -->
+                <% remaining_members.combination(3).each do |group| %>
+                  <li>
+                    ・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
+                  </li>
+                  <% # グループメンバーのIDを収集 %>
+                  <% group_ids = group.map { |member| member[:id] } %>
+                  <% # playedにいずれのメンバーのIDも保存されていないゲームを取得 %>
+                  <% unplayed_games = Game.where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+                  <% if unplayed_games.any? %>
+                    <h6>未プレイのゲーム</h6> <!-- 見出しを追加 -->
+                    <ul>
+                      <% unplayed_games.each do |game| %>
+                        <li><%= game.game_name %></li> <!-- ゲームの名前を表示 -->
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <li>このグループはプレイされていないゲームがありません。</li>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <li>作れるグループはありません</li> <!-- 残り人数が2以下の場合 -->
+              <% end %>
+            <% else %>
+              <li>作れるグループはありません</li> <!-- 残り人数が2以下の場合 -->
+            <% end %>
+          <% else %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+        
+        <h4>・タイマン希望のメンバーを除いたグループ</h4>
+        <ul>
+          <% # タイマン希望のメンバーを除いたメンバーを取得 %>
+          <% remaining_members = non_solo_members %>
+        
+          <% if remaining_members.size >= 3 %>
+            <% max_group_size = remaining_members.size %> <!-- 残りのメンバー数を取得 -->
+            <% group_found = false %> <!-- グループが見つかったかどうかのフラグ -->
+        
+            <% # 3人以上の組み合わせを作成 %>
+            <% (3..max_group_size).each do |group_size| %>
+              <% combinations = remaining_members.combination(group_size).to_a %> <!-- 指定された人数の組み合わせを作成 -->
+        
+              <% if combinations.any? %>
+                <% group_found = true %> <!-- グループが見つかったフラグを立てる -->
+                <% combinations.each do |group| %>
+                  <li>
+                    ・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
+                  </li>
+                  <% # グループメンバーのIDを収集 %>
+                  <% group_ids = group.map { |member| member[:id] } %>
+                  <% # playedにいずれのメンバーのIDも保存されていないゲームを取得 %>
+                  <% unplayed_games = Game.where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+                  <% if unplayed_games.any? %>
+                    <h6>未プレイのゲーム</h6> <!-- 見出しを追加 -->
+                    <ul>
+                      <% unplayed_games.each do |game| %>
+                        <li><%= game.game_name %></li> <!-- ゲームの名前を表示 -->
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <li>このグループはプレイされていないゲームがありません。</li>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+        
+            <% # 組み合わせがない場合のメッセージ %>
+            <% unless group_found %>
+              <li>作れるグループはありません</li>
+            <% end %>
+          <% else %>
+            <li>作れるグループはありません</li> <!-- 残り人数が3以下の場合 -->
+          <% end %>
+        </ul>
+        
+        
+        
+
+        
+
+        <h4>・20時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "2" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "6" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・21時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "4" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "7" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・22時から遊べるメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == "4" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% elsif ownplan["day#{n + 1}"] == "8" %>
+              <li><%= ownplan.user.nickname %> (タイマン希望)</li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+
+        <h4>・おやすみのメンバー</h4>
+        <ul>
+          <% found_members = false %>
+          <% @ownplans.each do |ownplan| %>
+            <% if ownplan["day#{n + 1}"] == 4 || ownplan["day#{n + 1}"] == "9" %>
+              <li><%= ownplan.user.nickname %></li>
+              <% found_members = true %>
+            <% end %>
+          <% end %>
+          <% unless found_members %>
+            <li>対象となるメンバーはいません</li>
+          <% end %>
+          <br />
+        </ul>
+      </div> 
+    <% end %>
 		</div>
-  <% end %>
+  </div> 
 </div>
