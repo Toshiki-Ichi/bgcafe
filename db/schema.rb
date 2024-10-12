@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_10_061719) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_12_095502) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_10_061719) do
 
   create_table "groupschedules", charset: "utf8mb3", force: :cascade do |t|
     t.integer "day"
+    t.string "group1_am"
+    t.string "group2_am"
+    t.string "group3_am"
     t.string "group1"
     t.string "group2"
     t.string "group3"
@@ -62,9 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_10_061719) do
     t.string "group5"
     t.string "group6"
     t.string "group7"
-    t.string "group8"
-    t.string "group9"
-    t.string "group10"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
