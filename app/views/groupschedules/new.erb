@@ -117,6 +117,7 @@
         
         <h4>・日中に遊べるグループ</h4>
         <h5>タイマンのグループ</h5>
+        <%= form_with model: @groupschedule, url: room_user_groupschedules_path(@room, @user), local: true do |f| %>
         <% found_members = [] %>
         <% @ownplans.each do |ownplan| %>
           <% if ownplan["day#{n + 1}"] == "1" || ownplan["day#{n + 1}"] == "5" %>
@@ -148,13 +149,20 @@
                   <% next %> <!-- 両方ともに紐づいていない場合は次の繰り返しへ -->
                 <% end %>
                 <!-- グループを表示 -->
+                <div class="schedule_check">
+                <%= label_tag "member_#{solo_member[:id]}" do %>
                 <h6>・<%= solo_member[:name] %>(タイマン希望)、<%= non_solo_member[:name] %></h6>
+                <% end %>
+                <div class="check_box">
+                <%= check_box_tag "member_ids[]", "#{solo_member[:id]},#{non_solo_member[:id]}" %>
+                </div>
+                </div>
                 <!-- 未プレイのゲームを表示 -->
                 <% if unplayed_games.any? %>
                   <span>　未プレイのゲーム:</span>
                   <ul>
                     <% unplayed_games.each do |game| %>
-                          <label><input type="checkbox" name="selected_games[]" value="<%= game.id %>"> <%= game.game_name %></label>
+                          <span><%= game.game_name %></span>
                     <% end %>
                   </ul>
                   </br>
@@ -176,20 +184,27 @@
               <% total_remaining = remaining_members.size %>
               <% if total_remaining >= 3 %>
                 <% group_found = false %>
-                <% remaining_members.combination(3).each do |group| %>
+                <% remaining_members.combination(5).each do |group| %>
                   <% group_ids = group.map { |member| member[:id] } %>
                   <% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
         
-                  <% if has_game_owner %>
+                  <% if has_game_owner %>             
+                  <div class="schedule_check">
+                  <%= label_tag "member_group" do %> <!-- labelのための識別子を指定 -->
                     <h6>
                       ・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
                     </h6>
+                  <% end %>
+                  <div class="check_box">
+                    <%= check_box_tag "member_ids", group.map { |member| member[:id] }.join(','), false %> 
+                  </div>
+                </div>
                     <% unplayed_games = Game.where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id))%>
                     <% if unplayed_games.any? %>
                       <span>　未プレイのゲーム:</span>
                       <ul>
                         <% unplayed_games.each do |game| %>
-                              <label><input type="checkbox" name="selected_games[]" value="<%= game.id %>"> <%= game.game_name %></label>
+                        <span><%= game.game_name %></span>
                         <% end %>
                       </ul>
                       </br>
@@ -217,7 +232,7 @@
           <% remaining_members = non_solo_members %>
         
           <% if remaining_members.size >= 3 %>
-            <% max_group_size = remaining_members.size %>
+            <% max_group_size = [remaining_members.size, 5].min %>
             <% group_found = false %>
         
             <% (3..max_group_size).each do |group_size| %>
@@ -228,15 +243,22 @@
                 <% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
         
                 <% if has_game_owner %>
-                  <h6>
-                  ・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
-                  </h6>
+                   <div class="schedule_check">
+                  <%= label_tag "member_group" do %> <!-- labelのための識別子を指定 -->
+                    <h6>
+                      ・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
+                    </h6>
+                  <% end %>
+                  <div class="check_box">
+                    <%= check_box_tag "member_ids", group.map { |member| member[:id] }.join(','), false %> 
+                  </div>
+                </div>
                   <% unplayed_games = Game.where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id))%>
                   <% if unplayed_games.any? %>
                     <span>　未プレイのゲーム:</span>
                     <ul>
                       <% unplayed_games.each do |game| %>
-                         <label><input type="checkbox" name="selected_games[]" value="<%= game.id %>"> <%= game.game_name %></label>
+                      <span><%= game.game_name %></span>
                       <% end %>
                     </ul>
                     </br>
@@ -255,11 +277,8 @@
           <span>　メンバーが足りないためグループを作成できません</span>
           <% end %>
         </ul>
-
-        <!-- フォームを追加して送信ボタンを設置 -->
-        <%= form_with url: room_user_groupschedules_path(@room,@user), method: :post do %>
           <%= submit_tag "選択したグループを送信" %>
-        <% end %>
+      <% end %>
  <!-----------------------------------------20時からのグループの記述--------------------------------------------------->
 
     </br><h4>・20時から遊べるグループ</h4>
@@ -324,7 +343,7 @@
           <% total_remaining = remaining_members.size %>
            <% if total_remaining >= 3 %>
              <% group_found = false %>
-            <% remaining_members.combination(3).each do |group| %>
+            <% remaining_members.combination(5).each do |group| %>
               <% group_ids = group.map { |member| member[:id] } %>
               <% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
     
@@ -364,7 +383,7 @@
                   <% remaining_members = non_solo_members %>
                 
                   <% if remaining_members.size >= 3 %>
-                    <% max_group_size = remaining_members.size %>
+                    <% max_group_size = [remaining_members.size, 5].min %>
                     <% group_found = false %>
                 
                     <% (3..max_group_size).each do |group_size| %>
@@ -470,7 +489,7 @@
                     <% total_remaining = remaining_members.size %>
                     <% if total_remaining >= 3 %>
                       <% group_found = false %>
-                      <% remaining_members.combination(3).each do |group| %>
+                      <% remaining_members.combination(5).each do |group| %>
                         <% group_ids = group.map { |member| member[:id] } %>
                         <% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
                 
@@ -510,7 +529,7 @@
                   <% remaining_members = non_solo_members %>
                 
                   <% if remaining_members.size >= 3 %>
-                    <% max_group_size = remaining_members.size %>
+                    <% max_group_size = [remaining_members.size, 5].min %>
                     <% group_found = false %>
                 
                     <% (3..max_group_size).each do |group_size| %>
@@ -620,7 +639,7 @@
                     <% total_remaining = remaining_members.size %>
                     <% if total_remaining >= 3 %>
                       <% group_found = false %>
-                      <% remaining_members.combination(3).each do |group| %>
+                      <% remaining_members.combination(5).each do |group| %>
                         <% group_ids = group.map { |member| member[:id] } %>
                         <% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
                 
@@ -660,7 +679,7 @@
                   <% remaining_members = non_solo_members %>
                 
                   <% if remaining_members.size >= 3 %>
-                    <% max_group_size = remaining_members.size %>
+                    <% max_group_size = [remaining_members.size, 5].min %>
                     <% group_found = false %>
                 
                     <% (3..max_group_size).each do |group_size| %>

@@ -1585,3 +1585,16 @@ margin: 0 auto;
   margin-left: 15px;
 }
 
+.schedule_check {
+  display: flex;
+  justify-content: space-between;
+}
+
+.check_box {
+  display: flex;
+  padding-right: 10px;
+  width: 10%;
+  border: none;
+  justify-content: right; 
+  padding-right: 15px;
+}
