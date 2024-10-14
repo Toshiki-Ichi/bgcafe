@@ -1,6 +1,33 @@
 
 <div class="schedule_content">
-<span class="schedule_link"><%= link_to '予定作成を開始する', new_room_user_groupschedule_path(@room, @user) %><span>
+<span class="schedule_link">
+<% if @user_count < 3 %>
+<p style="font-size: 1vw;">スケジュール作成機能は3人以上のメンバーが必要です。</p>
+<% else %>
+<%= link_to '予定作成を開始する', new_room_user_groupschedule_path(@room, @user) %>
+<% end %><span>
 </div>
+<div class="rules">
+<div class="make_rules">
+<div>予定作成機能について</div></br>
+<div>・最大5人グループまでの組み合わせを表示します</div>
+<div>・グループの中には必ずゲーム登録者が含まれます</div>
+<div>・タイマン希望のユーザーに対してはタイマン以外のグループには表示されません</div>
+<div>・日中、20時〜、21時〜、22時〜 各時間帯について3つまでグループを設定できます</div>
+<div>・何も選択しない場合は休みとして自動入力されます</div>
+<div>・ここではグループ作成のみが行えます。ゲームの登録は追加で編集をしてください</div>
 
-予定一覧を表示する
+<br><br><div>※エラー文について</div><br>
+<div class="for_error">
+    <div class="error_sentence">
+				 <b>・メンバーが足りない</b><br>
+				 <b>・作成できるグループの組み合わせがありません</b><br>
+				 <b>・このグループでできるゲームがありません</b><br>
+		</div>
+		<div class="error_contents">
+				→グループ作成に必要な人数が足りない場合に表示されます<br>
+    		→その時間帯にはゲームを登録しているメンバーがいない場合に表示されます<br>
+    		→ゲーム登録者がいるがそのメンバーで初めて遊ぶゲームがない場合に表示されます<br>
+		</div>
+</div>
+</div>

@@ -1525,7 +1525,7 @@ height: 85%;
   top:15px;
   background-color: #9bdbf2;
   border-radius: 20px;
-  width: 30%;
+  width: 35%;
   height: 50px;
   text-align: center;
   line-height: 50px;
@@ -1606,4 +1606,14 @@ margin: 0 auto;
 
 .schedule_checks_all {
   width: 65%;
+}
+
+.rules {
+  margin: 50px 50px 0 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.for_error {
+  display:flex;
 }

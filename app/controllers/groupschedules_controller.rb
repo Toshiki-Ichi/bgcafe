@@ -2,6 +2,7 @@ class GroupschedulesController < ApplicationController
   def index
     @user = current_user
     @room = Room.find(params[:room_id])
+    @user_count = @room.users.count
   end
 
   def new
