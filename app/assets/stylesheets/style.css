@@ -1598,3 +1598,12 @@ margin: 0 auto;
   justify-content: right; 
   padding-right: 15px;
 }
+
+.line {
+  width: 80%; /* またはお好みの幅に設定 */
+  margin: 0 auto; /* 左右中央に配置 */
+}
+
+.schedule_checks_all {
+  width: 65%;
+}

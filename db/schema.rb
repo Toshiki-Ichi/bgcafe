@@ -11,6 +11,24 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_10_12_095502) do
+  create_table "Groupschedules", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "day"
+    t.string "group1_daytime"
+    t.string "group2_daytime"
+    t.string "group3_daytime"
+    t.string "group1_20pm"
+    t.string "group2_20pm"
+    t.string "group3_20pm"
+    t.string "group1_21pm"
+    t.string "group2_21pm"
+    t.string "group3_21pm"
+    t.string "group1_22pm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "group2_22pm"
+    t.string "group3_22pm"
+  end
+
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,22 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_12_095502) do
     t.string "played"
     t.index ["room_id"], name: "index_games_on_room_id"
     t.index ["user_id"], name: "index_games_on_user_id"
-  end
-
-  create_table "groupschedules", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "day"
-    t.string "group1_am"
-    t.string "group2_am"
-    t.string "group3_am"
-    t.string "group1"
-    t.string "group2"
-    t.string "group3"
-    t.string "group4"
-    t.string "group5"
-    t.string "group6"
-    t.string "group7"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "ownplans", charset: "utf8mb3", force: :cascade do |t|

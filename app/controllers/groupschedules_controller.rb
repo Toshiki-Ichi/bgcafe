@@ -11,22 +11,67 @@ class GroupschedulesController < ApplicationController
     @ownplans = Ownplan.where(room_id: @room.id, target_week: nil)
     @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
     @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
-		@groupschedule = Groupschedule.new
+    @groupschedules =Groupschedule.new
+
   end
 
   def create
-    # ストロングパラメータを使用して、必要なデータを取得
-    group_members = params[:group_members] || []
-    selected_games = params[:selected_games] || []
+    @user = current_user
+    @room = Room.find(params[:room_id])
 
-    # デバッグ用に表示
+    #日中のグループを保存する記述
+    errors = []
 
-    # データ処理...
+    def save_groupschedule(time_key, property_suffix)
+      (1..7).each do |n|
+        member_ids = params.dig(:groupschedules, "day#{n}_#{time_key}", :member_ids) || []
+    
+        # インスタンス変数を動的に設定
+        groupschedule = instance_variable_set("@groupschedule#{n}", Groupschedule.new)
+        groupschedule.day = n
+        
+        # メンバーを3つまで設定
+        member_ids.each_with_index do |member_id, j|
+          if j < 3
+            # sendメソッドを使って動的にプロパティに値を代入
+            groupschedule.send("group#{j+1}_#{property_suffix}=", member_id)
+          else
+            errors << "#{time_key}で選択できるのは3つのグループまでです。"
+            break
+          end
+        end
+      end
+    end
+    
+    # 日中のグループを保存する
+    save_groupschedule("daytime", "daytime")
+    
+    # 20pmのグループを保存する
+    save_groupschedule("20pm", "20pm")
+    
+    # 21pmのグループを保存する
+    save_groupschedule("21pm", "21pm")
+    
+    # 22pmのグループを保存する
+    save_groupschedule("22pm", "22pm")
+    
+    # エラーメッセージがある場合は処理を中断
+    if errors.any?
+      render new: { errors: errors }, status: :unprocessable_entity
+      return
+    end    
+    binding.pry
+
   end
 
   private
 
   def group_schedule_params
-    params.require(:group_schedule).permit(group_members: [], selected_games: [])
+    params.require(:groupschedules).permit(
+    day1_daytime: [:member_ids],day2_daytime: [:member_ids],day3_daytime: [:member_ids],day4_daytime: [:member_ids],day5_daytime: [:member_ids],day6_daytime: [:member_ids],day7_daytime: [:member_ids],
+    day1_20pm: [:member_ids],day2_20pm: [:member_ids],day3_20pm: [:member_ids],day4_20pm: [:member_ids],day5_20pm: [:member_ids],day6_20pm: [:member_ids],day7_20pm: [:member_ids],
+    day1_21pm: [:member_ids],day2_21pm: [:member_ids],day3_21pm: [:member_ids],day4_21pm: [:member_ids],day5_21pm: [:member_ids],day6_21pm: [:member_ids],day7_21pm: [:member_ids],
+    day1_22pm: [:member_ids],day2_22pm: [:member_ids],day3_22pm: [:member_ids],day4_22pm: [:member_ids],day5_22pm: [:member_ids],day6_22pm: [:member_ids],day7_22pm: [:member_ids]    
+    ).merge(user_id: params[:user_id], room_id: params[:room_id])
   end
 end
