@@ -55,13 +55,30 @@ class GroupschedulesController < ApplicationController
     # 22pmのグループを保存する
     save_groupschedule("22pm", "22pm")
     
-    # エラーメッセージがある場合は処理を中断
     if errors.any?
       render new: { errors: errors }, status: :unprocessable_entity
       return
     end    
-    binding.pry
-
+  
+    # @groupschedule1〜@groupschedule7を保存する
+    (1..7).each do |n|
+      groupschedule = instance_variable_get("@groupschedule#{n}")
+      
+      unless groupschedule.valid?  # バリデーションチェック
+        errors << "グループ#{n}の保存に失敗しました。"
+      end
+    end
+  
+    # 成功した場合の保存処理
+    if errors.empty?
+      (1..7).each do |n|
+        groupschedule = instance_variable_get("@groupschedule#{n}")
+        groupschedule.save
+      end
+      redirect_to room_path(@room), notice: "グループが正常に保存されました。"
+    else
+      render new: { errors: errors }, status: :unprocessable_entity
+    end
   end
 
   private
