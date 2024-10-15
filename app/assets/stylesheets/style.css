@@ -1617,3 +1617,57 @@ margin: 0 auto;
 .for_error {
   display:flex;
 }
+
+.edit_schedule_body {
+  width:100vw;
+}
+
+.edit_schedule_contents {
+  margin: 15px 0 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit_groups {
+  display: flex;
+}
+
+.edit_unplay_games {
+  display: flex;
+}
+
+.edit_schedule_date {
+  width: 70%;
+  margin-top: 15px;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: outset;     
+  border-color: rgb(139, 171, 168);
+  background-color: #FFFFFF;
+}
+
+.edit_list_day{
+  background-color: #d9dfe1;
+  width: 100%;
+  border-width:0 0 2px 0; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
+}
+
+.schedule-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 20px 10px;
+  background-color: #57C3E9; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.schedule-button:hover {
+  background-color: #94d4eb; 
+}

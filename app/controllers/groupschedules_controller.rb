@@ -2,7 +2,7 @@ class GroupschedulesController < ApplicationController
   def index
     @user = current_user
     @room = Room.find(params[:room_id])
-    @user_count = @room.users.count
+    @user_count = User.where("join1 = ? OR join2 = ? OR join3 = ?", @room.id, @room.id, @room.id).count
   end
 
   def new
@@ -74,6 +74,7 @@ class GroupschedulesController < ApplicationController
     if errors.empty?
       (1..7).each do |n|
         groupschedule = instance_variable_get("@groupschedule#{n}")
+        groupschedule.room_id = @room.id
         groupschedule.save
       end
       redirect_to room_path(@room), notice: "グループが正常に保存されました。"
@@ -81,6 +82,15 @@ class GroupschedulesController < ApplicationController
       render new: { errors: errors }, status: :unprocessable_entity
     end
   end
+  
+
+    def edit
+      @user = current_user
+      @room = Room.find(params[:room_id])
+      @schedules = Groupschedule.all
+      @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
+      @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
+    end
 
   private
 

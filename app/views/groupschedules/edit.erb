@@ -1,0 +1,432 @@
+<div class="edit_schedule_body">
+<%= form_with url: room_path, method: :post, html: { class: 'edit_schedule_contents' } do %>
+ <% (0..6).each do |n| %>
+      <div class="edit_schedule_date">
+        <div class="edit_list_day">
+          <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
+          <% base_date = @target_week_dates.first %>
+          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト</h4>
+        </div>
+
+				<div><日中の予定></div>
+				<% @schedules.each do |schedule| %>
+					<% if schedule.day == (n + 1) %>
+						<% user_ids = schedule.group1_daytime&.split(',') || [] %>
+				
+						<% if user_ids.empty? && schedule.group2_daytime.nil? && schedule.group3_daytime.nil? %>
+							<p>この時間帯は休みです。</p>
+						<% else %>
+							<% if user_ids.any? %>
+							<div class="edit_groups">
+								<span><b>グループ1　</b></span>    
+									<% user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+								<div class="edit_unplay_games">
+								<span><b>未プレイのゲーム　</b></span>
+								
+									<% # グループ1のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: user_ids).select { |game| (game.played.to_s.split(',') & user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+							<% group2_user_ids = schedule.group2_daytime&.split(',') || [] %>
+							<% if group2_user_ids.any? %>
+							<div class="edit_groups">
+							<span><b>グループ2　</b></span>
+									<% group2_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ2のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group2_user_ids).select { |game| (game.played.to_s.split(',') & group2_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+								</div>
+							<% end %>
+				
+							<% group3_user_ids = schedule.group3_daytime&.split(',') || [] %>
+							<% if group3_user_ids.any? %>
+								<span><b>グループ3　</b></span>
+								<div class="edit_groups">
+									<% group3_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ3のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group3_user_ids).select { |game| (game.played.to_s.split(',') & group3_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+						<% end %>
+					<% end %>
+				<% end %>
+
+				<br><div><20時の予定></div>
+				<% @schedules.each do |schedule| %>
+					<% if schedule.day == (n + 1) %>
+						<% user_ids = schedule.group1_20pm&.split(',') || [] %>
+				
+						<% if user_ids.empty? && schedule.group2_20pm.nil? && schedule.group3_20pm.nil? %>
+							<p>この時間帯は休みです。</p>
+						<% else %>
+							<% if user_ids.any? %>
+							<div class="edit_groups">
+								<span><b>グループ1　</b></span>    
+									<% user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+								<div class="edit_unplay_games">
+								<span><b>未プレイのゲーム　</b></span>
+								
+									<% # グループ1のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: user_ids).select { |game| (game.played.to_s.split(',') & user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+							<% group2_user_ids = schedule.group2_20pm&.split(',') || [] %>
+							<% if group2_user_ids.any? %>
+							<div class="edit_groups">
+							<span><b>グループ2　</b></span>
+									<% group2_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ2のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group2_user_ids).select { |game| (game.played.to_s.split(',') & group2_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+								</div>
+							<% end %>
+				
+							<% group3_user_ids = schedule.group3_20pm&.split(',') || [] %>
+							<% if group3_user_ids.any? %>
+								<span><b>グループ3　</b></span>
+								<div class="edit_groups">
+									<% group3_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ3のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group3_user_ids).select { |game| (game.played.to_s.split(',') & group3_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+						<% end %>
+					<% end %>
+				<% end %>
+
+				<br><div><21時の予定></div>
+				<% @schedules.each do |schedule| %>
+					<% if schedule.day == (n + 1) %>
+						<% user_ids = schedule.group1_21pm&.split(',') || [] %>
+				
+						<% if user_ids.empty? && schedule.group2_21pm.nil? && schedule.group3_21pm.nil? %>
+							<p>この時間帯は休みです。</p>
+						<% else %>
+							<% if user_ids.any? %>
+							<div class="edit_groups">
+								<span><b>グループ1　</b></span>    
+									<% user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+								<div class="edit_unplay_games">
+								<span><b>未プレイのゲーム　</b></span>
+								
+									<% # グループ1のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: user_ids).select { |game| (game.played.to_s.split(',') & user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+							<% group2_user_ids = schedule.group2_21pm&.split(',') || [] %>
+							<% if group2_user_ids.any? %>
+							<div class="edit_groups">
+							<span><b>グループ2　</b></span>
+									<% group2_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ2のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group2_user_ids).select { |game| (game.played.to_s.split(',') & group2_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+								</div>
+							<% end %>
+				
+							<% group3_user_ids = schedule.group3_21pm&.split(',') || [] %>
+							<% if group3_user_ids.any? %>
+								<span><b>グループ3　</b></span>
+								<div class="edit_groups">
+									<% group3_user_ids.each do |user_id| %>
+										<% user = User.find_by(id: user_id.strip) %>
+										<% if user %>
+											<span><%= user.nickname %>,</span>
+										<% else %>
+											<p>ユーザーが見つかりません。</p>
+										<% end %>
+									<% end %>
+									<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+								</div>
+				
+								<h3>未プレイのゲーム</h3>
+								<div class="edit_unplay_games">
+									<% # グループ3のメンバーに紐づくゲームを取得 %>
+									<% games = Game.where(user_id: group3_user_ids).select { |game| (game.played.to_s.split(',') & group3_user_ids).empty? } %>
+									<% if games.any? %>
+										<ul>
+											<% games.each do |game| %>
+												<span><%= game.game_name %>,</span>
+											<% end %>
+										</ul>
+									<% else %>
+										<p>未プレイのゲームはありません。</p>
+									<% end %>
+									</div>
+							<% end %>
+				
+						<% end %>
+					<% end %>
+				<% end %>	
+				
+<br><div><22時の予定></div>
+<% @schedules.each do |schedule| %>
+  <% if schedule.day == (n + 1) %>
+    <% user_ids = schedule.group1_22pm&.split(',') || [] %>
+
+    <% if user_ids.empty? && schedule.group2_22pm.nil? && schedule.group3_22pm.nil? %>
+      <p>この時間帯は休みです。</p>
+    <% else %>
+      <% if user_ids.any? %>
+			<div class="edit_groups">
+        <span><b>グループ1　</b></span>    
+          <% user_ids.each do |user_id| %>
+            <% user = User.find_by(id: user_id.strip) %>
+            <% if user %>
+              <span><%= user.nickname %>,</span>
+            <% else %>
+              <p>ユーザーが見つかりません。</p>
+            <% end %>
+          <% end %>
+					<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+        </div>
+				<div class="edit_unplay_games">
+        <span><b>未プレイのゲーム　</b></span>
+        
+          <% # グループ1のメンバーに紐づくゲームを取得 %>
+          <% games = Game.where(user_id: user_ids).select { |game| (game.played.to_s.split(',') & user_ids).empty? } %>
+          <% if games.any? %>
+            <ul>
+              <% games.each do |game| %>
+                <span><%= game.game_name %>,</span>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>未プレイのゲームはありません。</p>
+          <% end %>
+					</div>
+      <% end %>
+
+      <% group2_user_ids = schedule.group2_22pm&.split(',') || [] %>
+      <% if group2_user_ids.any? %>
+			<div class="edit_groups">
+			<span><b>グループ2　</b></span>
+          <% group2_user_ids.each do |user_id| %>
+            <% user = User.find_by(id: user_id.strip) %>
+            <% if user %>
+              <span><%= user.nickname %>,</span>
+            <% else %>
+              <p>ユーザーが見つかりません。</p>
+            <% end %>
+          <% end %>
+					<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+        </div>
+
+        <h3>未プレイのゲーム</h3>
+        <div class="edit_unplay_games">
+          <% # グループ2のメンバーに紐づくゲームを取得 %>
+          <% games = Game.where(user_id: group2_user_ids).select { |game| (game.played.to_s.split(',') & group2_user_ids).empty? } %>
+          <% if games.any? %>
+            <ul>
+              <% games.each do |game| %>
+                <span><%= game.game_name %>,</span>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>未プレイのゲームはありません。</p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% group3_user_ids = schedule.group3_22pm&.split(',') || [] %>
+      <% if group3_user_ids.any? %>
+        <span><b>グループ3　</b></span>
+        <div class="edit_groups">
+          <% group3_user_ids.each do |user_id| %>
+            <% user = User.find_by(id: user_id.strip) %>
+            <% if user %>
+              <span><%= user.nickname %>,</span>
+            <% else %>
+              <p>ユーザーが見つかりません。</p>
+            <% end %>
+          <% end %>
+					<span><%= select_tag 'game_id', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+        </div>
+
+        <h3>未プレイのゲーム</h3>
+        <div class="edit_unplay_games">
+          <% # グループ3のメンバーに紐づくゲームを取得 %>
+          <% games = Game.where(user_id: group3_user_ids).select { |game| (game.played.to_s.split(',') & group3_user_ids).empty? } %>
+          <% if games.any? %>
+            <ul>
+              <% games.each do |game| %>
+                <span><%= game.game_name %>,</span>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>未プレイのゲームはありません。</p>
+          <% end %>
+					</div>
+      <% end %>
+
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+<% end %>
+</div>
+
+
+  <%= submit_tag 'ゲームを決定する', class: 'schedule-button' %>
+  <% end %>
