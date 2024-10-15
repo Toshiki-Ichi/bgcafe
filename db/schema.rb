@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_14_131401) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -107,6 +107,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_131401) do
     t.bigint "game_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "day"
+    t.integer "group1_daytime_game"
+    t.integer "group2_daytime_game"
+    t.integer "group3_daytime_game"
+    t.integer "group1_20pm_game"
+    t.integer "group2_20pm_game"
+    t.integer "group3_20pm_game"
+    t.integer "group1_21pm_game"
+    t.integer "group2_21pm_game"
+    t.integer "group3_21pm_game"
+    t.integer "group1_22pm_game"
+    t.integer "group2_22pm_game"
+    t.integer "group3_22pm_game"
     t.index ["game_id"], name: "index_schedule_data_on_game_id"
     t.index ["groupschedule_id"], name: "index_schedule_data_on_groupschedule_id"
     t.index ["room_id"], name: "index_schedule_data_on_room_id"
