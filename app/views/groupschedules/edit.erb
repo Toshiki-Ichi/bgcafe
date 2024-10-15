@@ -1,5 +1,5 @@
 <div class="edit_schedule_body">
-<%= form_with url: room_path, method: :post, html: { class: 'edit_schedule_contents' } do %>
+<%= form_with url: room_user_groupschedule_path(@room,@user), method: :patch, html: { class: 'edit_schedule_contents' } do %>
  <% (0..6).each do |n| %>
       <div class="edit_schedule_date">
         <div class="edit_list_day">
@@ -27,7 +27,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group1_daytime_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group1_daytime_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 								</div>
 								<div class="edit_unplay_games">
 								<span><b>未プレイのゲーム　</b></span>
@@ -58,7 +58,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group2_daytime_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group2_daytime_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 								</div>
 				
 								<h3>未プレイのゲーム</h3>
@@ -89,7 +89,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group3_daytime_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group3_daytime_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 				
@@ -132,7 +132,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group1_20pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group1_20pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 								<div class="edit_unplay_games">
@@ -164,7 +164,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group2_20pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group2_20pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 				
@@ -196,7 +196,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group3_20pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group3_20pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 				
@@ -239,7 +239,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group1_21pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group1_21pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 								<div class="edit_unplay_games">
@@ -271,7 +271,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group2_21pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group2_21pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 				
@@ -303,7 +303,7 @@
 											<p>ユーザーが見つかりません。</p>
 										<% end %>
 									<% end %>
-									<span><%= select_tag 'group3_21pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+									<span><%= select_tag "group3_21pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
 								</div>
 				
@@ -346,7 +346,7 @@
               <p>ユーザーが見つかりません。</p>
             <% end %>
           <% end %>
-					<span><%= select_tag 'group1_22pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+					<span><%= select_tag "group1_22pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
         </div>
 				<div class="edit_unplay_games">
@@ -378,7 +378,7 @@
               <p>ユーザーが見つかりません。</p>
             <% end %>
           <% end %>
-					<span><%= select_tag 'group2_22pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+					<span><%= select_tag "group2_22pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
         </div>
 
@@ -410,7 +410,7 @@
               <p>ユーザーが見つかりません。</p>
             <% end %>
           <% end %>
-					<span><%= select_tag 'group3_22pm_day#{n + 1}', options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
+					<span><%= select_tag "group3_22pm_day#{n + 1}", options_from_collection_for_select(Game.all, :id, :game_name), prompt: 'このグループのゲームを選択' %></span>
 
         </div>
 

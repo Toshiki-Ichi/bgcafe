@@ -1,4 +1,4 @@
-class Scheduledata < ApplicationRecord
+class ScheduleData < ApplicationRecord
   belongs_to :groupschedule
   belongs_to :user
   belongs_to :room
