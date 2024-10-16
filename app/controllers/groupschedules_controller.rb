@@ -205,8 +205,197 @@ class GroupschedulesController < ApplicationController
       @group_schedule_game7.save
       @group_schedule_game7.errors.full_messages
    
+      @group_schedule_game1.group1_20pm_game = params[:group1_20pm_day1]
+      @group_schedule_game1.group2_20pm_game = params[:group2_20pm_day1]
+      @group_schedule_game1.group3_20pm_game = params[:group3_20pm_day1]
+      @group_schedule_game1.user_id = @user.id
+      @group_schedule_game1.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 1).id
+      @group_schedule_game1.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game1.save
+      @group_schedule_game1.errors.full_messages
+      
+      @group_schedule_game2.group1_20pm_game = params[:group1_20pm_day2]
+      @group_schedule_game2.group2_20pm_game = params[:group2_20pm_day2]
+      @group_schedule_game2.group3_20pm_game = params[:group3_20pm_day2]
+      @group_schedule_game2.user_id = @user.id
+      @group_schedule_game2.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 2).id
+      @group_schedule_game2.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game2.save
+      @group_schedule_game2.errors.full_messages
+      
+      @group_schedule_game3.group1_20pm_game = params[:group1_20pm_day3]
+      @group_schedule_game3.group2_20pm_game = params[:group2_20pm_day3]
+      @group_schedule_game3.group3_20pm_game = params[:group3_20pm_day3]
+      @group_schedule_game3.user_id = @user.id
+      @group_schedule_game3.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 3).id
+      @group_schedule_game3.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game3.save
+      @group_schedule_game3.errors.full_messages
+      
+      @group_schedule_game4.group1_20pm_game = params[:group1_20pm_day4]
+      @group_schedule_game4.group2_20pm_game = params[:group2_20pm_day4]
+      @group_schedule_game4.group3_20pm_game = params[:group3_20pm_day4]
+      @group_schedule_game4.user_id = @user.id
+      @group_schedule_game4.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 4).id
+      @group_schedule_game4.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game4.save
+      @group_schedule_game4.errors.full_messages
+      
+      @group_schedule_game5.group1_20pm_game = params[:group1_20pm_day5]
+      @group_schedule_game5.group2_20pm_game = params[:group2_20pm_day5]
+      @group_schedule_game5.group3_20pm_game = params[:group3_20pm_day5]
+      @group_schedule_game5.user_id = @user.id
+      @group_schedule_game5.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 5).id
+      @group_schedule_game5.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game5.save
+      @group_schedule_game5.errors.full_messages
+      
+      @group_schedule_game6.group1_20pm_game = params[:group1_20pm_day6]
+      @group_schedule_game6.group2_20pm_game = params[:group2_20pm_day6]
+      @group_schedule_game6.group3_20pm_game = params[:group3_20pm_day6]
+      @group_schedule_game6.user_id = @user.id
+      @group_schedule_game6.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 6).id
+      @group_schedule_game6.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game6.save
+      @group_schedule_game6.errors.full_messages
+      
+      @group_schedule_game7.group1_20pm_game = params[:group1_20pm_day7]
+      @group_schedule_game7.group2_20pm_game = params[:group2_20pm_day7]
+      @group_schedule_game7.group3_20pm_game = params[:group3_20pm_day7]
+      @group_schedule_game7.user_id = @user.id
+      @group_schedule_game7.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 7).id
+      @group_schedule_game7.game_id = games = Game.where(room_id: @room.id).sample.id
+      @group_schedule_game7.save
+      @group_schedule_game7.errors.full_messages
 
-    end  # updateメソッドの終了
+      @group_schedule_game1.group1_21pm_game = params[:group1_21pm_day1]
+@group_schedule_game1.group2_21pm_game = params[:group2_21pm_day1]
+@group_schedule_game1.group3_21pm_game = params[:group3_21pm_day1]
+@group_schedule_game1.user_id = @user.id
+@group_schedule_game1.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 1).id
+@group_schedule_game1.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game1.save
+@group_schedule_game1.errors.full_messages
+
+@group_schedule_game2.group1_21pm_game = params[:group1_21pm_day2]
+@group_schedule_game2.group2_21pm_game = params[:group2_21pm_day2]
+@group_schedule_game2.group3_21pm_game = params[:group3_21pm_day2]
+@group_schedule_game2.user_id = @user.id
+@group_schedule_game2.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 2).id
+@group_schedule_game2.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game2.save
+@group_schedule_game2.errors.full_messages
+
+@group_schedule_game3.group1_21pm_game = params[:group1_21pm_day3]
+@group_schedule_game3.group2_21pm_game = params[:group2_21pm_day3]
+@group_schedule_game3.group3_21pm_game = params[:group3_21pm_day3]
+@group_schedule_game3.user_id = @user.id
+@group_schedule_game3.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 3).id
+@group_schedule_game3.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game3.save
+@group_schedule_game3.errors.full_messages
+
+@group_schedule_game4.group1_21pm_game = params[:group1_21pm_day4]
+@group_schedule_game4.group2_21pm_game = params[:group2_21pm_day4]
+@group_schedule_game4.group3_21pm_game = params[:group3_21pm_day4]
+@group_schedule_game4.user_id = @user.id
+@group_schedule_game4.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 4).id
+@group_schedule_game4.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game4.save
+@group_schedule_game4.errors.full_messages
+
+@group_schedule_game5.group1_21pm_game = params[:group1_21pm_day5]
+@group_schedule_game5.group2_21pm_game = params[:group2_21pm_day5]
+@group_schedule_game5.group3_21pm_game = params[:group3_21pm_day5]
+@group_schedule_game5.user_id = @user.id
+@group_schedule_game5.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 5).id
+@group_schedule_game5.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game5.save
+@group_schedule_game5.errors.full_messages
+
+@group_schedule_game6.group1_21pm_game = params[:group1_21pm_day6]
+@group_schedule_game6.group2_21pm_game = params[:group2_21pm_day6]
+@group_schedule_game6.group3_21pm_game = params[:group3_21pm_day6]
+@group_schedule_game6.user_id = @user.id
+@group_schedule_game6.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 6).id
+@group_schedule_game6.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game6.save
+@group_schedule_game6.errors.full_messages
+
+@group_schedule_game7.group1_21pm_game = params[:group1_21pm_day7]
+@group_schedule_game7.group2_21pm_game = params[:group2_21pm_day7]
+@group_schedule_game7.group3_21pm_game = params[:group3_21pm_day7]
+@group_schedule_game7.user_id = @user.id
+@group_schedule_game7.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 7).id
+@group_schedule_game7.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game7.save
+@group_schedule_game7.errors.full_messages
+
+@group_schedule_game1.group1_22pm_game = params[:group1_22pm_day1]
+@group_schedule_game1.group2_22pm_game = params[:group2_22pm_day1]
+@group_schedule_game1.group3_22pm_game = params[:group3_22pm_day1]
+@group_schedule_game1.user_id = @user.id
+@group_schedule_game1.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 1).id
+@group_schedule_game1.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game1.save
+@group_schedule_game1.errors.full_messages
+
+@group_schedule_game2.group1_22pm_game = params[:group1_22pm_day2]
+@group_schedule_game2.group2_22pm_game = params[:group2_22pm_day2]
+@group_schedule_game2.group3_22pm_game = params[:group3_22pm_day2]
+@group_schedule_game2.user_id = @user.id
+@group_schedule_game2.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 2).id
+@group_schedule_game2.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game2.save
+@group_schedule_game2.errors.full_messages
+
+@group_schedule_game3.group1_22pm_game = params[:group1_22pm_day3]
+@group_schedule_game3.group2_22pm_game = params[:group2_22pm_day3]
+@group_schedule_game3.group3_22pm_game = params[:group3_22pm_day3]
+@group_schedule_game3.user_id = @user.id
+@group_schedule_game3.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 3).id
+@group_schedule_game3.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game3.save
+@group_schedule_game3.errors.full_messages
+
+@group_schedule_game4.group1_22pm_game = params[:group1_22pm_day4]
+@group_schedule_game4.group2_22pm_game = params[:group2_22pm_day4]
+@group_schedule_game4.group3_22pm_game = params[:group3_22pm_day4]
+@group_schedule_game4.user_id = @user.id
+@group_schedule_game4.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 4).id
+@group_schedule_game4.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game4.save
+@group_schedule_game4.errors.full_messages
+
+@group_schedule_game5.group1_22pm_game = params[:group1_22pm_day5]
+@group_schedule_game5.group2_22pm_game = params[:group2_22pm_day5]
+@group_schedule_game5.group3_22pm_game = params[:group3_22pm_day5]
+@group_schedule_game5.user_id = @user.id
+@group_schedule_game5.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 5).id
+@group_schedule_game5.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game5.save
+@group_schedule_game5.errors.full_messages
+
+@group_schedule_game6.group1_22pm_game = params[:group1_22pm_day6]
+@group_schedule_game6.group2_22pm_game = params[:group2_22pm_day6]
+@group_schedule_game6.group3_22pm_game = params[:group3_22pm_day6]
+@group_schedule_game6.user_id = @user.id
+@group_schedule_game6.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 6).id
+@group_schedule_game6.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game6.save
+@group_schedule_game6.errors.full_messages
+
+@group_schedule_game7.group1_22pm_game = params[:group1_22pm_day7]
+@group_schedule_game7.group2_22pm_game = params[:group2_22pm_day7]
+@group_schedule_game7.group3_22pm_game = params[:group3_22pm_day7]
+@group_schedule_game7.user_id = @user.id
+@group_schedule_game7.groupschedule_id = schedule_data_record = Groupschedule.find_by(room_id: @room.id, day: 7).id
+@group_schedule_game7.game_id = games = Game.where(room_id: @room.id).sample.id
+@group_schedule_game7.save
+@group_schedule_game7.errors.full_messages
+binding.pry
+
+end  # updateメソッドの終了
     
     
  

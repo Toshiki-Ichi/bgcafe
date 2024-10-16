@@ -1,4 +1,3 @@
-<body>
 <div class="room_top">
 <div class="room_left">
 <%= @room.room_name %></br>
@@ -20,8 +19,384 @@
 <% end %>
 <%= link_to "ルームのトップに戻る",room_path(@room)%></br>
 </div>
+
+
 <div class="room_right">
-<h1><スケジュール一覧を表示する><h2>
+<h1 style="width: 100%; margin: 0;">今週の予定</h1>
+<% (0..6).each do |n| %>
+		<% @groupschedules_with_member = @groupschedules.where(day: n + 1) %>
+		<% @groupschedules_with_game = @planning_games.where(day: n + 1) %>
+		<% if @groupschedules_with_member.any? %>
+  <div class="right_schedules">
+    <div class="right_day">
+      <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
+      <% base_date = @target_week_dates.first %>
+      <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) の予定</h4>
+    </div>
+    <div class="right_schedule_contents">
+        日中〜<br>
+     
+	
+					<% @groupschedules_with_member.each do |members| %>
+						<% if members.group1_daytime.present? || members.group2_daytime.present? || members.group3_daytime.present?%>
+						<% @groupschedules_with_game.each do |games| %>
+				
+						<!-- group1_daytime のメンバー表示 -->
+						<% if members.group1_daytime.present? %>
+									<div class="group_container">
+						<div class="member_container">
+							<div><b>グループ1</b></div>
+							<% user_ids = members.group1_daytime.split(",") %>
+							<% user_ids.each do |user_id| %>
+								<% user = User.find_by(id: user_id) %>
+								<div><%= user.nickname if user %></div>
+							<% end %>
+						</div>
+						<div class="game_container">
+						<!-- group1_daytime のゲーム表示 -->
+						<% if games.group1_daytime_game.present? %>
+							<div><div>プレイ予定のゲーム</div>
+							<% game_id = games.group1_daytime_game %>
+								<% game = Game.find_by(id: game_id) %>
+								<div><%= game.game_name if game %></div></div>		
+						<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+						<% end %>
+						</div>
+					</div>
+					<% end %>
+				
+					
+							<!-- group2_daytime のメンバー表示 -->
+							<% if members.group2_daytime.present? %>
+											<div class="group_container">
+							<div class="member_container">
+								<div><b>グループ2</b></div>
+								<% user_ids = members.group2_daytime.split(",") %>
+								<% user_ids.each do |user_id| %>
+									<% user = User.find_by(id: user_id) %>
+									<div><%= user.nickname if user %></div>
+								<% end %>
+							</div>
+							<div class="game_container">
+							<!-- group2_daytime のゲーム表示 -->
+							<% if games.group2_daytime_game.present? %>
+								<div><div>プレイ予定のゲーム</div>
+								<% game_id = games.group2_daytime_game %>
+									<% game = Game.find_by(id: game_id) %>
+									<div><%= game.game_name if game %></div></div>		
+							<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+							<% end %>
+							</div>
+						</div>
+						<% end %>
+				
+								<!-- group3_daytime のメンバー表示 -->
+							<% if members.group3_daytime.present? %>
+											<div class="group_container">
+							<div class="member_container">
+								<div><b>グループ3</b></div>
+								<% user_ids = members.group3_daytime.split(",") %>
+								<% user_ids.each do |user_id| %>
+									<% user = User.find_by(id: user_id) %>
+									<div><%= user.nickname if user %></div>
+								<% end %>
+							</div>
+							<div class="game_container">
+							<!-- group3_daytime のゲーム表示 -->
+							<% if games.group3_daytime_game.present? %>
+								<div><div>プレイ予定のゲーム</div>
+								<% game_id = games.group3_daytime_game %>
+									<% game = Game.find_by(id: game_id) %>
+									<div><%= game.game_name if game %></div></div>		
+							<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+							<% end %>
+							</div>
+						</div>
+						<% end %>
+				
+						<% end %>
+						<% else %>
+						<div>この時間は休みです。</div>
+						<% end %>
+				
+					<% end %> 
+				
+
+				
+<br>20時〜
+
+  <% @groupschedules_with_member.each do |members| %>
+    <% if members.group1_20pm.present? || members.group2_20pm.present? || members.group3_20pm.present?%>
+		<% @groupschedules_with_game.each do |games| %>
+
+    <!-- group1_20pm のメンバー表示 -->
+    <% if members.group1_20pm.present? %>
+					<div class="group_container">
+		<div class="member_container">
+      <div><b>グループ1</b></div>
+      <% user_ids = members.group1_20pm.split(",") %>
+      <% user_ids.each do |user_id| %>
+        <% user = User.find_by(id: user_id) %>
+        <div><%= user.nickname if user %></div>
+      <% end %>
+		</div>
+		<div class="game_container">
+		<!-- group1_20pm のゲーム表示 -->
+    <% if games.group1_20pm_game.present? %>
+      <div><div>プレイ予定のゲーム</div>
+      <% game_id = games.group1_20pm_game %>
+        <% game = Game.find_by(id: game_id) %>
+        <div><%= game.game_name if game %></div></div>		
+    <%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+    <% end %>
+		</div>
+	</div>
+	<% end %>
+
+	
+			<!-- group2_20pm のメンバー表示 -->
+			<% if members.group2_20pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ2</b></div>
+				<% user_ids = members.group2_20pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group2_20pm のゲーム表示 -->
+			<% if games.group2_20pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group2_20pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+				<!-- group3_20pm のメンバー表示 -->
+			<% if members.group3_20pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ3</b></div>
+				<% user_ids = members.group3_20pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group3_20pm のゲーム表示 -->
+			<% if games.group3_20pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group3_20pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+		<% end %>
+		<% else %>
+		<div>この時間は休みです。</div>
+		<% end %>
+
+  <% end %> 
+
+
+<br>21時〜
+
+  <% @groupschedules_with_member.each do |members| %>
+    <% if members.group1_21pm.present? || members.group2_21pm.present? || members.group3_21pm.present?%>
+		<% @groupschedules_with_game.each do |games| %>
+
+    <!-- group1_21pm のメンバー表示 -->
+    <% if members.group1_21pm.present? %>
+					<div class="group_container">
+		<div class="member_container">
+      <div><b>グループ1</b></div>
+      <% user_ids = members.group1_21pm.split(",") %>
+      <% user_ids.each do |user_id| %>
+        <% user = User.find_by(id: user_id) %>
+        <div><%= user.nickname if user %></div>
+      <% end %>
+		</div>
+		<div class="game_container">
+		<!-- group1_21pm のゲーム表示 -->
+    <% if games.group1_21pm_game.present? %>
+      <div><div>プレイ予定のゲーム</div>
+      <% game_id = games.group1_21pm_game %>
+        <% game = Game.find_by(id: game_id) %>
+        <div><%= game.game_name if game %></div></div>		
+    <%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+    <% end %>
+		</div>
+	</div>
+	<% end %>
+
+	
+			<!-- group2_21pm のメンバー表示 -->
+			<% if members.group2_21pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ2</b></div>
+				<% user_ids = members.group2_21pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group2_21pm のゲーム表示 -->
+			<% if games.group2_21pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group2_21pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+				<!-- group3_21pm のメンバー表示 -->
+			<% if members.group3_21pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ3</b></div>
+				<% user_ids = members.group3_21pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group3_21pm のゲーム表示 -->
+			<% if games.group3_21pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group3_21pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+		<% end %>
+		<% else %>
+		<div>この時間は休みです。</div>
+		<% end %>
+
+  <% end %> 
+
+
+
+<br>22時〜
+
+  <% @groupschedules_with_member.each do |members| %>
+    <% if members.group1_22pm.present? || members.group2_22pm.present? || members.group3_22pm.present?%>
+		<% @groupschedules_with_game.each do |games| %>
+
+    <!-- group1_22pm のメンバー表示 -->
+    <% if members.group1_22pm.present? %>
+					<div class="group_container">
+		<div class="member_container">
+      <div><b>グループ1</b></div>
+      <% user_ids = members.group1_22pm.split(",") %>
+      <% user_ids.each do |user_id| %>
+        <% user = User.find_by(id: user_id) %>
+        <div><%= user.nickname if user %></div>
+      <% end %>
+		</div>
+		<div class="game_container">
+		<!-- group1_22pm のゲーム表示 -->
+    <% if games.group1_22pm_game.present? %>
+      <div><div>プレイ予定のゲーム</div>
+      <% game_id = games.group1_22pm_game %>
+        <% game = Game.find_by(id: game_id) %>
+        <div><%= game.game_name if game %></div></div>		
+    <%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+    <% end %>
+		</div>
+	</div>
+	<% end %>
+
+	
+			<!-- group1_22pm のメンバー表示 -->
+			<% if members.group2_22pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ2</b></div>
+				<% user_ids = members.group2_22pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group1_22pm のゲーム表示 -->
+			<% if games.group2_22pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group2_22pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+				<!-- group1_22pm のメンバー表示 -->
+			<% if members.group3_22pm.present? %>
+							<div class="group_container">
+			<div class="member_container">
+				<div><b>グループ3</b></div>
+				<% user_ids = members.group3_22pm.split(",") %>
+				<% user_ids.each do |user_id| %>
+					<% user = User.find_by(id: user_id) %>
+					<div><%= user.nickname if user %></div>
+				<% end %>
+			</div>
+			<div class="game_container">
+			<!-- group3_22pm のゲーム表示 -->
+			<% if games.group3_22pm_game.present? %>
+				<div><div>プレイ予定のゲーム</div>
+				<% game_id = games.group3_22pm_game %>
+					<% game = Game.find_by(id: game_id) %>
+					<div><%= game.game_name if game %></div></div>		
+			<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" %>
+			<% end %>
+			</div>
+		</div>
+		<% end %>
+
+		<% end %>
+		<% else %>
+		<div>この時間は休みです。</div>
+		<% end %>
+
+  <% end %> 
+
+    </div> <!-- right_schedule_contents の end -->
+  </div> <!-- right_schedules の end -->
+	<% end %> <!-- @groupschedules_with_day.any? の end -->
+
+<% end %> <!-- (0..6).each do |n| の end -->
+
+</div>
+
+</div>
+
 </div>
 </div>
-</body>
+
+
+
+

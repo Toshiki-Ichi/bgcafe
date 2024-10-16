@@ -62,5 +62,6 @@
   <% if @ownplan.persisted? %>
   <%= form_with(url: room_user_ownplan_path(@room, @user, @ownplan), method: :delete, id: 'ownplan_delete-form', style: 'display: none;') do %>
   <% end %>
+
 <% end %>
 </div>

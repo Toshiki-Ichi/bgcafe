@@ -72,7 +72,12 @@ class OwnplansController < ApplicationController
     @user = current_user
     @ownplan = Ownplan.find(params[:id])
     @weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
-
+    @schedule_datas =ScheduleData.where(room_id: @room.id)
+    if @schedule_datas.present?
+      @schedule_datas.each do |schedule_data|
+        schedule_data.destroy
+      end
+    end
     if @ownplan.destroy
       redirect_to room_path(@room), notice: '予定が削除されました。'
     else

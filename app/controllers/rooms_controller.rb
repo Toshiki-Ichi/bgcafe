@@ -6,6 +6,7 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.includes(user_rooms: :user).order(created_at: :desc)
+    
   end
 
   def new
@@ -57,6 +58,10 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
+    @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
+    @groupschedules = Groupschedule.where(room_id: @room.id)
+    @planning_games = ScheduleData.where(room_id: @room.id)
   end
 
   private
