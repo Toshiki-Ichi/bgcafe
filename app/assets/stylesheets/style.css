@@ -1537,17 +1537,11 @@ schedule_link {
 margin: 0 auto;
 }
 
-.schedule_body {
-  width: 100vw; /* ビューポートの幅に合わせる */
-  display: flex; /* Flexbox を有効にする */
-}
 
 .schedule_main_box {
-  flex: 1; /* 利用可能なスペースを全て使用 */
 }
 
 .schedule_index_box {
-  display: flex; 
   flex-wrap: wrap; 
   flex: 0 0 25%; /* 幅を 25% に設定 */
   margin: 10px 30px 30px 50px;
@@ -1562,7 +1556,7 @@ margin: 0 auto;
 }
 
 .member_schedule {
-  width: 100%;
+  width: 30%;
   margin: 15px 0 20px 0px;
   border-width:2px; 
   border-radius: 5px;
