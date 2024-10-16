@@ -1,9 +1,12 @@
 class GamesController < ApplicationController
   before_action :redirect_if_not_logged_in
   before_action :redirect_root, only: [:edit, :update, :destroy]
+  before_action :reject_non_member
+  before_action :set_room, only: [:index,:new,:create, :edit, :show]
+  before_action :set_user, only: [:index,:new ,:create ,:edit, :show]
+  before_action :set_game, only: [:edit ,:update , :destroy]
+
   def index
-    @user = User.find(params[:user_id])
-    @room = Room.find(params[:room_id])
     @games = @room.games.includes(:room).order(created_at: :desc)
     @games.each do |game|
       game.rule = game.rule.gsub(/\n/, '<br>') if game.rule.present?
@@ -11,14 +14,10 @@ class GamesController < ApplicationController
   end
 
   def new
-    @room = Room.find(params[:room_id])
-    @user = User.find(params[:user_id])
     @game = Game.new
   end
 
   def create
-    @room = Room.find(params[:room_id])
-    @user = User.find(params[:user_id])
     @game = Game.new(game_params)
     @game.room_id = params[:room_id]
     @game.user_id = current_user.id
@@ -30,13 +29,9 @@ class GamesController < ApplicationController
   end
 
   def edit
-    @game = Game.find(params[:id])
-    @room = Room.find(params[:room_id])
-    @user = User.find(params[:user_id])
   end
 
   def update
-    @game = Game.find(params[:id])
     @room = @game.room
     @user = @game.user
 
@@ -80,14 +75,11 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game = Game.find(params[:id])
     @game.destroy
     redirect_to room_user_games_path, notice: 'ルームが削除されました。'
   end
 
   def show
-    @room = Room.find(params[:room_id])
-    @user = User.find(params[:user_id])
     @games = @room.games.includes(:room)
                   .where(user_id: @user.id)
                   .order(created_at: :desc)
@@ -114,5 +106,25 @@ class GamesController < ApplicationController
 
     redirect_to root_path
     nil
+  end
+
+  def reject_non_member
+    @room = Room.find(params[:room_id])
+    user_joins = [current_user.join1, current_user.join2, current_user.join3]
+    unless user_joins.include?(@room.id)
+      redirect_to root_path, alert: 'このルームにはアクセスできません。'
+    end
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_room
+    @room = Room.find(params[:room_id])
+  end
+
+  def set_game
+    @game = Game.find(params[:id])
   end
 end

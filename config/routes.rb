@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   
   resources :rooms do
     resources :users do
-      resources :games
+      resources :games do 
+        member do
+        get 'played_check' 
+        patch 'played_update'
+        end
+      end
       resources :groupschedules
       resources :ownplans do
         collection do
@@ -24,9 +29,6 @@ Rails.application.routes.draw do
     end
   end
   resources :games do
-    member do
-      get 'played_check' 
-      patch 'played_update'
-    end
+
   end
 end

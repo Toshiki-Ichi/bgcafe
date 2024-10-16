@@ -1,0 +1,164 @@
+<% solo_members = found_members.select { |member| member[:wants_solo] } %>
+<% non_solo_members = found_members.reject { |member| member[:wants_solo] } %>
+<% total_members = found_members.size %>
+<h5>タイマンのグループ</h5>
+
+<% if total_members >= 2 %>
+	<% group_found = false %> <!-- グループが見つかったかどうかのフラグ -->
+	<% solo_members.each do |solo_member| %>
+		<% non_solo_members.each do |non_solo_member| %>
+			<% all_members = [solo_member[:id], non_solo_member[:id]] %>
+
+			<!-- グループ全員のプレイ履歴を取得 -->
+			<% played_games = Game.where("played LIKE ?", "%#{solo_member[:id]}%").or(Game.where("played LIKE ?", "%#{non_solo_member[:id]}%")) %>
+
+			<!-- メンバーの中にプレイしたことがある人がいるか確認 -->
+			<% if Game.where(user_id: all_members).exists? %>
+				<!-- 誰も遊んでいないゲームを取得 -->
+				<% unplayed_games = Game.where.not(id: played_games.pluck(:id)).where(user_id: all_members) %>
+
+
+				<!-- 両方のメンバーがGamesモデルのuser_idに紐づいているか確認 -->
+				<% if !Game.where(user_id: all_members).exists? %>
+					<% next %> <!-- 両方ともに紐づいていない場合は次の繰り返しへ -->
+				<% end %>
+				<!-- グループを表示 -->
+				<div class="schedule_check">
+				<%= label_tag "member_#{solo_member[:id]}" do %>
+				<h6>・<%= solo_member[:name] %>(タイマン希望)、<%= non_solo_member[:name] %></h6>
+				<% end %>
+				<div class="check_box">
+				<%= check_box_tag "groupschedules[day#{n + 1}_daytime][member_ids][]", "#{solo_member[:id]},#{non_solo_member[:id]}" %>
+				</div>
+				</div>
+				<!-- 未プレイのゲームを表示 -->
+				<% if unplayed_games.any? %>
+					<span>　未プレイのゲーム:</span>
+					<ul>
+						<% unplayed_games.each do |game| %>
+									<span><%= game.game_name %></span>
+						<% end %>
+					</ul>
+					<br>
+				<% else %>
+					<p>　このメンバーの中でホストができるゲームがありません。</p>
+				<% end %>
+				<% group_found = true %> <!-- グループが見つかったことを示す -->
+			<% end %>
+		<% end %>
+	<% end %>       
+	<% unless group_found %> <!-- グループが見つからなかった場合のメッセージ -->
+		<p>　作成できるグループの組み合わせがありません</p>
+	<% end %>             
+
+		<% remaining_members = non_solo_members.reject { |member| solo_members.include?(member) } %>       
+		<% if remaining_members.size >= 3 %>
+
+			<h3> ・残ったメンバーの組み合わせ (タイマン適用時)</h3>
+			<% total_remaining = remaining_members.size %>
+			<% if total_remaining >= 3 %>
+				<% group_found = false %>
+						<% (3..5).each do |n| %>
+ 					 <% remaining_members.combination(n).each do |group| %>
+					<% group_ids = group.map { |member| member[:id] } %>
+					<% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
+
+					<% if has_game_owner %>   
+					<div class="schedule_check">
+					<%= label_tag "member_group" do %> <!-- labelのための識別子を指定 -->
+						<h6>
+							・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
+						</h6>
+					<% end %>
+					<div class="check_box">
+						<%= check_box_tag "groupschedules[day#{n + 1}_daytime][member_ids][]", group.map { |member| member[:id] }.join(','), false %> 
+					</div>
+				</div>
+				<% if group.size == 5 %>
+				<% unplayed_games = Game.where('capacity_id = 4').where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+				<% else %>
+				<% unplayed_games = Game.where('capacity_id > ?', group.size - 1).where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+				<% end %>
+						<% if unplayed_games.any? %>
+							<span>　未プレイのゲーム:</span>
+							<ul>
+								<% unplayed_games.each do |game| %>
+								<span><%= game.game_name %></span>
+								<% end %>
+							</ul>
+							</br>
+						<% else %>
+							<p>　このメンバーの中でホストができるゲームがありません。</p>
+						<% end %>
+						<% group_found = true %>
+					<% end %>
+				 <% end %>
+				<% end %>
+				<% unless group_found %>
+					<p>　作成できるグループの組み合わせはありません</p>
+				<% end %>
+			<% else %>
+			<% end %>
+		<% else %>
+		<p>　メンバーが足りないためグループを作成できません</p>
+		<% end %>
+	<% else %>
+		
+	<% end %>
+</ul>
+ <div class="line">---------------------------------------------------------------------------------</div>
+</br><h4>　・タイマン希望のメンバーを除外したグループ</h4>
+<ul>
+	<% remaining_members = non_solo_members %>
+
+	<% if remaining_members.size >= 3 %>
+		<% max_group_size = [remaining_members.size, 5].min %>
+		<% group_found = false %>
+
+		<% (3..max_group_size).each do |group_size| %>
+			<% combinations = remaining_members.combination(group_size).to_a %>
+
+			<% combinations.each do |group| %>
+				<% group_ids = group.map { |member| member[:id] } %>
+				<% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
+
+				<% if has_game_owner %>
+					 <div class="schedule_check">
+					<%= label_tag "member_group" do %> <!-- labelのための識別子を指定 -->
+						<h6>
+							・<%= group.map { |member| member[:name] }.join('、') %> (<%= group.size %>人グループ)
+						</h6>
+					<% end %>
+					<div class="check_box">
+						<%= check_box_tag "groupschedules[day#{n + 1}_daytime][member_ids][]", group.map { |member| member[:id] }.join(','), false %> 
+					</div>
+				</div>
+				<% if group.size == 5 %>
+				<% unplayed_games = Game.where('capacity_id = 4').where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+			<% else %>
+				<% unplayed_games = Game.where('capacity_id > ?', group.size - 1).where(user_id: group_ids).where.not(id: Game.where('FIND_IN_SET(id, played)', group_ids).select(:id)) %>
+			<% end %>
+
+				<% if unplayed_games.any? %>
+						<span>　未プレイのゲーム:</span>
+						<ul>
+							<% unplayed_games.each do |game| %>
+							<span><%= game.game_name %></span>
+							<% end %>
+						</ul>
+						</br>
+					<% else %>
+						<p>　このメンバーの中でホストができるゲームがありません。</p>
+					<% end %>
+					<% group_found = true %> <!-- グループが見つかったフラグを立てる -->
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<% unless group_found %>
+			<p>　作成できるグループの組み合わせはありません。</p>
+		<% end %>
+	<% else %>
+	<p>　メンバーが足りないためグループを作成できません</p>
+	<% end %>
+</ul>
