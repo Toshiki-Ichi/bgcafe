@@ -23,6 +23,8 @@
 
 
 <div class="room_right">
+<% if Groupschedule.where(room_id: @room.id).exists? && ScheduleData.where(room_id: @room.id).exists? %>
+
 <h1 style="width: 100%; margin: 0;">今週の予定</h1>
 <% (0..6).each do |n| %>
 		<% @groupschedules_with_member = @groupschedules.where(day: n + 1) %>
@@ -394,7 +396,9 @@
 </div>
 
 </div>
-
+<% else %>
+<h1>今週の予定はまだ決まっていません</h1>
+<% end %>
 </div>
 </div>
 

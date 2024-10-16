@@ -1159,21 +1159,19 @@ border:2px outset rgb(139, 171, 168);
 
 .room_top {
   width: 100vw;
-  height: 100vh;
   display: flex;
 }
 
 .room_left {
   width: 15%;
-  height: 100%;
   border-width: 0 4px 0 0; 
   border-style: outset;     
   border-color: rgb(156, 228, 221); 
+  min-height: 100vh;
 }
 
 .room_right {
   width:85%;
-  height:100%;
 }
 
 .game_top {
