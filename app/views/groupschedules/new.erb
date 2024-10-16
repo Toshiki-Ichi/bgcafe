@@ -27,7 +27,7 @@
             <% filtered_ownplans.each do |ownplan| %>
               <% conditions[1..-1].each do |condition| %>
                 <% if ownplan[conditions[0]] == condition %>
-                  <li><%= ownplan.user.nickname %> <% if condition == "5" || condition == "6" || condition == "7" || condition == "8" %>(タイマン希望)<% end %></li>
+                  <li><%= ownplan.user.nickname %> (<%= "希望頻度 #{ownplan.frequency.name}" %>) <% if condition == "5" || condition == "6" || condition == "7" || condition == "8" %>(タイマン希望)<% end %></li>
                   <% found_members = true %>
                 <% end %>
               <% end %>
