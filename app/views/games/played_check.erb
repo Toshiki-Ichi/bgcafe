@@ -1,15 +1,16 @@
 <h1>遊んだゲームを記録する</h1>
 <h2>※本日遊んだアイテムを選択してください</h2>
 <div class="check_body">
-  <%= form_with(url: played_update_game_path, method: :patch, html: { class: 'inline-form' }) do %>
+  <%= form_with(url: played_update_room_user_game_path(@room), method: :patch, html: { class: 'inline-form' }) do %>
     <% @games.each do |game| %>
     <div class="check_contents">
       <div class="check_title"><%= game.game_name %></div>
       <div class="check_content">
-			<div class="check_box">
-			<input type="checkbox" id="game_<%= game.id %>" name="selected_games[]" value="<%= game.id %>" 
-						 <%= 'checked' if game.played.present? && game.played.split(',').include?(current_user.id.to_s) %> >
-						</div>
+      <div class="check_box">
+      <input type="checkbox" id="game_<%= game.id %>" name="selected_games[]" value="<%= game.id %>" 
+         <%= 'checked' if game.played.present? && game.played.split(',').include?(current_user.id.to_s) %>
+         <%= 'disabled' if game.id == @user.id %>   >
+      </div>
         <div class="check_image">
           <%= game.image_games.attached? ? image_tag(game.image_games) : image_tag('sample.jpg') %>
         </div>
