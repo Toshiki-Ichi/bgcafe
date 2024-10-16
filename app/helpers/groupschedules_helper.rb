@@ -67,62 +67,6 @@ module GroupschedulesHelper
 			end
 		end
 
-
-		def render_groups(day_conditions, time_period, n, ownplans)
-			found_members = []
-	
-			ownplans.each do |ownplan|
-				if day_conditions.include?(ownplan["day#{n + 1}"])
-					found_members << { name: ownplan.user.nickname, wants_solo: ownplan["day#{n + 1}"] == day_conditions.last, id: ownplan.user.id }
-				end
-			end
-	
-			solo_members = found_members.select { |member| member[:wants_solo] }
-			non_solo_members = found_members.reject { |member| member[:wants_solo] }
-			total_members = found_members.size
-	
-			return "<span>　作成できるグループの組み合わせがありません</span>" if total_members < 2
-	
-			group_found = false
-			output = ""
-	
-			solo_members.each do |solo_member|
-				non_solo_members.each do |non_solo_member|
-					all_members = [solo_member[:id], non_solo_member[:id]]
-					played_games = Game.where("played LIKE ?", "%#{solo_member[:id]}%").or(Game.where("played LIKE ?", "%#{non_solo_member[:id]}%"))
-	
-					if Game.where(user_id: all_members).exists?
-						unplayed_games = Game.where.not(id: played_games.pluck(:id)).where(user_id: all_members)
-	
-						next unless Game.where(user_id: all_members).exists?
-	
-						output << content_tag(:div, class: "schedule_check") do
-							concat label_tag "member_#{solo_member[:id]}" do
-								content_tag(:h6, "・#{solo_member[:name]}(タイマン希望)、#{non_solo_member[:name]}")
-							end
-							concat content_tag(:div, check_box_tag("groupschedules[day#{n + 1}_#{time_period}][member_ids][]", "#{solo_member[:id]},#{non_solo_member[:id]}"), class: "check_box")
-						end
-	
-						if unplayed_games.any?
-							output << "<span>　未プレイのゲーム:</span><ul>"
-							unplayed_games.each do |game|
-								output << "<span>#{game.game_name}</span>"
-							end
-							output << "</ul><br/>"
-						else
-							output << "<span>　このグループでプレイできるゲームがありません。</span>"
-						end
-	
-						group_found = true
-					end
-				end
-			end
-	
-			output << "<span>　作成できるグループの組み合わせがありません</span>" unless group_found
-			output.html_safe
-		end
-
-
-
+		
 	end
 	
