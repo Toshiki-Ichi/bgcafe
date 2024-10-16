@@ -1705,3 +1705,9 @@ margin-bottom: 15px;
 .game_container {
   display: flex;
 }
+
+.small-select {
+  width: 40%;
+  margin-left: auto; 
+  margin-right: 0; 
+}

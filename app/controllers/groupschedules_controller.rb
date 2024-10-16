@@ -87,7 +87,7 @@ class GroupschedulesController < ApplicationController
     def edit
       @user = current_user
       @room = Room.find(params[:room_id])
-      @schedules = Groupschedule.all
+      @schedules = Groupschedule.where(room_id: @room.id)
       @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
       @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
     end
