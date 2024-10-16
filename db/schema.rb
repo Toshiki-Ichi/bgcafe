@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
+  create_table "groupschedules", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "day"
+    t.string "group1_daytime"
+    t.string "group2_daytime"
+    t.string "group3_daytime"
+    t.string "group1_20pm"
+    t.string "group2_20pm"
+    t.string "group3_20pm"
+    t.string "group1_21pm"
+    t.string "group2_21pm"
+    t.string "group3_21pm"
+    t.string "group1_22pm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "group2_22pm"
+    t.string "group3_22pm"
+    t.bigint "room_id", null: false
+    t.index ["room_id"], name: "index_groupschedules_on_room_id"
+  end
+
   create_table "ownplans", charset: "utf8mb3", force: :cascade do |t|
     t.date "target_week"
     t.string "day1"
@@ -78,6 +98,32 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
     t.datetime "updated_at", null: false
     t.string "contact"
     t.integer "creator_id"
+  end
+
+  create_table "schedule_data", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "groupschedule_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "day"
+    t.integer "group1_daytime_game"
+    t.integer "group2_daytime_game"
+    t.integer "group3_daytime_game"
+    t.integer "group1_20pm_game"
+    t.integer "group2_20pm_game"
+    t.integer "group3_20pm_game"
+    t.integer "group1_21pm_game"
+    t.integer "group2_21pm_game"
+    t.integer "group3_21pm_game"
+    t.integer "group1_22pm_game"
+    t.integer "group2_22pm_game"
+    t.integer "group3_22pm_game"
+    t.index ["game_id"], name: "index_schedule_data_on_game_id"
+    t.index ["groupschedule_id"], name: "index_schedule_data_on_groupschedule_id"
+    t.index ["room_id"], name: "index_schedule_data_on_room_id"
+    t.index ["user_id"], name: "index_schedule_data_on_user_id"
   end
 
   create_table "user_rooms", charset: "utf8mb3", force: :cascade do |t|
@@ -112,8 +158,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_09_024119) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "games", "rooms"
   add_foreign_key "games", "users"
+  add_foreign_key "groupschedules", "rooms"
   add_foreign_key "ownplans", "rooms"
   add_foreign_key "ownplans", "users"
+  add_foreign_key "schedule_data", "games"
+  add_foreign_key "schedule_data", "groupschedules"
+  add_foreign_key "schedule_data", "rooms"
+  add_foreign_key "schedule_data", "users"
   add_foreign_key "user_rooms", "rooms"
   add_foreign_key "user_rooms", "users"
 end

@@ -1172,7 +1172,7 @@ border:2px outset rgb(139, 171, 168);
 }
 
 .room_right {
-  width:70%;
+  width:85%;
   height:100%;
 }
 
@@ -1519,4 +1519,190 @@ height: 85%;
 .plan_delete:hover {
   background-color: #d56b6b; 
   color: #f5e4e4;
+}
+
+.schedule_content {
+  top:15px;
+  background-color: #9bdbf2;
+  border-radius: 20px;
+  width: 35%;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin: 0 auto;
+  position: relative; /* 親要素に relative を指定 */
+  z-index: 10; /* リンクを前面に表示 */
+}
+
+schedule_link {
+margin: 0 auto;
+}
+
+.schedule_body {
+  width: 100vw; /* ビューポートの幅に合わせる */
+  display: flex; /* Flexbox を有効にする */
+}
+
+.schedule_main_box {
+  flex: 1; /* 利用可能なスペースを全て使用 */
+}
+
+.schedule_index_box {
+  display: flex; 
+  flex-wrap: wrap; 
+  flex: 0 0 25%; /* 幅を 25% に設定 */
+  margin: 10px 30px 30px 50px;
+
+}
+
+.schedule_group_box {
+  margin: 30px 30px 30px 50px;
+  display: flex;
+  flex-wrap: wrap; 
+  flex: 0 0 60%; /* 幅を 60% に設定 */
+}
+
+.member_schedule {
+  width: 100%;
+  margin: 15px 0 20px 0px;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: outset;     
+  border-color: rgb(139, 171, 168);
+  background-color: #ffffff;
+
+}
+
+.list_day {
+  background-color: #d9dfe1;
+  width: 100%;
+  border-width:0 0 2px 0; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
+}
+
+.member_schedule ul {
+  margin-left: 15px;
+}
+
+.schedule_check {
+  display: flex;
+  justify-content: space-between;
+}
+
+.check_box {
+  display: flex;
+  padding-right: 10px;
+  width: 10%;
+  border: none;
+  justify-content: right; 
+  padding-right: 15px;
+}
+
+.line {
+  width: 80%; /* またはお好みの幅に設定 */
+  margin: 0 auto; /* 左右中央に配置 */
+}
+
+.schedule_checks_all {
+  width: 65%;
+}
+
+.rules {
+  margin: 50px 50px 0 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.for_error {
+  display:flex;
+}
+
+.edit_schedule_body {
+  width:100vw;
+}
+
+.edit_schedule_contents {
+  margin: 15px 0 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit_groups {
+  display: flex;
+}
+
+.edit_unplay_games {
+  display: flex;
+}
+
+.edit_schedule_date {
+  width: 70%;
+  margin-top: 15px;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: outset;     
+  border-color: rgb(139, 171, 168);
+  background-color: #FFFFFF;
+}
+
+.edit_list_day{
+  background-color: #d9dfe1;
+  width: 100%;
+  border-width:0 0 2px 0; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
+}
+
+.schedule-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 20px 10px;
+  background-color: #57C3E9; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.schedule-button:hover {
+  background-color: #94d4eb; 
+}
+
+.right_schedules {
+  width: 70%;
+  margin: 15px auto 0px;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: outset;     
+  border-color: rgb(139, 171, 168);
+  background-color: #FFFFFF;
+}
+
+.right_day {
+  border-width:0 0 2px 0; 
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
+  background-color: #d9dfe1;
+}
+
+.right_schedule_contents {
+ 
+}
+
+.group_container {
+display: flex;
+justify-content: space-between;
+margin-bottom: 15px;
+}
+
+.member_container {
+  padding-bottom: 15px;
+}
+
+.game_container {
+  display: flex;
 }

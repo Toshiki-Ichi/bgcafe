@@ -14,10 +14,10 @@
 					<% if room1.present? %>
 						<div class="joined_room_name">参加中のルーム1: <%= room1.room_name %></div>
 					<% else %>
-						<div class="joined_room_name">ルーム1が見つかりません</div>
+						<div class="joined_room_name">ルームが見つかりません</div>
 					<% end %>
 				<% else %>
-					<div class="joined_room_name">ルーム1に参加していません</div>
+					<div class="joined_room_name">ルームに参加していません</div>
 				<% end %>
 			
 				<% if @user.join2.present? %>

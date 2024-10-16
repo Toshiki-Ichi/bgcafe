@@ -1,4 +1,4 @@
 FactoryBot.define do
-  factory :ownplan do
+  factory :groupschedule do
   end
 end
