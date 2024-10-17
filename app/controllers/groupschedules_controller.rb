@@ -89,7 +89,6 @@ class GroupschedulesController < ApplicationController
     end
 
     def update
-    
       # 各日ごとのスケジュール処理
       (1..7).each do |day|
         # 既存のレコードがあれば取得し、なければ新しいレコードを作成
@@ -100,12 +99,7 @@ class GroupschedulesController < ApplicationController
     
         # 振り分けるキーを生成
         keys = (1..3).flat_map do |group|
-          [
-            "group#{group}_daytime_day#{day}",
-            "group#{group}_20pm_day#{day}",
-            "group#{group}_21pm_day#{day}",
-            "group#{group}_22pm_day#{day}"
-          ]
+          ["group#{group}_daytime_day#{day}","group#{group}_20pm_day#{day}","group#{group}_21pm_day#{day}","group#{group}_22pm_day#{day}"]
         end
     
         # ゲームの設定処理
@@ -128,33 +122,30 @@ class GroupschedulesController < ApplicationController
               end
             end
           end
-        end
-      end  # 各日ごとのスケジュール処理の終了
-    
-      # グループ数と日数の設定
-      groups = ['group1', 'group2', 'group3']
-      days = (1..7).to_a
-    
-    
+        end     
+      
       def set_group_schedule_games(day, group_times)
         group_times.each do |time|
-          @group_schedule_game1.send("group1_#{time}_game=", params["group1_#{time}_day#{day}"])
-          @group_schedule_game1.send("group2_#{time}_game=", params["group2_#{time}_day#{day}"])
-          @group_schedule_game1.send("group3_#{time}_game=", params["group3_#{time}_day#{day}"])
-          @group_schedule_game1.user_id = @user.id
-          @group_schedule_game1.groupschedule_id = Groupschedule.find_by(room_id: @room.id, day: day).id
-          @group_schedule_game1.game_id = Game.where(room_id: @room.id).sample.id
-          
-          unless @group_schedule_game1.save
-            # エラーメッセージを表示
-            puts @group_schedule_game1.errors.full_messages
+          instance_variable_get("@group_schedule_game#{day}").send("group1_#{time}_game=", params["group1_#{time}_day#{day}"])
+          instance_variable_get("@group_schedule_game#{day}").send("group2_#{time}_game=", params["group2_#{time}_day#{day}"])
+          instance_variable_get("@group_schedule_game#{day}").send("group3_#{time}_game=", params["group3_#{time}_day#{day}"])
+          instance_variable_get("@group_schedule_game#{day}").user_id = @user.id
+          instance_variable_get("@group_schedule_game#{day}").groupschedule_id = Groupschedule.find_by(room_id: @room.id, day: day).id
+          instance_variable_get("@group_schedule_game#{day}").game_id = Game.where(room_id: @room.id).sample.id
+
+          if instance_variable_get("@group_schedule_game#{day}").save
+            
+          else
+             puts instance_variable_get("@group_schedule_game#{day}").errors.full_messages
+             render :edit
+             return
           end
         end
       end
-      
-      (1..7).each do |day|
-        set_group_schedule_games(day, ['daytime', '20pm', '21pm', '22pm'])
-      end
+      set_group_schedule_games(day, ['daytime', '20pm', '21pm', '22pm'])
+      end  # 各日ごとのスケジュール処理の終了
+
+      redirect_to room_path(@room)
 
 end  # updateメソッドの終了
     
