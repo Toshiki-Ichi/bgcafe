@@ -9,7 +9,7 @@ class OwnplansController < ApplicationController
     if @weekplan.nil?
       # target_weekがnilのレコードが見つからなかった場合、新しいレコードを作成
       @weekplan = Ownplan.new(target_week: Date.today, user_id: @user.id, room_id: @room.id, starter: 1)
-      @weekplan.save
+      @weekplan.save(validate: false)
     end
     @ownplan = Ownplan.where(user_id: @user.id, room_id: @room.id).where(target_week: nil).first_or_initialize
     @ownplans = Ownplan.includes(:room)
@@ -19,7 +19,7 @@ class OwnplansController < ApplicationController
     if @weekplan
       # 既存のレコードが見つかった場合は更新する
       @weekplan.starter = 0
-      if @weekplan.update(targetweek_params)
+      if @weekplan.update(targetweek_params, validate: false)
         Ownplan.where(room_id: @room.id, target_week: nil).destroy_all
         redirect_to new_room_user_ownplan_path(@room.id, @user.id), notice: '日付が更新されました。'
       else
@@ -28,7 +28,7 @@ class OwnplansController < ApplicationController
     else
       # 既存のレコードが見つからなかった場合は新規作成
       @weekplan = Ownplan.new(targetweek_params)
-      if @weekplan.save
+      if @weekplan.save(validate: false)
 
         redirect_to room_path(@room.id), notice: '日付が登録されました。'
       else
