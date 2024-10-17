@@ -5,8 +5,8 @@ class Room < ApplicationRecord
   has_many :users, through: :user_rooms
   has_many :games
   has_many :ownplans
-  has_many :schedule_data, class_name: 'ScheduleData'
-  has_many :groupschedules, through: :schedule_data
+  has_many :schedule_datas
+  has_many :groupschedules, through: :schedule_datas
   validates :room_name, :contact, presence: { message: 'は空白では登録できません' }
   validates :creator_id, presence: true
   validates :image_rooms, presence: { message: 'は必須です' }

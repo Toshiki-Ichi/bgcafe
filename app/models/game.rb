@@ -5,8 +5,8 @@ class Game < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :require_time
   belongs_to :capacity
-  has_many :scheduledata
-  has_many :groupschedules, through: :scheduledata
+  has_many :schedule_datas
+  has_many :groupschedules, through: :schedule_datas
   validates :game_name, :rule, presence: { message: 'は空白では登録できません' }
   validates :image_games, presence: { message: 'は必須です' }
   validates :user_id, presence: { message: 'が必要です' }

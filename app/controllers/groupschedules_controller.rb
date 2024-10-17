@@ -1,14 +1,15 @@
 class GroupschedulesController < ApplicationController
+  before_action :redirect_if_not_logged_in
+  before_action :reject_non_member
+  before_action :set_user, only: [:index ,:new, :create, :edit, :update]
+  before_action :set_room, only: [:index ,:new, :create, :edit, :update]
+
   def index
-    @user = current_user
-    @room = Room.find(params[:room_id])
     @user_count = User.where("join1 = ? OR join2 = ? OR join3 = ?", @room.id, @room.id, @room.id).count
+    @groupschedules = Groupschedule.where(room_id: @room.id)
   end
 
   def new
-    @user = current_user
-    @room = Room.find(params[:room_id])
-
     @ownplans = Ownplan.where(room_id: @room.id, target_week: nil)
     @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
     @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
@@ -17,9 +18,6 @@ class GroupschedulesController < ApplicationController
   end
 
   def create
-    @user = current_user
-    @room = Room.find(params[:room_id])
-
     #日中のグループを保存する記述
     errors = []
 
@@ -85,16 +83,12 @@ class GroupschedulesController < ApplicationController
   
 
     def edit
-      @user = current_user
-      @room = Room.find(params[:room_id])
       @schedules = Groupschedule.where(room_id: @room.id)
       @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
       @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
     end
 
     def update
-      @user = current_user
-      @room = Room.find(params[:room_id])
     
       # 各日ごとのスケジュール処理
       (1..7).each do |day|
@@ -168,6 +162,20 @@ end  # updateメソッドの終了
  
   private
 
+  def redirect_if_not_logged_in
+    return if user_signed_in?
+
+    redirect_to root_path
+  end
+
+  def reject_non_member
+    @room = Room.find(params[:room_id])
+    user_joins = [current_user.join1, current_user.join2, current_user.join3]
+    unless user_joins.include?(@room.id)
+      redirect_to root_path, alert: 'このルームにはアクセスできません。'
+    end
+  end
+
   def group_schedule_params
     params.require(:groupschedules).permit(
     day1_daytime: [:member_ids],day2_daytime: [:member_ids],day3_daytime: [:member_ids],day4_daytime: [:member_ids],day5_daytime: [:member_ids],day6_daytime: [:member_ids],day7_daytime: [:member_ids],
@@ -191,4 +199,13 @@ end  # updateメソッドの終了
       end
     )
     end
+
+    def set_user
+      @user = current_user
+    end
+  
+    def set_room
+      @room = Room.find(params[:room_id])
+    end
+    
 end

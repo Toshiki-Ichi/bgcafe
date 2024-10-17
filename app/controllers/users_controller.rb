@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :show, :update, :check, :check_edit, :check_update]
+  before_action :set_room, only: [:index ,:edit ,:update ,:show]
   before_action :redirect_if_not_logged_in
 
   def index
-    @room = Room.find(params[:room_id])
     @users = User.includes(:rooms, :my_image_attachment)
                  .where('join1 = :room_id OR join2 = :room_id OR join3 = :room_id', room_id: @room.id)
                  .select(:id, :nickname, :career_id, :likes, :weakness, :sns, :note, :join1, :join2, :join3)
@@ -14,11 +14,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @room = Room.find(params[:room_id])
   end
 
   def update
-    @room = Room.find(params[:room_id])
     room_id = params[:room_id].to_i
     unless @user.join1 == room_id || @user.join2 == room_id || @user.join3 == room_id
 
@@ -43,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:room_id])
   end
 
   def check
@@ -69,6 +66,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_room
+    @room = Room.find(params[:room_id])
   end
 
   def redirect_if_not_logged_in

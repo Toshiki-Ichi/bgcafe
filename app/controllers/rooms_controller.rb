@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_room, only: [:edit, :show, :destroy]
+  before_action :set_room, only: [:edit,:updata, :show, :destroy]
   before_action :set_user, only: [:create, :show]
   before_action :redirect_root, only: [:edit, :update, :destroy]
 
@@ -44,7 +44,6 @@ class RoomsController < ApplicationController
   end
 
   def update
-    @room = Room.find(params[:id])
     if @room.update(room_params)
       redirect_to room_path(@room)
     else
@@ -83,6 +82,5 @@ class RoomsController < ApplicationController
     return if @room.creator_id == current_user.id
 
     redirect_to root_path
-    nil
   end
 end
