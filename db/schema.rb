@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_17_030709) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
     t.integer "creator_id"
   end
 
-  create_table "schedule_data", charset: "utf8mb3", force: :cascade do |t|
+  create_table "schedule_datas", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "groupschedule_id", null: false
     t.bigint "user_id", null: false
     t.bigint "room_id", null: false
@@ -120,10 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
     t.integer "group1_22pm_game"
     t.integer "group2_22pm_game"
     t.integer "group3_22pm_game"
-    t.index ["game_id"], name: "index_schedule_data_on_game_id"
-    t.index ["groupschedule_id"], name: "index_schedule_data_on_groupschedule_id"
-    t.index ["room_id"], name: "index_schedule_data_on_room_id"
-    t.index ["user_id"], name: "index_schedule_data_on_user_id"
+    t.index ["game_id"], name: "index_schedule_datas_on_game_id"
+    t.index ["groupschedule_id"], name: "index_schedule_datas_on_groupschedule_id"
+    t.index ["room_id"], name: "index_schedule_datas_on_room_id"
+    t.index ["user_id"], name: "index_schedule_datas_on_user_id"
   end
 
   create_table "user_rooms", charset: "utf8mb3", force: :cascade do |t|
@@ -161,10 +161,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_15_023201) do
   add_foreign_key "groupschedules", "rooms"
   add_foreign_key "ownplans", "rooms"
   add_foreign_key "ownplans", "users"
-  add_foreign_key "schedule_data", "games"
-  add_foreign_key "schedule_data", "groupschedules"
-  add_foreign_key "schedule_data", "rooms"
-  add_foreign_key "schedule_data", "users"
+  add_foreign_key "schedule_datas", "games"
+  add_foreign_key "schedule_datas", "groupschedules"
+  add_foreign_key "schedule_datas", "rooms"
+  add_foreign_key "schedule_datas", "users"
   add_foreign_key "user_rooms", "rooms"
   add_foreign_key "user_rooms", "users"
 end

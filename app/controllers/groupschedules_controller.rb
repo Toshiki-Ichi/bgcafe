@@ -3,6 +3,7 @@ class GroupschedulesController < ApplicationController
     @user = current_user
     @room = Room.find(params[:room_id])
     @user_count = User.where("join1 = ? OR join2 = ? OR join3 = ?", @room.id, @room.id, @room.id).count
+    @groupschedules = Groupschedule.where(room_id: @room.id)
   end
 
   def new
