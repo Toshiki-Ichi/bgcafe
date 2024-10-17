@@ -1,12 +1,10 @@
 class OwnplansController < ApplicationController
+  before_action :redirect_if_not_logged_in
+  before_action :reject_non_member
   before_action :set_weekplan, only: [:new, :create, :create_plan]
 
   def new
-    @room = Room.find(params[:room_id])
-    @user = current_user
 
-    # target_weekにデータが存在しない場合、今日の日付で新しいOwnplanを作成
-    @weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
 
     if @weekplan.nil?
       # target_weekがnilのレコードが見つからなかった場合、新しいレコードを作成
@@ -18,12 +16,6 @@ class OwnplansController < ApplicationController
   end
 
   def create
-    @room = Room.find(params[:room_id])
-    @user = current_user
-
-    # target_weekにデータが存在するレコードを検索
-    @weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
-
     if @weekplan
       # 既存のレコードが見つかった場合は更新する
       @weekplan.starter = 0
@@ -46,8 +38,6 @@ class OwnplansController < ApplicationController
   end
 
   def create_plan
-    @room = Room.find(params[:room_id])
-    @user = current_user
     @ownplan = Ownplan.where(user_id: @user.id, room_id: @room.id).where(target_week: nil).first_or_initialize(ownplan_params)
 
     options = params[:options]
@@ -68,10 +58,7 @@ class OwnplansController < ApplicationController
   end
 
   def destroy
-    @room = Room.find(params[:room_id])
-    @user = current_user
     @ownplan = Ownplan.find(params[:id])
-    @weekplan = Ownplan.where(room_id: @room.id).where.not(target_week: nil).first
     @schedule_datas =ScheduleData.where(room_id: @room.id)
     if @schedule_datas.present?
       @schedule_datas.each do |schedule_data|
@@ -86,6 +73,20 @@ class OwnplansController < ApplicationController
   end
 
   private
+
+  def redirect_if_not_logged_in
+    return if user_signed_in?
+
+    redirect_to root_path
+  end
+
+  def reject_non_member
+    @room = Room.find(params[:room_id])
+    user_joins = [current_user.join1, current_user.join2, current_user.join3]
+    unless user_joins.include?(@room.id)
+      redirect_to root_path, alert: 'このルームにはアクセスできません。'
+    end
+  end
 
   def targetweek_params
     params.require(:ownplan).permit(:target_week).merge(user_id: @user.id, room_id: @room.id)
@@ -109,4 +110,5 @@ class OwnplansController < ApplicationController
     @weekplan = Ownplan.new(target_week: Date.today, user_id: @user.id, room_id: @room.id, starter: 1)
     @weekplan.save
   end
+
 end

@@ -1521,19 +1521,28 @@ justify-content: center;
 }
 
 .schedule_body {
+  width: 80%;
+  height: 20vh;
+  background-color: #FFFFFF;
  display: flex;
+ align-items: center;
+ margin: 30px auto 0;
+ border-width:2px; 
+ border-radius: 5px;
+ border-style: outset;     
+ border-color: rgb(139, 171, 168);
+ background-color: #ffffff;
 }
 
 
 .schedule_content {
   background-color: #9bdbf2;
   border-radius: 20px;
-  width: 40%;
-  height: 50px;
+  width: 45%;
+  height: 70px;
   text-align: center;
-  line-height: 50px;
-  margin: 30px auto 0;
-  position: relative; /* 親要素に relative を指定 */
+  line-height: 70px;
+  margin: 0 auto ;
   z-index: 10; /* リンクを前面に表示 */
 }
 

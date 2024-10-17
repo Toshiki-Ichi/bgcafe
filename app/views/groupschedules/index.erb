@@ -2,7 +2,7 @@
 <div class="schedule_content">
 <span class="schedule_link">
 <% if @user_count < 2 %>
-<div>スケジュール作成機能は3人以上のメンバーが必要です。</div>
+<div>スケジュール作成は3人以上のメンバーが必要です。</div>
 <% else %>
 <% if @groupschedules.present? %>
 <%= link_to '作成された予定を編集する', new_room_user_groupschedule_path(@room, @user) %>
