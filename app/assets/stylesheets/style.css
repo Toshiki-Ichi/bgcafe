@@ -1658,13 +1658,6 @@ margin: 10px auto 0;
   background-color: #FFFFFF;
 }
 
-.edit_list_day{
-  background-color: #d9dfe1;
-  width: 100%;
-  border-width:0 0 2px 0; 
-  border-style: ridge;     
-  border-color: rgb(139, 171, 168);
-}
 
 .schedule-button {
   position: fixed;
@@ -1712,6 +1705,10 @@ margin-bottom: 15px;
   width: 40%;
   margin-left: auto; 
   margin-right: 0; 
+}
+
+.play_time {
+  background-color: #eeeeee;
 }
 
 .pull_down {
