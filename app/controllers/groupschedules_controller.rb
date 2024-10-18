@@ -14,30 +14,31 @@ class GroupschedulesController < ApplicationController
     @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
     @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
     @groupschedules =Groupschedule.new
-
+    @schedule_datas =ScheduleData.where(room_id: @room.id)
+    @schedule_datas.destroy_all
   end
 
   def create
-    #日中のグループを保存する記述
-    errors = []
-
     def save_groupschedule(time_key, property_suffix)
+      @errors = []
       (1..7).each do |n|
         member_ids = params.dig(:groupschedules, "day#{n}_#{time_key}", :member_ids) || []
+
+         schedules = Groupschedule.find_or_initialize_by(room_id: @room.id, day: n)
     
-        # インスタンス変数を動的に設定
-        groupschedule = instance_variable_set("@groupschedule#{n}", Groupschedule.new)
-        groupschedule.day = n
-        
-        # メンバーを3つまで設定
+           instance_variable_set("@groupschedule#{n}", schedules)
+        # グループを3つまで設定
         member_ids.each_with_index do |member_id, j|
           if j < 3
             # sendメソッドを使って動的にプロパティに値を代入
-            groupschedule.send("group#{j+1}_#{property_suffix}=", member_id)
+            schedules.send("group#{j+1}_#{property_suffix}=", member_id)
           else
-            errors << "#{time_key}で選択できるのは3つのグループまでです。"
+            @errors << "#{time_key}で選択できるのは3つのグループまでです。"
             break
           end
+        end
+        unless schedules.save
+          @errors << "グループスケジュールの保存に失敗しました: #{schedules.errors.full_messages.join(", ")}"
         end
       end
     end
@@ -53,31 +54,12 @@ class GroupschedulesController < ApplicationController
     
     # 22pmのグループを保存する
     save_groupschedule("22pm", "22pm")
-    
-    if errors.any?
-      render new: { errors: errors }, status: :unprocessable_entity
-      return
-    end    
-  
-    # @groupschedule1〜@groupschedule7を保存する
-    (1..7).each do |n|
-      groupschedule = instance_variable_get("@groupschedule#{n}")
-      
-      unless groupschedule.valid?  # バリデーションチェック
-        errors << "グループ#{n}の保存に失敗しました。"
-      end
-    end
-  
     # 成功した場合の保存処理
-    if errors.empty?
-      (1..7).each do |n|
-        groupschedule = instance_variable_get("@groupschedule#{n}")
-        groupschedule.room_id = @room.id
-        groupschedule.save
-      end
-      redirect_to room_path(@room), notice: "グループが正常に保存されました。"
+    if @errors.empty?
+      redirect_to room_user_groupschedules_path(@room,@user), notice: "グループが正常に保存されました。"
     else
-      render new: { errors: errors }, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
+      return
     end
   end
   

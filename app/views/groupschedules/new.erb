@@ -51,6 +51,7 @@
         </div>
         
         <h4>・日中に遊べるグループ</h4>
+        <% @time_key = "daytime" %>
         <% found_members = [] %>
         <% @ownplans.each do |ownplan| %>
           <% if ownplan["day#{n + 1}"] == "1" || ownplan["day#{n + 1}"] == "5" %>
@@ -58,11 +59,12 @@
           <% end %>
         <% end %>
 
-          <%= render partial: "form", locals: { found_members: found_members, n: n }%>
+          <%= render partial: "form", locals: { found_members: found_members, n: n ,time_key: @time_key}%>
  <!-----------------------------------------20時からのグループの記述--------------------------------------------------->
  <div class="line">---------------------------------------------------------------------------------</div>
 
     </br><h4>・20時から遊べるグループ</h4>
+    <% @time_key = "20pm" %>
 <% found_members = [] %>
 <% @ownplans.each do |ownplan| %>
   <% if ownplan["day#{n + 1}"] == "2" || ownplan["day#{n + 1}"] == "6" %>
@@ -70,10 +72,11 @@
   <% end %>
 <% end %>
 
-<%= render partial: "form", locals: { found_members: found_members, n: n }%>
+<%= render partial: "form", locals: { found_members: found_members, n: n ,time_key: @time_key}%>
  <!------------------------------------------21時からのグループの記述------------------------------------------------------------->
                 <div class="line">---------------------------------------------------------------------------------</div>
                 </br><h4>・21時から遊べるメンバー</h4>
+                <% @time_key = "21pm" %>
                 <% found_members = [] %>
                 <% @ownplans.each do |ownplan| %>
                   <% if ownplan["day#{n + 1}"] == "2" || ownplan["day#{n + 1}"] == "6" %>
@@ -84,10 +87,11 @@
                   <% end %>
                 <% end %>          
 
-           <%= render partial: "form", locals: { found_members: found_members, n: n }%>
+           <%= render partial: "form", locals: { found_members: found_members, n: n ,time_key: @time_key}%>
    <!------------------------------------------22時からのグループの記述------------------------------------------------------------->
               <div class="line">---------------------------------------------------------------------------------</div>
                 </br><h4>・22時から遊べるグループ</h4>
+                <% @time_key = "22pm" %>
                 <% found_members = [] %>
                 <% @ownplans.each do |ownplan| %>
                   <% if ownplan["day#{n + 1}"] == "2" || ownplan["day#{n + 1}"] == "6" %>
@@ -101,7 +105,7 @@
                   <% end %>
                 <% end %>
                 
-                <%= render partial: "form", locals: { found_members: found_members, n: n }%>
+                <%= render partial: "form", locals: { found_members: found_members, n: n ,time_key: @time_key}%>
 
       </div> 
     <% end %>
