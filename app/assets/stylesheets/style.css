@@ -1693,13 +1693,6 @@ margin: 10px auto 0;
   background-color: #FFFFFF;
 }
 
-.right_day {
-  border-width:0 0 2px 0; 
-  border-style: ridge;     
-  border-color: rgb(139, 171, 168);
-  background-color: #d9dfe1;
-}
-
 
 .group_container {
 display: flex;
@@ -1719,4 +1712,8 @@ margin-bottom: 15px;
   width: 40%;
   margin-left: auto; 
   margin-right: 0; 
+}
+
+.pull_down {
+  display: none; 
 }

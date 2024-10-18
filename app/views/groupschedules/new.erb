@@ -10,16 +10,10 @@
           <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト</h4>
         </div>
     
-        <% times = { 
-          "日中から" => ["day#{n + 1}", "1", "5"], 
-          "20時から" => ["day#{n + 1}", "2", "6"], 
-          "21時から" => ["day#{n + 1}", "4", "7"], 
-          "22時から" => ["day#{n + 1}", "4", "8"], 
-          "おやすみ" => ["day#{n + 1}", "4", "9"] 
-        } %>
+        <% times = {"日中から" => ["day#{n + 1}", "1", "5"], "20時から" => ["day#{n + 1}", "2", "6"], "21時から" => ["day#{n + 1}", "4", "7"], "22時から" => ["day#{n + 1}", "4", "8"], "おやすみ" => ["day#{n + 1}", "4", "9"] } %>
 
         <% filtered_ownplans = @ownplans.select { |ownplan| ownplan["day#{n + 1}"] } %>
-
+<div class="pull_down">
         <% times.each do |label, conditions| %>
           <h4>・<%= label %>のメンバー</h4>
           <ul>
@@ -38,6 +32,7 @@
             <br />
           </ul>
         <% end %>
+        </div>
       </div>
     <% end %>
   </div>
@@ -47,9 +42,9 @@
       <div class="schedule_maker">
         <div class="list_day">
           <% base_date = @target_week_dates.first %>
-          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のグループの組み合わせ</h4>
+          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のグループの組み合わせ　※クリックで表示/非表示</h4>
         </div>
-        
+      <div class="pull_down">
         <h4>・日中に遊べるグループ</h4>
         <% @time_key = "daytime" %>
         <% found_members = [] %>
@@ -106,7 +101,7 @@
                 <% end %>
                 
                 <%= render partial: "form", locals: { found_members: found_members, n: n ,time_key: @time_key}%>
-
+        </div>
       </div> 
     <% end %>
           <%= submit_tag "選択したグループを送信" %>

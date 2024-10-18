@@ -1,0 +1,40 @@
+<% groupschedules_with_member.each do |members| %>
+	<% if members.send("group1_#{time_key}").present? || members.send("group2_#{time_key}").present? || members.send("group3_#{time_key}").present? %>
+	<% groupschedules_with_game.each do |games| %>
+
+	<のメンバー表示 -->
+	<% (1..3).each do |n| %>
+		<% if members.send("group#{n}_#{time_key}").present? %>
+			<div class="group_container">
+				<div class="member_container">
+					<div><b>グループ<%= n %></b></div>
+					<% user_ids = members.send("group#{n}_#{time_key}").split(",") %>
+					<% user_ids.each do |user_id| %>
+						<% user = User.find_by(id: user_id) %>
+						<div><%= user.nickname if user %></div>
+					<% end %>
+				</div>
+				<div class="game_container">
+					<!-- group1 のゲーム表示 -->
+					<% if games.send("group#{n}_#{time_key}_game").present? %>
+						<div>
+							<div>プレイ予定のゲーム</div>
+							<% game_id = games.send("group#{n}_#{time_key}_game") %>
+							<% game = Game.find_by(id: game_id) %>
+							<div><%= game.game_name if game %></div>
+							<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" if game %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+
+
+
+	<% end %>
+	<% else %>
+	<div>この時間は休みです。</div>
+	<% end %>
+
+<% end %> 

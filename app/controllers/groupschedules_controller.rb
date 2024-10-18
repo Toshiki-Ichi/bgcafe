@@ -16,6 +16,9 @@ class GroupschedulesController < ApplicationController
     @groupschedules =Groupschedule.new
     @schedule_datas =ScheduleData.where(room_id: @room.id)
     @schedule_datas.destroy_all
+    @schedules =Groupschedule.where(room_id: @room.id)
+    @schedules.destroy_all
+
   end
 
   def create

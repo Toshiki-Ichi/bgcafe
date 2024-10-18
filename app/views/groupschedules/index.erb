@@ -5,7 +5,7 @@
 <div>スケジュール作成は3人以上のメンバーが必要です。</div>
 <% else %>
 <% if @groupschedules.present? %>
-<%= link_to '予定作成をやり直す', new_room_user_groupschedule_path(@room, @user), onclick: "return confirm('現在のメンバーの予定も削除されます。続行しますか？');" %><% else %>
+<%= link_to '予定作成をやり直す', new_room_user_groupschedule_path(@room, @user), onclick: "return confirm('現在登録しているゲームの予定も削除されます。続行しますか？');" %><% else %>
 <%= link_to '予定作成を開始する', new_room_user_groupschedule_path(@room, @user) %>
 <% end %>
 <% end %><span>
@@ -36,9 +36,9 @@
 <br><br><div>※エラー文について</div><br>
 <div class="for_error">
     <div class="error_sentence">
-				 <b>・メンバーが足りない</b><br>
+				 <b>・メンバーが足りないためグループを作成できません</b><br>
 				 <b>・作成できるグループの組み合わせがありません</b><br>
-				 <b>・このグループでできるゲームがありません</b><br>
+				 <b>・このメンバーの中でホストができるゲームがありません。</b><br>
 		</div>
 		<div class="error_contents">
 				→グループ作成に必要な人数が足りない場合に表示されます<br>
