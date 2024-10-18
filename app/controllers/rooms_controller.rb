@@ -56,6 +56,24 @@ class RoomsController < ApplicationController
     redirect_to rooms_path, notice: 'ルームが削除されました。'
   end
 
+  def enter
+    room = Room.find_by(id: params[:room_id]) # IDからルームを取得
+
+    # ルームが存在しない場合の処理
+    unless room
+      render json: { success: false, message: "ルームが見つかりません" }, status: :not_found
+      return
+    end
+
+    # パスワードの認証
+    if room.authenticate(params[:password]) # authenticateメソッドでパスワードチェック
+      render json: { success: true }
+    else
+      render json: { success: false, message: "無効なパスワードです" }, status: :unauthorized
+    end
+  end
+
+
   def show
     @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
     @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
@@ -66,7 +84,7 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:room_name, :contact, :image_rooms)
+    params.require(:room).permit(:image_rooms, :room_name, :contact, :summary, :password, :password_confirmation)
   end
 
   def set_user

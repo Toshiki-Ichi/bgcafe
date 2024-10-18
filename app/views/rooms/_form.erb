@@ -15,6 +15,29 @@
    <%= f.label :contact, '連絡先' %>
    <%= f.text_field :contact, class: '', placeholder: 'ルームに関連するSNSのURL（discord等）を入力してください' %>
 	</div>
+
+	<div class='room-form__field'>
+	<%= f.label :summary, 'ルームの説明' %>
+	<%= f.text_field :summary, class: '', placeholder: 'ルームの概要を入力してください' %>
+ </div>
+
+ <div class='room-form__field'>
+  <%= f.label :password, 'パスワードは6文字以上の小文字英数字が必要です' %>
+  <% if current_user.id == @room.creator_id %>
+    <%= f.password_field :password, class: '', placeholder: 'ルームのパスワードを変更する場合は入力してください' %>
+		 <%= f.label :password_confirmation, 'パスワード確認' %>
+  	 <%= f.password_field :password_confirmation, class: '', placeholder: '変更する場合はパスワードを再度入力してください' %>
+  <% else %>
+    <%= f.password_field :password, class: '', placeholder: 'ルームのパスワードを入力してください' %>
+		 <%= f.label :password_confirmation, 'パスワード確認' %>
+  	 <%= f.password_field :password_confirmation, class: '', placeholder: 'パスワードを再度入力してください' %>
+  <% end %>
+</div>
+
+<div class='room-form__field'>
+ 
+</div>
+
 	<% if current_user.id == @room.creator_id%>
 	<%= f.submit 'ルームを編集', class: '' %>
  <% else %>

@@ -2,3 +2,4 @@
 //import "@hotwired/turbo-rails"//
 import "controllers"
 import "pull_down"
+import "password_form"

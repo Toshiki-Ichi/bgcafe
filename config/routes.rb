@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'rooms#index'
   
   resources :rooms do
+      post 'enter', on: :collection
     resources :users do
       resources :games do 
         member do
