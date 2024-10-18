@@ -20,16 +20,14 @@ Rails.application.routes.draw do
     end
   end
 
-  
 
   resources :users do
     member do
       get 'check' 
       get 'check_edit'
       patch 'check_update'
+      patch 'clear_join'
     end
   end
-  resources :games do
-
-  end
+  resources :games 
 end

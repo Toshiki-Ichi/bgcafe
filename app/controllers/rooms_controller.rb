@@ -53,6 +53,13 @@ class RoomsController < ApplicationController
 
   def destroy
     @room.destroy
+    room_id = @room.id
+      User.find_each do |user|
+      # join1、join2、join3のいずれかがルームIDと一致する場合、nilに設定
+      user.update(join1: nil) if user.join1 == room_id
+      user.update(join2: nil) if user.join2 == room_id
+      user.update(join3: nil) if user.join3 == room_id
+    end
     redirect_to rooms_path, notice: 'ルームが削除されました。'
   end
 
