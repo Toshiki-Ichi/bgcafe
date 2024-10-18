@@ -37,6 +37,12 @@
     <% end %>
   </div>
 <!-----------------------------------------グループの組み合わせ表示機能------------------------------------------------------->
+<% (1..7).each do |i| %>
+  <% group_schedule = instance_variable_get("@groupschedule#{i}") %>
+  <% if group_schedule.present? %>
+    <%= render "devise/shared/error_messages", resource: group_schedule %>
+  <% end %>
+<% end %>
 <%= form_with model: @groupschedules, url: room_user_groupschedules_path(@room, @user), local: true, html: { class: 'make_schedule_form' } do |f| %>
  <% (0..6).each do |n| %>
   <div class="schedule_maker">

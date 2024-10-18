@@ -46,7 +46,7 @@
 
 
 <% end %>
-<% if current_user.id == @room.creator_id%>
+<% if current_user.id == @room.creator_id && @room.persisted? %>
 <div class="game_delete">
 <%= link_to "ルームを削除する", room_path(@room), onclick: "if(confirm('本当にこのルームを削除しますか？')) { event.preventDefault(); document.getElementById('room_delete-form').submit(); } else { event.preventDefault(); }" %>
 <%= form_with(url: room_path(@room), method: :delete, id: 'room_delete-form', style: 'display: none;') do %>

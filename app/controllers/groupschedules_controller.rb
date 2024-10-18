@@ -3,25 +3,26 @@ class GroupschedulesController < ApplicationController
   before_action :reject_non_member
   before_action :set_user, only: [:index ,:new, :create, :edit, :update]
   before_action :set_room, only: [:index ,:new, :create, :edit, :update]
+  before_action :set_schedule, only: [:index ,:new, :create, :edit, :update]
+  before_action :set_date, only: [:new, :create, :edit, :update]
+
+
 
   def index
     @user_count = User.where("join1 = ? OR join2 = ? OR join3 = ?", @room.id, @room.id, @room.id).count
-    @groupschedules = Groupschedule.where(room_id: @room.id)
   end
 
   def new
     @ownplans = Ownplan.where(room_id: @room.id, target_week: nil)
-    @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
-    @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
     @groupschedules =Groupschedule.new
     @schedule_datas =ScheduleData.where(room_id: @room.id)
     @schedule_datas.destroy_all
-    @schedules =Groupschedule.where(room_id: @room.id)
     @schedules.destroy_all
-
   end
 
   def create
+    @ownplans = Ownplan.where(room_id: @room.id, target_week: nil)
+    @groupschedules =Groupschedule.new
     def save_groupschedule(time_key, property_suffix)
       @errors = []
       (1..7).each do |n|
@@ -68,12 +69,10 @@ class GroupschedulesController < ApplicationController
   
 
     def edit
-      @schedules = Groupschedule.where(room_id: @room.id)
-      @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
-      @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
     end
 
     def update
+      @errors = []
       # 各日ごとのスケジュール処理
       (1..7).each do |day|
         # 既存のレコードがあれば取得し、なければ新しいレコードを作成
@@ -108,7 +107,8 @@ class GroupschedulesController < ApplicationController
             end
           end
         end     
-      
+        
+
       def set_group_schedule_games(day, group_times)
         group_times.each do |time|
           instance_variable_get("@group_schedule_game#{day}").send("group1_#{time}_game=", params["group1_#{time}_day#{day}"])
@@ -118,19 +118,21 @@ class GroupschedulesController < ApplicationController
           instance_variable_get("@group_schedule_game#{day}").groupschedule_id = Groupschedule.find_by(room_id: @room.id, day: day).id
           instance_variable_get("@group_schedule_game#{day}").game_id = Game.where(room_id: @room.id).sample.id
 
-          if instance_variable_get("@group_schedule_game#{day}").save
-            
+          if instance_variable_get("@group_schedule_game#{day}").save   
           else
-             puts instance_variable_get("@group_schedule_game#{day}").errors.full_messages
-             render :edit
-             return
+            @errors << "スケジュールの保存に失敗しました" 
           end
         end
       end
       set_group_schedule_games(day, ['daytime', '20pm', '21pm', '22pm'])
       end  # 各日ごとのスケジュール処理の終了
 
-      redirect_to room_path(@room)
+      if @errors.empty?
+        redirect_to room_path(@room) and return
+      else
+        # エラーメッセージがある場合、リダイレクトせずに別の処理を行うか、エラー表示を行う
+        render :edit
+      end
 
 end  # updateメソッドの終了
     
@@ -184,4 +186,13 @@ end  # updateメソッドの終了
       @room = Room.find(params[:room_id])
     end
     
+    def set_schedule
+      @schedules =Groupschedule.where(room_id: @room.id)
+    end
+
+    def set_date
+      @targetweek = Ownplan.where(room_id: @room.id).where.not(target_week: nil)
+      @target_week_dates = @targetweek.pluck(:target_week).map { |date| date.to_date }
+    end
+
 end

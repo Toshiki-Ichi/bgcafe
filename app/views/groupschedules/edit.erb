@@ -1,4 +1,9 @@
 <div class="edit_schedule_body">
+<% (1..7).each do |n| %>
+  <% if instance_variable_get("@group_schedule_game#{n}").present? %>
+  <%= render "devise/shared/error_messages", resource: instance_variable_get("@group_schedule_game#{n}") %>
+<% end %>
+<% end %>
 <%= form_with url: room_user_groupschedule_path(@room,@user), method: :patch, html: { class: 'edit_schedule_contents' } do %>
  <% (0..6).each do |n| %>
       <div class="edit_schedule_date">

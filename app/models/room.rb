@@ -11,7 +11,16 @@ class Room < ApplicationRecord
 
   validates :room_name, :contact, :summary, presence: { message: 'は空白では登録できません' }
   validates :image_rooms, presence: { message: 'は必須です' }
-  validates :password, presence: { message: 'は必須です' },
-                     length: { minimum: 6, message: 'は6文字以上である必要があります' },
-                     format: { with: /\A(?=.*[a-z])(?=.*[0-9]).+\z/, message: 'は小文字の英字と数字を含む必要があります' }
+  validate :validate_password
+  private
+
+  def validate_password
+    if password.blank?
+      errors.add(:password, 'は必須です')
+    elsif password.length < 6
+      errors.add(:password, 'は6文字以上である必要があります')
+    elsif !/\A(?=.*[a-z])(?=.*[0-9]).+\z/.match?(password)
+      errors.add(:password, 'は小文字の英字と数字を含む必要があります')
+    end
+  end
 end

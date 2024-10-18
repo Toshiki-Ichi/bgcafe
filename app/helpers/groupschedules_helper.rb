@@ -28,19 +28,22 @@ module GroupschedulesHelper
 
 						# capacity_idに応じた説明用オプションを追加するためのフラグ
 						capacity_labels = { 1 => '-- 1人用ゲーム --', 2 => '-- 2人用ゲーム --', 3 => '-- 3人用ゲーム --', 4 => '-- 4人以上 --' }
-						added_capacity = { 1 => false, 2 => false, 3 => false, 4 => false }  # 各capacity_idのフラグ
-
+						added_capacity = { 1 => false, 2 => false, 3 => false, 4 => false }
+						
 						game_options = games.map do |game|
-  					if capacity_labels[game.capacity_id] && !added_capacity[game.capacity_id]
-   					 added_capacity[game.capacity_id] = true
- 						 content_tag(:option, capacity_labels[game.capacity_id], value: '') + content_tag(:option, game.game_name, value: game.id)
-  					else
-   					 content_tag(:option, game.game_name, value: game.id)
-  					end
+							if capacity_labels[game.capacity_id] && !added_capacity[game.capacity_id]
+								added_capacity[game.capacity_id] = true
+								content_tag(:option, capacity_labels[game.capacity_id], value: '0') +
+								content_tag(:option, game.game_name, value: game.id)
+							else
+								content_tag(:option, game.game_name, value: game.id)
+							end
 						end
-						 all_options = game_options.join.html_safe
-						 group_content << select_tag("group#{group_number}_#{time}_day#{day + 1}",all_options,prompt: 'このグループのゲームを選択',class: 'small-select')
-						 group_content
+						
+						all_options = ["<option value='0'>このグループのゲームを選択</option>"] + game_options
+						all_options = all_options.join.html_safe
+						group_content << select_tag("group#{group_number}_#{time}_day#{day + 1}", all_options, class: 'small-select')
+						group_content
 					end
 				end
 	

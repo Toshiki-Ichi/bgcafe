@@ -1,7 +1,8 @@
  <div class="top_body">
   <% @rooms.each do |room|%>
-  <a href="#" class="passwordLink" data-room-id="<%= room.id %>">
-    <div class="top_leftbox">
+  <%# <a href="#" class="passwordLink" data-room-id="<%= room.id %>"> %>
+
+    <a href="<%= room_path(room) %>" class="" data-room-id="<%= room.id %>">    <div class="top_leftbox">
      <div class= "top_image">
      <%= image_tag room.image_rooms if room.image_rooms.attached? %>
      </div>
