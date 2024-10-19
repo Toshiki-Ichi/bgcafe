@@ -1735,11 +1735,15 @@ margin-bottom: 15px;
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #6f757a;
   margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; 
+  padding: 30px;
+  width: 30%; 
+  height: 20%;
+  border-width:2px; 
+  border-radius: 5px;
+  border-style: ridge;     
+  border-color: rgb(139, 171, 168);
 }
 
 .close {
