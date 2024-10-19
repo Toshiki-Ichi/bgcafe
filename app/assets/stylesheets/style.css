@@ -1066,29 +1066,30 @@ align-items: center;
 flex-direction: column;  
 }
 
-.top_content{
+.passwordLink{
   margin-top:20px;
-  height: 15vh;
-  width: 60vw;
+  width: 60%;
   background-color: white;
   border:2px outset rgb(139, 171, 168);
   display: flex;
 }
 
 .top_leftbox{
-height:100%;
-width:30%;
 border:2px outset rgb(139, 171, 168);
 }
 
+.top_image img {
+  height: auto; 
+  max-width: 300px; 
+}
+
 .top_rightbox{
-  height:100%;
-  width:70%;
+  width:100%;
   border:2px outset rgb(139, 171, 168);
 }
 
 .room_name{
-  height:70%;
+  height:30%;
   width:100%;
   border-width: 0 0 2px 0; 
   border-style: outset;     
@@ -1099,32 +1100,38 @@ border:2px outset rgb(139, 171, 168);
 }
 
 .top_right_under{
-  height:30%;
+  height:20%;
   display:flex;
 }
 
 .room_contact{
   height:100%;
   width:70%;
-  border-width: 2px 2px 0 0; 
+  border-width: 2px 2px 2px 0; 
   border-style: outset;     
   border-color: rgb(139, 171, 168); 
   display: flex;
   align-items: center;
   justify-content: flex-start; 
-   text-overflow: ellipsis;
-  white-space: nowrap; 
-}
+   overflow-y: auto;
+  }
+
+  .top_note{
+    height: 100px; 
+    overflow-y: auto;
+  }
 
 .room_orner{
   height:100%;
   width:30%;
-  border-width: 2px 0 0 2px; 
+  border-width: 2px 0 2px 2px; 
   border-style: outset;     
   border-color: rgb(139, 171, 168); 
   display: flex;
   align-items: center;
-  justify-content: flex-end; 
+  justify-content: center; 
+  overflow-y: auto;
+
 }
 
 .room_create{
@@ -1192,6 +1199,7 @@ position: relative;
 
 .game_name {
   width: 100%;
+  height: 15%;
   font-size:20px;
   border-width: 0 0 2px 0;
   border-style: outset;
@@ -1217,7 +1225,7 @@ position: relative;
 
 .game_text {
   width: 100%;
-  height: 55%;
+  height: 45%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1225,12 +1233,11 @@ position: relative;
 
 .game_rule {
   width: 100%;
-  height: 90%; 
+  height: 100%; 
   white-space: normal;
   word-wrap: break-word; 
     word-break: break-all; 
-  overflow-y: auto; 
-  overflow-x: hidden; 
+  overflow-y: auto;
   display: block;
   padding: 10px; 
   box-sizing: border-box;
@@ -1658,13 +1665,6 @@ margin: 10px auto 0;
   background-color: #FFFFFF;
 }
 
-.edit_list_day{
-  background-color: #d9dfe1;
-  width: 100%;
-  border-width:0 0 2px 0; 
-  border-style: ridge;     
-  border-color: rgb(139, 171, 168);
-}
 
 .schedule-button {
   position: fixed;
@@ -1693,13 +1693,6 @@ margin: 10px auto 0;
   background-color: #FFFFFF;
 }
 
-.right_day {
-  border-width:0 0 2px 0; 
-  border-style: ridge;     
-  border-color: rgb(139, 171, 168);
-  background-color: #d9dfe1;
-}
-
 
 .group_container {
 display: flex;
@@ -1719,4 +1712,46 @@ margin-bottom: 15px;
   width: 40%;
   margin-left: auto; 
   margin-right: 0; 
+}
+
+.play_time {
+  background-color: #eeeeee;
+}
+
+.pull_down {
+  display: none; 
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

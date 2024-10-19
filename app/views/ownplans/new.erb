@@ -16,9 +16,10 @@
 
   <%= form_with model: @ownplan, url: create_plan_room_user_ownplans_path(@room, @user), method: :post do |f| %> 
     <div class="own_plans">
+    <%= render "devise/shared/error_messages", resource: @ownplan %>
       <div class="frequency_box">
-        <span>今週の遊べる回数</span>
-        <%= f.collection_select(:frequency_id, Frequency.all, :id, :name, {}, {class:"frequency_select"}) %>
+      <span style="background-color: #ffcccb; color: black; padding: 5px;">今週の遊べる回数</span>
+      <%= f.collection_select(:frequency_id, Frequency.all, :id, :name, {}, {class:"frequency_select"}) %>
       </div>
       
       <% if @weekplan.present? && @weekplan.target_week.present? %>

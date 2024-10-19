@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :show, :update, :check, :check_edit, :check_update]
+  before_action :set_user, only: [:edit, :show, :update, :check, :check_edit, :check_update,:clear_join]
   before_action :set_room, only: [:index ,:edit ,:update ,:show]
   before_action :redirect_if_not_logged_in
 
@@ -56,6 +56,20 @@ class UsersController < ApplicationController
     else
       render :check_edit
     end
+  end
+
+ 
+  def clear_join
+    case params[:join_type]
+    when 'join1'
+      @user.update(join1: nil)
+    when 'join2'
+      @user.update(join2: nil)
+    when 'join3'
+      @user.update(join3: nil)
+    end
+    
+    redirect_to check_user_path(current_user), notice: '参加を解除しました。'
   end
 
   private

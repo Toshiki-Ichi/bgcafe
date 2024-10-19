@@ -1,7 +1,7 @@
 <div class='room_form'>
   <h1 class=room_create>新規ルーム</h1>
  <% if current_user.join1.present? && current_user.join2.present? && current_user.join3.present? %>
-	<span><b>※ルームは3つ以上作成できません※</b></span>
+	<span><b>※3つのルームに参加しているためこれ以上作成できません※</b></span>
 	<% end %>
 	<%= render partial: "form", locals: { room: @room }%>
 

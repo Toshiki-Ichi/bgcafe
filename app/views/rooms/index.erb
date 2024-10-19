@@ -1,8 +1,8 @@
-<body>
  <div class="top_body">
   <% @rooms.each do |room|%>
-  <a href="<%= room_path(room)%>" class="top_content">
-    <div class="top_leftbox">
+  <%# <a href="#" class="passwordLink" data-room-id="<%= room.id %>"> %>
+
+    <a href="<%= room_path(room) %>" class="" data-room-id="<%= room.id %>">    <div class="top_leftbox">
      <div class= "top_image">
      <%= image_tag room.image_rooms if room.image_rooms.attached? %>
      </div>
@@ -23,9 +23,18 @@
      <% end %>
        </div>
       </div>
+      <div class="top_note"><%= room.summary %></div>
       </div>
      </a>
    
   <%end%>
  </div>
-</body>
+
+ <div id="passwordModal" class="modal" style="display: none;">
+ <div class="modal-content">
+ <span class="close">&times;</span>
+ <h2>ルームのパスワードを入力</h2>
+ <input type="password" class="roomPassword" placeholder="パスワードを入力" />
+ <button id="submitPassword">入室</button>
+ </div>
+</div>

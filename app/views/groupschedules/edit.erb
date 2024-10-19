@@ -1,13 +1,18 @@
 <div class="edit_schedule_body">
+<% (1..7).each do |n| %>
+  <% if instance_variable_get("@group_schedule_game#{n}").present? %>
+  <%= render "devise/shared/error_messages", resource: instance_variable_get("@group_schedule_game#{n}") %>
+<% end %>
+<% end %>
 <%= form_with url: room_user_groupschedule_path(@room,@user), method: :patch, html: { class: 'edit_schedule_contents' } do %>
  <% (0..6).each do |n| %>
       <div class="edit_schedule_date">
-        <div class="edit_list_day">
+        <div class="list_day">
           <% japanese_days = ["日", "月", "火", "水", "木", "金", "土"] %>
           <% base_date = @target_week_dates.first %>
-          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト</h4>
+          <h4><%= (base_date + n).strftime('%Y年%m月%d日') %> (<%= japanese_days[(base_date + n).wday] %>) のメンバーリスト　※クリックで非表示</h4>
         </div>
-
+			<div class="pull_down" style="display: block;">
 				<div><日中の予定></div>
 				<% @schedules.select { |schedule| schedule.day == (n + 1) }.each do |schedule| %>
 					<%= render_group(schedule, 1, 'daytime', n) %>
@@ -36,7 +41,7 @@
   			 <%= render_group(schedule, 2, '22pm', n) %>
   			 <%= render_group(schedule, 3, '22pm', n) %>
 				<% end %>
-
+			</div>
 </div>
 <% end %>
 </div>

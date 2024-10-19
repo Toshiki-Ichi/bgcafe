@@ -29,6 +29,26 @@ RSpec.describe ScheduleData, type: :model do
         @schedule_data.valid?
         expect(@schedule_data.errors.full_messages).to include( "Day は1から7の間である必要があります")
       end
+      it 'group1~3_daytime.gameが0では登録できない' do
+        @schedule_data.group1_daytime_game = '0'
+        @schedule_data.valid?
+        expect(@schedule_data.errors.full_messages).to include("Group1 daytime game は無効な値です")
+      end
+      it 'group1~3_20pm.gameが0では登録できない' do
+        @schedule_data.group1_20pm_game = '0'
+        @schedule_data.valid?
+        expect(@schedule_data.errors.full_messages).to include("Group1 20pm game は無効な値です")
+      end
+      it 'group1~3_21pm.gameが0では登録できない' do
+        @schedule_data.group1_21pm_game = '0'
+        @schedule_data.valid?
+        expect(@schedule_data.errors.full_messages).to include("Group1 21pm game は無効な値です")
+      end
+      it 'group1~3_22pm.gameが0では登録できない' do
+        @schedule_data.group1_22pm_game = '0'
+        @schedule_data.valid?
+        expect(@schedule_data.errors.full_messages).to include("Group1 22pm game は無効な値です")
+      end
       it 'room_idが紐づいている必要がある' do
         @schedule_data.room_id = nil
         @schedule_data.valid?
