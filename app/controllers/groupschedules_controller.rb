@@ -23,8 +23,8 @@ class GroupschedulesController < ApplicationController
   def create
     @ownplans = Ownplan.where(room_id: @room.id, target_week: nil)
     @groupschedules =Groupschedule.new
+    @errors = []
     def save_groupschedule(time_key, property_suffix)
-      @errors = []
       (1..7).each do |n|
         member_ids = params.dig(:groupschedules, "day#{n}_#{time_key}", :member_ids) || []
 
@@ -42,7 +42,7 @@ class GroupschedulesController < ApplicationController
           end
         end
         unless schedules.save
-          @errors << "グループスケジュールの保存に失敗しました: #{schedules.errors.full_messages.join(", ")}"
+          @errors << "※#{schedules.errors.full_messages.join(", ")}※"
         end
       end
     end

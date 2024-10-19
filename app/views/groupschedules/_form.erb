@@ -59,8 +59,8 @@
 			<% total_remaining = remaining_members.size %>
 			<% if total_remaining >= 3 %>
 				<% group_found = false %>
-						<% (3..5).each do |n| %>
- 					 <% remaining_members.combination(n).each do |group| %>
+						<% (3..5).each do |j| %>
+ 					 <% remaining_members.combination(j).each do |group| %>
 					<% group_ids = group.map { |member| member[:id] } %>
 					<% has_game_owner = group.any? { |member| Game.exists?(user_id: member[:id]) } %>
 
