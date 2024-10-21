@@ -2,7 +2,6 @@
 	<% if members.send("group1_#{time_key}").present? || members.send("group2_#{time_key}").present? || members.send("group3_#{time_key}").present? %>
 	<% groupschedules_with_game.each do |games| %>
 
-	<のメンバー表示 -->
 	<% (1..3).each do |n| %>
 		<% if members.send("group#{n}_#{time_key}").present? %>
 			<div class="group_container">

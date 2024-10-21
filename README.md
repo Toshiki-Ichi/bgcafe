@@ -1,71 +1,30 @@
 # テーブル設計
 
-## users テーブル
+アプリケーション名	BG_CAFE
+アプリケーション概要	ルームを作成し、集まったグループで予定を作成するアプリケーション
+                  特にボードゲームで遊ぶユーザーに特化したもの
+URL	デプロイ済みのURLを記載。デプロイが済んでいない場合は、デプロイが完了次第記載すること。
+テスト用アカウント	ログイン機能等を実装した場合は、ログインに必要な情報を記載。またBasic認証等を設けている場合は、そのID/Passも記載すること。
+利用方法	右上新規登録からユーザー登録をする
+         新規ルームを作成または既存のルームを選択する
+				 ルームに参加より各ルームに参加ができる（自分で作成した場合は自動でその部屋に参加する）
+				 他者にお勧めしたいゲームを登録やプロフィールの編集ができる
+				 予定の応募をし、各ユーザーがそこに予定登録ができる
+				 各ユーザーの予定から日毎に遊べるユーザーの組み合わせや遊んだことのないゲームを表示する
 
-| Column             | Type    | Options                   |
-| ------------------ | ------- | ------------------------- |
-| nickname           | string  | null: false               |
-| email              | string  | null: false, unique: true |
-| encrypted_password | string  | null: false               |
-| kanji_family       | string  | null: false               |
-| kanji_name         | string  | null: false               |
-| kata_family        | string  | null: false               |
-| kata_name          | string  | null: false               |
-| birthday           | date    | null: false               |
+アプリケーションを作成した背景	オンラインで仲間内で遊ぶ人たちが簡単に予定を組みことができる。また、ユーザーが多くなれば新しく遊ぶ仲間を探す場にもなることを期待している。作成の背景としては、実際の自分の友人がオンラインでボードゲームを遊ぶがその際に仲間内で募集した予定から一週間ごとに予定を立てるがその作業に時間がかかり、また多忙を極め体調を崩してしまったことがあったため、それを解決したいと考えたため。
 
+実装した機能についての画像やGIFおよびその説明※	実装した機能について、それぞれどのような特徴があるのかを列挙する形で記載。画像はGyazoで、GIFはGyazoGIFで撮影すること。
+実装予定の機能	X(旧twitter)でいうふぁぼ機能のようなものをゲーム登録欄に追加したり、ルームの見た目をユーザーがカスタマイズできるように機能が追加できればと考えている。
+データベース設計	image_for_README/bgcafe.png
 
-### Association
-
-- has_many :items
-- has_many :customers
-
-
-## items テーブル
-
-| Column          | Type        | Options                        |
-| --------------- | ----------- | ------------------------------ |
-| item_name       | string      | null: false                    |
-| note            | text        | null: false                    |
-| price           | integer     | null: false                    |
-| category_id     | integer     | null: false                    |
-| status_id       | integer     | null: false                    |
-| responsible_id  | integer     | null: false                    |
-| region_id       | integer     | null: false                    |
-| shipping_day_id | integer     | null: false                    |
-| user            | references  | null: false, foreign_key: true |
-
-
-### Association
-
-- has_one :customer
-- belongs_to :user
-
-## customers テーブル
-
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
-
-### Association
-
-- has_one :area
-- belongs_to :item
-- belongs_to :user
-
-
-## areas テーブル
-
-| Column      | Type        | Options                        |
-| ----------- | ----------- | ------------------------------ |
-| postal      | string      | null: false                    |
-| region_id   | integer     | null: false                    |
-| city        | string      | null: false                    |
-| city_num    | string      | null: false                    |
-| building    | string      |                                |
-| tel_num     | string      | null: false                    |
-| customer    | references  | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :customer
+画面遷移図	画面遷移図を添付。
+開発環境	使用した言語 HTML CSS Ruby JavaScript
+ローカルでの動作方法	git cloneしてから、ローカルで動作をさせるまでに必要なコマンドを記載。
+工夫したポイント	
+制作背景 ・元々自分の仲間内が行っていたアナログでの予定の作成方法をなぞり、それをクリックのみで行えるようにすることを目標に制作をした。
+使用技術 ・カラムの名前に法則性を持たせ、できるだけeach doでの繰り返し処理で記述を行えるようにした。
+開発方法 ・大まかな挙動を記述後ChatGPTを用いてリファクタリングを行った。
+タスク管理など ・二週間程度での作成を予定しており、機能実装に必要な作業を細分化し毎日のToDoを作成しながら作業を進めていった。
+改善点	全体的に簡素な見た目であるため、CSSでの配色変更や画像を差し込むなどユーザーの興味を惹く見た目にできればと考えている。
+制作時間	約15日
