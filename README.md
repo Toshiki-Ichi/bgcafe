@@ -56,7 +56,7 @@
 
 - **予定作成機能**
   - 個人予定をもとに、メンバーの組み合わせと未プレイのゲームを割り出す機能
-  <video src="image_for_README/個人予定作成機能.mp4" controls>
+  <video src="image_for_README/予定作成機能.mp4" controls>
   お使いのブラウザは動画タグをサポートしていません。
 </video>
 
@@ -72,6 +72,7 @@
 
 ## 開発環境
 - 使用言語: HTML, CSS, Ruby, JavaScript
+- フレームワーク: Ruby on Rails
 
 ## ローカルでの動作方法
 1. リポジトリをクローン
