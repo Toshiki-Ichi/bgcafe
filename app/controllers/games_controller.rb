@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :redirect_if_not_logged_in
   before_action :redirect_root, only: [:edit, :update, :destroy]
   before_action :reject_non_member
-  before_action :set_room, only: [:index,:new,:create, :edit, :show]
+  before_action :set_room, only: [:index,:new,:create, :edit, :show,:played_check,:played_update]
   before_action :set_user, only: [:index,:new ,:create ,:edit, :show]
   before_action :set_game, only: [:edit ,:update , :destroy]
 
@@ -43,12 +43,32 @@ class GamesController < ApplicationController
   end
 
   def played_check
-    @games = Game.includes(:room)
+    @games = Game.where(room_id: @room.id).order(created_at: :desc)
     @user = current_user
   end
 
   def played_update
-    selected_game_ids = params[:selected_games] # 選択されたゲームのIDを取得
+    @user = current_user
+    selected_game_ids = params[:selected_games] || []
+    games = Game.where(room_id: @room.id)
+
+    # 取得したゲームの中で選択されていないゲームのplayedからユーザーIDを削除
+    games.each do |game|
+      existing_played_ids = game.played.present? ? game.played.split(',') : []
+    
+      unless selected_game_ids.include?(game.id.to_s)
+        # 現在のユーザーIDを削除
+        existing_played_ids.delete(current_user.id.to_s)
+    
+        # playedを更新する
+        unless existing_played_ids.empty?
+          game.update(played: existing_played_ids.join(','))
+        else
+          # playedが空になる場合、空文字に設定する
+          game.update(played: nil)
+        end
+      end
+    end
 
     # 各ゲームのplayedカラムを更新
     selected_game_ids.each do |game_id|

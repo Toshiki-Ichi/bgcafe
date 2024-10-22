@@ -15,12 +15,15 @@ class Room < ApplicationRecord
   private
 
   def validate_password
-    if password.blank?
-      errors.add(:password, 'は必須です')
-    elsif password.length < 6
-      errors.add(:password, 'は6文字以上である必要があります')
-    elsif !/\A(?=.*[a-z])(?=.*[0-9]).+\z/.match?(password)
-      errors.add(:password, 'は小文字の英字と数字を含む必要があります')
+    # 新規作成の場合のみバリデーションを実施
+    if new_record?
+      if password.blank?
+        errors.add(:password, 'は必須です')
+      elsif password.length < 6
+        errors.add(:password, 'は6文字以上である必要があります')
+      elsif !/\A(?=.*[a-z])(?=.*[0-9]).+\z/.match?(password)
+        errors.add(:password, 'は小文字の英字と数字を含む必要があります')
+      end
     end
   end
 end

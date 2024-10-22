@@ -1068,7 +1068,7 @@ flex-direction: column;
 
 .passwordLink{
   margin-top:20px;
-  width: 60%;
+  width: 80%;
   background-color: white;
   border:2px outset rgb(139, 171, 168);
   display: flex;
@@ -1097,6 +1097,7 @@ border:2px outset rgb(139, 171, 168);
   display: flex;
   justify-content: center;
   align-items: center; 
+  font-size: larger;
 }
 
 .top_right_under{
@@ -1407,6 +1408,7 @@ justify-content: center;
 }
 
 .inline-form {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }

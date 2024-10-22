@@ -17,9 +17,9 @@ class OwnplansController < ApplicationController
 
   def create
     if @weekplan
-      # 既存のレコードが見つかった場合は更新する
+      @weekplan.assign_attributes(targetweek_params)
       @weekplan.starter = 0
-      if @weekplan.update(targetweek_params, validate: false)
+      if @weekplan.save(validate: false)
         Ownplan.where(room_id: @room.id, target_week: nil).destroy_all
         redirect_to new_room_user_ownplan_path(@room.id, @user.id), notice: '日付が更新されました。'
       else
