@@ -81,3 +81,4 @@ gem 'image_processing', '~>1.2'
 gem 'active_hash'
 gem 'bcrypt', '~> 3.1.7'
 gem "aws-sdk-s3", require: false
+gem 'unicorn', '6.1.0'
