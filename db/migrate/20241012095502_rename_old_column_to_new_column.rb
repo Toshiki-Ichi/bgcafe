@@ -10,7 +10,7 @@ class RenameOldColumnToNewColumn < ActiveRecord::Migration[6.1]
     rename_column :groupschedules, :group8, :group2_21pm
     rename_column :groupschedules, :group9, :group3_21pm
     rename_column :groupschedules, :group10, :group1_22pm
-    add_column :Groupschedules, :group2_22pm, :string
-    add_column :Groupschedules, :group3_22pm, :string
+    add_column :groupschedules, :group2_22pm, :string
+    add_column :groupschedules, :group3_22pm, :string
   end
 end
