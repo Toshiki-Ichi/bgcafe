@@ -16,7 +16,7 @@
         <h1 class="grid-6"><a href="/">BG_cafe</a></h1>
         <% if user_signed_in? %>
           <div class="user_nav grid-6">
-          <div> <%= current_user.nickname %>
+          <span> <%= current_user.nickname %>
             <ul class="user__info">
               <li>
                 <%= link_to "マイページ", check_user_path(current_user) %>
@@ -25,7 +25,7 @@
                 <% end %>
               </li>
             </ul>
-          </div>
+          </span>
           <%= link_to "ルーム作成", new_room_path, class: "post" %>
           </div>
         <% else %>
