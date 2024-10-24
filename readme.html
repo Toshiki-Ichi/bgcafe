@@ -1,0 +1,113 @@
+<h1 id="bg_cafe-board-game-cafe">BG_CAFE (Board Game CAFE)</h1>
+<h2 id="アプリケーション概要">アプリケーション概要</h2>
+<p>ルームを作成し、集まったグループで予定を作成するアプリケーション。特にボードゲームで遊ぶユーザーに特化したものです。</p>
+<h2 id="url">URL</h2>
+<p>http://18.178.195.121</p>
+<h2 id="テスト用アカウント">テスト用アカウント</h2>
+<p>テスト用アカウント - email 1@test - password 111111</p>
+<p>テストルーム - password qqq111</p>
+<h2 id="利用方法">利用方法</h2>
+<ol type="1">
+<li>右上の新規登録からユーザー登録を行う。</li>
+<li>新規ルームを作成、または既存のルームを選択する。</li>
+<li>ルームに参加し、各ルームに参加が可能。（自分で作成した場合は自動でその部屋に参加）</li>
+<li>他者にお勧めしたいゲームを登録、またはプロフィールの編集ができる。</li>
+<li>予定の応募をし、各ユーザーがそこに予定登録が可能。</li>
+<li>各ユーザーの予定から、日毎に遊べるユーザーの組み合わせや、遊んだことのないゲームを表示する。</li>
+</ol>
+<h2
+id="アプリケーションを作成した背景">アプリケーションを作成した背景</h2>
+<p>オンラインで仲間内で遊ぶ人たちが、簡単に予定を組むことができる。また、ユーザーが多くなれば、新しく遊ぶ仲間を探す場にもなることを期待しています。</p>
+<p>作成の背景は、実際に友人がオンラインでボードゲームを遊ぶ際に、仲間内で予定を立てるのに時間がかかり、また多忙のため体調を崩してしまったことがあり、
+それらをクリックのみで簡潔に行えるようにしたいと考えました。 ##
+実装した機能</p>
+<ul>
+<li><p><strong>トップ画面</strong></p>
+<ul>
+<li>作成されたルームへの入室とパスワード入力
+<video src="image_for_README/トップ画面からパスワード入力.mp4" controls>
+お使いのブラウザは動画タグをサポートしていません。 </video></li>
+</ul></li>
+<li><p><strong>ルーム詳細画面</strong></p>
+<ul>
+<li>各ルームのトップページに相当するページ <img
+src="image_for_README/トップ画面.png" alt="画像" /></li>
+</ul></li>
+<li><p><strong>ルーム詳細画面2</strong></p>
+<ul>
+<li>ルームにメンバー登録していない場合のメニュー表示 <img
+src="image_for_README/トップページ未参加時.png" alt="画像" /></li>
+</ul></li>
+<li><p><strong>メンバー一覧機能</strong></p>
+<ul>
+<li>ルームに登録されたユーザーを一覧表示 <img
+src="image_for_README/メンバー一覧機能.jpg" alt="画像" /></li>
+</ul></li>
+<li><p><strong>ゲーム登録機能</strong></p>
+<ul>
+<li>ゲームをルームに登録する機能 <img
+src="image_for_README/ゲーム登録機能.png" alt="画像" /></li>
+</ul></li>
+<li><p><strong>ゲーム一覧機能</strong></p>
+<ul>
+<li>ルームに登録されたゲームを表示する機能 <img
+src="image_for_README/ゲーム一覧機能.jpg" alt="画像" /></li>
+</ul></li>
+<li><p><strong>プレイ済み登録機能</strong></p>
+<ul>
+<li>プレイ済みのゲームを記録する機能 <img
+src="image_for_README/プレイ済み登録機能.jpg" alt="画像" /></li>
+</ul></li>
+<li><p><strong>個人予定登録機能</strong></p></li>
+<li><p>個人の予定を登録する機能
+<video src="image_for_README/個人予定登録機能.mp4" controls>
+お使いのブラウザは動画タグをサポートしていません。 </video></p></li>
+<li><p><strong>予定作成機能</strong></p>
+<ul>
+<li>個人予定をもとに、メンバーの組み合わせと未プレイのゲームを割り出す機能
+<video src="image_for_README/予定作成機能.mp4" controls>
+お使いのブラウザは動画タグをサポートしていません。 </video></li>
+</ul></li>
+</ul>
+<h2 id="実装予定の機能">実装予定の機能</h2>
+<ul>
+<li>ゲーム登録欄に「ふぁぼ機能」を追加</li>
+<li>ルームの見た目をカスタマイズできる機能を追加</li>
+</ul>
+<h2 id="データベース設計">データベース設計</h2>
+<figure>
+<img src="image_for_README/bgcafe.png" alt="ER図" />
+<figcaption aria-hidden="true">ER図</figcaption>
+</figure>
+<h2 id="画面遷移図">画面遷移図</h2>
+<figure>
+<img src="image_for_README/diagrams.png" alt="画面遷移図" />
+<figcaption aria-hidden="true">画面遷移図</figcaption>
+</figure>
+<h2 id="開発環境">開発環境</h2>
+<ul>
+<li>使用言語: HTML, CSS, Ruby, JavaScript</li>
+<li>フレームワーク: Ruby on Rails</li>
+</ul>
+<h2 id="ローカルでの動作方法">ローカルでの動作方法</h2>
+<ol type="1">
+<li>GitHubからリポジトリをクローンします。 ```bash git clone
+https://github.com/Toshiki-Ichi/bgcafe.git</li>
+<li>クローンしたディレクトリに移動します。 ```bash cd bgcafe</li>
+<li>必要なGemをインストールします ```bash bundle install</li>
+<li>データベースを作成します<br />
+```bash rails db:create</li>
+<li>マイグレーションを実行します ```bash rails db:migrate</li>
+<li>アプリケーションを起動します ```bash rails server ## 使用技術</li>
+</ol>
+<ul>
+<li>カラムの名前に法則性を持たせ、繰り返し処理が容易になるよう工夫しました。</li>
+</ul>
+<h2 id="開発方法">開発方法</h2>
+<p>大まかな挙動を記述後、ChatGPTを用いてリファクタリングを行いました。</p>
+<h2 id="タスク管理">タスク管理</h2>
+<p>機能実装に必要な作業を細分化し、毎日のToDoを作成して進行しました。</p>
+<h2 id="改善点">改善点</h2>
+<p>現在の見た目が簡素なため、CSSでの配色変更や画像挿入などを検討しています。</p>
+<h2 id="制作時間">制作時間</h2>
+<p>約15日</p>
