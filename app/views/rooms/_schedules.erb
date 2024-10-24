@@ -20,8 +20,10 @@
 							<div>プレイ予定のゲーム</div>
 							<% game_id = games.send("group#{n}_#{time_key}_game") %>
 							<% game = Game.find_by(id: game_id) %>
+							<%= link_to room_user_game_path(@room, user_id: game.user.id, id: game.id) do %>
 							<div><%= game.game_name if game %></div>
 							<%= image_tag game.image_games, style: "max-width: 300px; height: auto;" if game %>
+							<% end %>
 						</div>
 					<% end %>
 				</div>
